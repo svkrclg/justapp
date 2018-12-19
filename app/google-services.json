@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "85403282864",
+    "firebase_url": "https://money-tracker-1df03.firebaseio.com",
+    "project_id": "money-tracker-1df03",
+    "storage_bucket": "money-tracker-1df03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85403282864:android:3638e6d3d8054605",
+        "android_client_info": {
+          "package_name": "com.example.rival.moneytracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85403282864-9eh5ctc91tb7jvpo3bg5aguga6ll9rqo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5mgc9fipi8mJMSjS_sB6cffnGaNadblg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
