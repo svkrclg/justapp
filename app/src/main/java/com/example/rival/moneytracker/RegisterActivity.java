@@ -2,7 +2,9 @@ package com.example.rival.moneytracker;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -78,14 +80,22 @@ public class RegisterActivity extends AppCompatActivity {
                             mRef.child("users").child(uid).child("name").setValue(Sname);
                             mRef.child("users").child(uid).child("phone").setValue(Sphone);
                             mRef.child("users").child(uid).child("email").setValue(Semail);
-                            DatabaseReference indexRef= database.getReference();
                             Toast.makeText(getApplicationContext(), "Registration Successfully", Toast.LENGTH_LONG).show();
-                            Intent i= new Intent(getApplicationContext(), DashBoard.class);
-                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                            startActivity(i);
-                            finish();
+                            register.revertAnimation(new OnAnimationEndListener() {
+                                @Override
+                                public void onAnimationEnd() {
+                                    register.setBackgroundColor(Color.GREEN);
+                                    register.setText("Done");
+                                   // register.doneLoadingAnimation(Color.rgb(0,255,0), BitmapFactory.decodeResource(getResources(), R.drawable.correct));
+                                    Intent i= new Intent(getApplicationContext(), DashBoard.class);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                    i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                    startActivity(i);
+                                    finish();
+                                }
+                            });
+
                         }
                         else
                         {
@@ -93,10 +103,10 @@ public class RegisterActivity extends AppCompatActivity {
                             register.revertAnimation(new OnAnimationEndListener() {
                                 @Override
                                 public void onAnimationEnd() {
-                                    register.setInitialCornerRadius(30.0f);
-                                    register.setFinalCornerRadius(30.0f);
+                                    register.setText("Try Again");
                                 }
                             });
+
                         }
                     }
                 });

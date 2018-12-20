@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
-
+            android:id="@+id/loginEmail"
             android:hint="E-mail" />
         </com.github.florent37.materialtextfield.MaterialTextField>
         <com.github.florent37.materialtextfield.MaterialTextField
@@ -47,6 +47,7 @@
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textColor="#000"
+                android:id="@+id/loginPassword"
                 android:hint="Password" />
         </com.github.florent37.materialtextfield.MaterialTextField>
         <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
@@ -58,6 +59,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/circular_border_shape"
             app:spinning_bar_width="30dp"
+            android:onClick="Login"
             app:spinning_bar_color="@color/colorPrimaryDark"
             android:textColor="@color/colorPrimaryDark"
             app:spinning_bar_padding="6dp"/>

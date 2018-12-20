@@ -102,7 +102,7 @@
             android:text="REGISTER"
             android:layout_marginTop="10dp"
             android:background="@drawable/circular_border_shape"
-            app:spinning_bar_width="4dp"
+            app:spinning_bar_width="30dp"
             android:onClick="Register"
             app:initialCornerAngle="30dp"
             app:spinning_bar_color="@color/colorPrimaryDark"
