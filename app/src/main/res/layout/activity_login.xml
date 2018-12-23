@@ -26,13 +26,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:mtf_labelColor="@color/colorPrimaryDark"
-
             app:mtf_openKeyboardOnFocus="true"
             app:mtf_image="@drawable/mailicon">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
+            android:lines="1"
+            android:inputType="textEmailAddress"
             android:id="@+id/loginEmail"
             android:hint="E-mail" />
         </com.github.florent37.materialtextfield.MaterialTextField>

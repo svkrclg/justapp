@@ -26,14 +26,12 @@ public class LoginActivity extends AppCompatActivity {
     private EditText email, password;
     CircularProgressButton login;
     private FirebaseAuth firebaseAuth;
-    private FirebaseDatabase database;
     private String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         firebaseAuth= FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
         final CircularProgressButton btn = (CircularProgressButton) findViewById(R.id.btn_Login);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,12 +47,21 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
         login=(CircularProgressButton) findViewById(R.id.btn_Login);
+        login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("LoginActivity", "IN oCLick");
+                Login();
+            }
+        });
         email=(EditText) findViewById(R.id.loginEmail);
         password=(EditText) findViewById(R.id.loginPassword);
+        Log.d("LoginActivity", "IN oncreate");
 
     }
-    public  void Login(View v)
+    public  void Login()
     {
+        Log.d("LoginActivity", "in Login");
         login.startAnimation();
         loginUser();
 
