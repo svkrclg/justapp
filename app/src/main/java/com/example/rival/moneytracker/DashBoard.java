@@ -1,8 +1,13 @@
 package com.example.rival.moneytracker;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,17 +17,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 public class DashBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
+    public String uid;
+    public String name;
+    public String phone,email;
+    SharedPreferences prefs;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+        prefs= getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -31,8 +54,8 @@ public class DashBoard extends AppCompatActivity
                         .setAction("Action", null).show();
             }
         });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.setStatusBarBackgroundColor(Color.TRANSPARENT);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
@@ -40,6 +63,22 @@ public class DashBoard extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        databaseReference=firebaseDatabase.getReference();
+        name=prefs.getString("name", "NAME");
+        phone=prefs.getString("phone", "phoneNo");
+        email=prefs.getString("email", "email");
+        uid=prefs.getString("uid", "uid");
+        Log.d("DashBoard", name+", "+phone+", "+email);
+    //    View layout = getLayoutInflater().inflate(R.layout.nav_header_dash_board,null);
+        View header=navigationView.getHeaderView(0);
+        TextView nav_bar_first_letter=(TextView) header.findViewById(R.id.nav_bar_first_letter);
+        nav_bar_first_letter.setText(name.toUpperCase().charAt(0)+"");
+        TextView nav_bar_name=(TextView)header.findViewById(R.id.nav_bar_name);
+        TextView nav_bar_phone=(TextView)header.findViewById(R.id.nav_bar_phone);
+        nav_bar_name.setText(name);
+        nav_bar_phone.setText(phone);
     }
 
     @Override
@@ -88,8 +127,16 @@ public class DashBoard extends AppCompatActivity
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
+        } else if (id == R.id.nav_logout) {
+            SharedPreferences.Editor editor=prefs.edit();
+            editor.clear().commit();
+            firebaseAuth.signOut();
+            Intent i= new Intent(getApplicationContext(), LoginActivity.class);
+            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            startActivity(i);
+            finish();
         } else if (id == R.id.nav_send) {
 
         }

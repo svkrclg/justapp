@@ -1,6 +1,7 @@
 package com.example.rival.moneytracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -81,6 +82,12 @@ public class RegisterActivity extends AppCompatActivity {
                             mRef.child("users").child(uid).child("phone").setValue(Sphone);
                             mRef.child("users").child(uid).child("email").setValue(Semail);
                             Toast.makeText(getApplicationContext(), "Registration Successfully", Toast.LENGTH_LONG).show();
+                            SharedPreferences.Editor editor = getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE).edit();
+                            editor.putString("name", Sname);
+                            editor.putString("uid", uid);
+                            editor.putString("phone", Sphone);
+                            editor.putString("email", Semail);
+                            editor.apply();
                             register.revertAnimation(new OnAnimationEndListener() {
                                 @Override
                                 public void onAnimationEnd() {
