@@ -8,3 +8,10 @@ The few feature include:
 - Push notification 
 - Date and time with reason of money transaction being added for
 - Monthly loss or gain(overall estimation)
+- QR code scan to add friend in trancstion
+
+Backend Service used:
+- Firebase database
+- Firebase messaging
+- Firebase cloud function
+- Firebase authentication
