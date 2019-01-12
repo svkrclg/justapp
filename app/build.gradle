@@ -34,5 +34,7 @@ dependencies {
     implementation 'com.github.florent37:materialtextfield:1.0.7'
     //Button loading
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
+    //floaing action button
+    implementation 'com.github.clans:fab:1.6.4'
 }
 apply plugin: 'com.google.gms.google-services'

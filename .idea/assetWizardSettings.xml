@@ -23,7 +23,7 @@
                                           <PersistentState>
                                             <option name="values">
                                               <map>
-                                                <entry key="url" value="jar:file:/home/rival/android-studio-ide-181.5056338-linux/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/action/ic_exit_to_app_black_24dp.xml" />
+                                                <entry key="url" value="jar:file:/home/rival/android-studio-ide-181.5056338-linux/android-studio/plugins/android/lib/android.jar!/images/material_design_icons/content/ic_create_black_24dp.xml" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -33,7 +33,8 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="outputName" value="logout" />
+                                      <entry key="outputName" value="create" />
+                                      <entry key="theme" value="CUSTOM" />
                                       <entry key="themeColor" value="ffffff" />
                                     </map>
                                   </option>

@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.View;
@@ -19,7 +18,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.github.clans.fab.FloatingActionMenu;
+import com.github.clans.fab.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -38,7 +40,8 @@ public class DashBoard extends AppCompatActivity
     public String uid;
     public String name;
     public String phone,email;
-    SharedPreferences prefs;
+    private SharedPreferences prefs;
+    private FloatingActionMenu floatingActionMenu;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +49,6 @@ public class DashBoard extends AppCompatActivity
         prefs= getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.setStatusBarBackgroundColor(Color.TRANSPARENT);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,7 +66,7 @@ public class DashBoard extends AppCompatActivity
         email=prefs.getString("email", "email");
         uid=prefs.getString("uid", "uid");
         Log.d("DashBoard", name+", "+phone+", "+email);
-    //    View layout = getLayoutInflater().inflate(R.layout.nav_header_dash_board,null);
+    //  View layout = getLayoutInflater().inflate(R.layout.nav_header_dash_board,null);
         View header=navigationView.getHeaderView(0);
         TextView nav_bar_first_letter=(TextView) header.findViewById(R.id.nav_bar_first_letter);
         nav_bar_first_letter.setText(name.toUpperCase().charAt(0)+"");
@@ -79,6 +74,23 @@ public class DashBoard extends AppCompatActivity
         TextView nav_bar_phone=(TextView)header.findViewById(R.id.nav_bar_phone);
         nav_bar_name.setText(name);
         nav_bar_phone.setText(phone);
+        //Setting floting action menu
+        floatingActionMenu=(FloatingActionMenu) findViewById(R.id.fabmenu);
+        floatingActionMenu.setClosedOnTouchOutside(true);
+        FloatingActionButton addfrnd=(FloatingActionButton) findViewById(R.id.menu_item1);
+        FloatingActionButton creatTran=(FloatingActionButton) findViewById(R.id.menu_item2);
+        addfrnd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SendRequestActivityOpen();
+            }
+        });
+        creatTran.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CreateTrannsactionPageOpen();
+            }
+        });
     }
 
     @Override
@@ -111,6 +123,16 @@ public class DashBoard extends AppCompatActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void SendRequestActivityOpen()
+    {
+        floatingActionMenu.close(true);
+        Intent i=   new Intent(getApplicationContext(), SendRequestActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(i);
+    }
+    public void CreateTrannsactionPageOpen()
+    {
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

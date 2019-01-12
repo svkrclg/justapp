@@ -23,6 +23,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
 
@@ -78,9 +81,11 @@ public class RegisterActivity extends AppCompatActivity {
                             //Updating Data
                             mRef=database.getReference();
                             uid=firebaseAuth.getCurrentUser().getUid();
-                            mRef.child("users").child(uid).child("name").setValue(Sname);
-                            mRef.child("users").child(uid).child("phone").setValue(Sphone);
-                            mRef.child("users").child(uid).child("email").setValue(Semail);
+                            Map<String,Object> taskMap = new HashMap<>();
+                            taskMap.put("name", Sname);
+                            taskMap.put("phone", Sphone);
+                            taskMap.put("email", Semail);
+                            mRef.child("users").child(uid).updateChildren(taskMap);
                             Toast.makeText(getApplicationContext(), "Registration Successfully", Toast.LENGTH_LONG).show();
                             SharedPreferences.Editor editor = getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE).edit();
                             editor.putString("name", Sname);
