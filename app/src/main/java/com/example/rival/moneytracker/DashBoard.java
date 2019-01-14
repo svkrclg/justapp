@@ -22,12 +22,16 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 
 import org.w3c.dom.Text;
 
@@ -41,12 +45,15 @@ public class DashBoard extends AppCompatActivity
     public String name;
     public String phone,email;
     private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
     private FloatingActionMenu floatingActionMenu;
+    private String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         prefs= getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
+        editor=prefs.edit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -66,7 +73,6 @@ public class DashBoard extends AppCompatActivity
         email=prefs.getString("email", "email");
         uid=prefs.getString("uid", "uid");
         Log.d("DashBoard", name+", "+phone+", "+email);
-    //  View layout = getLayoutInflater().inflate(R.layout.nav_header_dash_board,null);
         View header=navigationView.getHeaderView(0);
         TextView nav_bar_first_letter=(TextView) header.findViewById(R.id.nav_bar_first_letter);
         nav_bar_first_letter.setText(name.toUpperCase().charAt(0)+"");
@@ -91,6 +97,21 @@ public class DashBoard extends AppCompatActivity
                 CreateTrannsactionPageOpen();
             }
         });
+        //Storing token
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+
+                            return;
+                        }
+                        token = task.getResult().getToken();
+                        databaseReference.child("users").child(uid).child("firebaseToken").setValue(token);
+                        editor.putString("firebaseToken", token);
+                    }
+                });
+
     }
 
     @Override
@@ -141,8 +162,10 @@ public class DashBoard extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
+        if (id == R.id.incoming_request) {
+            Intent i=   new Intent(getApplicationContext(), IncomingRequest.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(i);
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -150,7 +173,6 @@ public class DashBoard extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_logout) {
-            SharedPreferences.Editor editor=prefs.edit();
             editor.clear().commit();
             firebaseAuth.signOut();
             Intent i= new Intent(getApplicationContext(), LoginActivity.class);

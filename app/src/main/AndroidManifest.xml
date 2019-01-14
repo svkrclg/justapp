@@ -19,11 +19,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
+
+        <service android:name=".FireBaseNotifications">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity
             android:name=".DashBoard"
             android:label="@string/title_activity_dash_board"
             android:theme="@style/AppTheme" />
-        <activity android:name=".SendRequestActivity"></activity>
+        <activity android:name=".SendRequestActivity" />
+        <activity android:name=".IncomingRequest"></activity>
     </application>
 
 </manifest>

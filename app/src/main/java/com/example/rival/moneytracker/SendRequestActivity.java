@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.LoginFilter;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
@@ -37,7 +38,7 @@ public class SendRequestActivity extends AppCompatActivity {
     String TAG="SendRequestActivity";
     String recpuid,recpname;
 
-    boolean startedType,nameFound,founduid=false;
+    boolean startedType,nameFound,requestSend,founduid=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +70,12 @@ public class SendRequestActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 addfrndButton.setText("Searching");
+                if(s.toString().length()==0)
+                {
+                    addfrndButton.setText("Phone number not valid");
+                }
+                if(nameFound==true)
+                    addfrndButton.setBackgroundColor(Color.WHITE);
                 if(s.toString().length()<=5)
                 {
                     startedType=false;
@@ -95,6 +102,9 @@ public class SendRequestActivity extends AppCompatActivity {
                     if(recpuid!=null)
                     {
                         founduid=true;
+                        if(recpuid.equals(uid))
+                            addfrndButton.setText("You can't add yourself");
+                        else
                         getnamefromUid(recpuid);
                     }
                     else
@@ -122,7 +132,7 @@ public class SendRequestActivity extends AppCompatActivity {
                      public void onAnimationEnd() {
                          addfrndButton.setBackgroundColor(Color.GREEN);
                          addfrndButton.setText("Request send");
-
+                         requestSend=true;
                      }
                  });
              }
@@ -130,14 +140,75 @@ public class SendRequestActivity extends AppCompatActivity {
       }
 
     }
-    public void getnamefromUid(String recpuid)
+    public void getnamefromUid(final String recpuid)
     {
         databaseReference.child("userNameByUid").child(recpuid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 recpname=dataSnapshot.getValue(String.class);
-                addfrndButton.setText("Add "+recpname);
-                nameFound=true;
+                Log.d(TAG, recpname+" found");
+                //Check if already added
+                databaseReference.child("users").child(uid).child("pendingSendRequest").child(recpuid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if(dataSnapshot.getValue(Boolean.class)!=null)
+                        {
+                            addfrndButton.setText("You already added "+recpname);
+                            Log.d(TAG, "already added"+dataSnapshot.getValue(Boolean.class));
+                        }
+                         else
+                        {
+                            //Check if incoming request already
+                            databaseReference.child("users").child(uid).child("incomingRequest").child(recpuid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    if(dataSnapshot.getValue(Boolean.class)!=null)
+                                    {
+                                        addfrndButton.setText(recpname+" already added you, Go to your request section");
+                                        Log.d(TAG, "he already added you"+dataSnapshot.getValue(Boolean.class));
+                                    }
+                                    else
+                                    {
+                                        databaseReference.child("users").child(uid).child("friend").child(recpuid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                if(dataSnapshot.getValue(Boolean.class)!=null)
+                                                {
+                                                    addfrndButton.setText(recpname+" already in your friend list");
+                                                    Log.d(TAG, "in list"+dataSnapshot.getValue(Boolean.class));
+                                                }
+                                                else
+                                                {
+                                                    addfrndButton.setText("Add "+recpname);
+                                                    addfrndButton.setBackgroundColor(Color.GREEN);
+                                                    nameFound=true;
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                            }
+                                        });
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                         Log.d(TAG, "Got error " +databaseError.getDetails());
+                    }
+                });
+
             }
 
             @Override
@@ -146,6 +217,7 @@ public class SendRequestActivity extends AppCompatActivity {
             }
         });
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
