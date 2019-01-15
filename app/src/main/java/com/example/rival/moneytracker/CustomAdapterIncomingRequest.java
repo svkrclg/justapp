@@ -1,26 +1,33 @@
 package com.example.rival.moneytracker;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.ArrayList;
+
+import static android.support.constraint.Constraints.TAG;
+
 public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAdapterIncomingRequest.MyViewHolder> {
-    private ArrayList<Character> firstLetter;
-    private ArrayList<String> name;
-    private ArrayList<String> uid;
-    private ArrayList<String> phone;
+    public ArrayList<Character> firstLetter =new ArrayList<>();
+    public ArrayList<String> name= new ArrayList<>();
+    public ArrayList<String> uid= new ArrayList<>();
+    public ArrayList<String> phone= new ArrayList<>();
     Context context;
-    public CustomAdapterIncomingRequest(Context context, ArrayList<Character> firstLetter, ArrayList<String> name, ArrayList<String> uid, ArrayList<String> incomingPhone) {
+    Boolean fuck=true;
+    public CustomAdapterIncomingRequest(Context context) {
         this.context = context;
-        this.firstLetter = firstLetter;
-        this.name= name;
-        this.uid = uid;
-        this.phone=incomingPhone;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -31,35 +38,61 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
         return vh;
     }
     @Override
-    public void onBindViewHolder(MyViewHolder holder, final int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // set the data in items
-        holder.firstLetter.setText(firstLetter.get(position));
+        holder.firstLetter.setText(firstLetter.get(position)+"");
         holder.name.setText(name.get(position));
         holder.incomingphone.setText(phone.get(position));
-        // implement setOnClickListener event on item view.
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // display a toast with person name on item click
-                Toast.makeText(context, uid.get(position), Toast.LENGTH_SHORT).show();
+                fuck=true;
+                Log.d(TAG, "UID: "+ uid.toArray().toString()+", phone: "+phone.toArray().toString());
+                notifyDataSetChanged();
+                final int po=position;
+                Log.d(TAG, po+" Tosend");
+                deleteItem(po);
+            }
+        });
+    }
+
+    public void deleteItem(final int po)
+    {
+        if(fuck!=true)
+            return;
+        Log.d(TAG, po+" Todelete");
+        String toremoveuid=uid.get(po);
+        firstLetter.remove(po);
+        phone.remove(po);
+        name.remove(po);
+        uid.remove(po);
+        fuck=false;
+        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toremoveuid).removeValue(new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                Log.d(TAG, "DatabaseReferecne: "+databaseReference.toString());
+                notifyDataSetChanged();
+                notifyItemRangeChanged(po, phone.size());
             }
         });
     }
     @Override
     public int getItemCount() {
-        return uid.size();
+        return phone.size();
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // init the item view's
         TextView firstLetter;
         TextView name;
         TextView incomingphone;
+        Button decline;
         public MyViewHolder(View itemView) {
             super(itemView);
             // get the reference of item view's
-            name= (TextView) itemView.findViewById(R.id.name);
+            name= (TextView) itemView.findViewById(R.id.incomingname);
             firstLetter = (TextView) itemView.findViewById(R.id.firstLetter);
             incomingphone=(TextView) itemView.findViewById(R.id.incomingphone);
+            decline=(Button)itemView.findViewById(R.id.declineRequest);
         }
     }
 }

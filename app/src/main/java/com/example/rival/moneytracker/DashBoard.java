@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
 import com.github.clans.fab.FloatingActionButton;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -52,6 +53,7 @@ public class DashBoard extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
+        GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
         prefs= getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
         editor=prefs.edit();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
