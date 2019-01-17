@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".RegisterActivity" />
 
-        <service android:name=".FireBaseNotifications"
+        <service
+            android:name=".FireBaseNotifications"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -33,7 +34,8 @@
             android:label="@string/title_activity_dash_board"
             android:theme="@style/AppTheme" />
         <activity android:name=".SendRequestActivity" />
-        <activity android:name=".IncomingRequest"></activity>
+        <activity android:name=".IncomingRequest" />
+        <activity android:name=".MyAddedRequest"></activity>
     </application>
 
 </manifest>

@@ -168,8 +168,10 @@ public class DashBoard extends AppCompatActivity
             Intent i=   new Intent(getApplicationContext(), IncomingRequest.class);
             i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(i);
-        } else if (id == R.id.nav_gallery) {
-
+        } else if (id == R.id.send_request) {
+            Intent i=   new Intent(getApplicationContext(), MyAddedRequest.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(i);
         } else if (id == R.id.nav_slideshow) {
 
         } else if (id == R.id.nav_manage) {

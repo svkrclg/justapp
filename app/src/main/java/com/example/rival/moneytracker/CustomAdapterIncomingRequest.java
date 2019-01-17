@@ -25,7 +25,7 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
     public ArrayList<String> uid= new ArrayList<>();
     public ArrayList<String> phone= new ArrayList<>();
     Context context;
-    Boolean fuck=true;
+    Boolean fuck, fuck1=true;
     public CustomAdapterIncomingRequest(Context context) {
         this.context = context;
     }
@@ -52,6 +52,38 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
                 final int po=position;
                 Log.d(TAG, po+" Tosend");
                 deleteItem(po);
+            }
+        });
+        holder.accept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fuck1=true;
+                Log.d(TAG, "UID: "+ uid.toArray().toString()+", phone: "+phone.toArray().toString());
+                notifyDataSetChanged();
+                final int po=position;
+                Log.d(TAG, po+" Tosend");
+                addItem(po);
+            }
+        });
+    }
+
+    public void addItem(final int po)
+    {
+        if(fuck1!=true)
+            return;
+        Log.d(TAG, po+" Todelete");
+        String toremoveuid=uid.get(po);
+        firstLetter.remove(po);
+        phone.remove(po);
+        name.remove(po);
+        uid.remove(po);
+        fuck=false;
+        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toremoveuid).setValue(true, new DatabaseReference.CompletionListener() {
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
+                Log.d(TAG, "DatabaseReferecne: "+databaseReference.toString());
+                notifyDataSetChanged();
+                notifyItemRangeChanged(po, phone.size());
             }
         });
     }
@@ -86,6 +118,7 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
         TextView name;
         TextView incomingphone;
         Button decline;
+        Button accept;
         public MyViewHolder(View itemView) {
             super(itemView);
             // get the reference of item view's
@@ -93,6 +126,7 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
             firstLetter = (TextView) itemView.findViewById(R.id.firstLetter);
             incomingphone=(TextView) itemView.findViewById(R.id.incomingphone);
             decline=(Button)itemView.findViewById(R.id.declineRequest);
+            accept=(Button)itemView.findViewById(R.id.acceptRequest);
         }
     }
 }
