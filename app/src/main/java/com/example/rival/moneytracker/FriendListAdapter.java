@@ -42,9 +42,6 @@ public class FriendListAdapter extends ArrayAdapter<FriendListModel> implements 
         {
         }
     }
-
-    private int lastPosition = -1;
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
@@ -59,16 +56,13 @@ public class FriendListAdapter extends ArrayAdapter<FriendListModel> implements 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.friend_list_model, parent, false);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.txtPhone = (TextView) convertView.findViewById(R.id.phone);
+            viewHolder.txtName = (TextView) convertView.findViewById(R.id.Listfriendname);
+            viewHolder.txtPhone = (TextView) convertView.findViewById(R.id.Listfriendphone);
             viewHolder.firstLetter = (TextView) convertView.findViewById(R.id.listFriendFirstLetter);
-
-            result=convertView;
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            result=convertView;
         }
 
         viewHolder.txtName.setText(FriendListModel.getName());
