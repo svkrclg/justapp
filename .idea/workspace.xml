@@ -6,6 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="DashBoard" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
@@ -18,20 +19,27 @@
     <list default="true" id="80239362-d33a-4b7c-890a-a6a9f22a7e02" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/classAnalysis.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/javaCompile/taskJars.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_incoming_request.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_incoming_request.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_added_request.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_my_added_request.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/content_dash_board.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/content_dash_board.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/menu/activity_dash_board_drawer.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/menu/activity_dash_board_drawer.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -64,32 +72,67 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="225">
-      <file leaf-file-name="IncomingRequest.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java">
+      <file leaf-file-name="AddTransaction.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="286">
-              <caret line="40" column="57" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
+            <state relative-caret-position="255">
+              <caret line="29" selection-start-line="29" selection-end-line="29" />
+              <folding>
+                <element signature="e#1023#1074#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_my_added_request.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_added_request.xml">
+      <file leaf-file-name="activity_add_transaction.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_transaction.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="208">
-              <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+            <state relative-caret-position="143">
+              <caret line="44" column="11" selection-start-line="44" selection-start-column="11" selection-end-line="44" selection-end-column="11" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MyAddedRequest.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/MyAddedRequest.java">
+      <file leaf-file-name="FriendListAdapter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/FriendListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="304">
-              <caret line="113" selection-start-line="113" selection-end-line="113" />
+            <state relative-caret-position="164">
+              <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FriendListModel.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/FriendListModel.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="182">
+              <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+              <folding>
+                <element signature="e#289#290#0" expanded="true" />
+                <element signature="e#316#317#0" expanded="true" />
+                <element signature="e#347#348#0" expanded="true" />
+                <element signature="e#374#375#0" expanded="true" />
+                <element signature="e#415#416#0" expanded="true" />
+                <element signature="e#452#453#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="friend_list_model.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_list_model.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="377">
+              <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
             </state>
           </provider>
         </entry>
@@ -100,9 +143,18 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
         <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>DataModel</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>FriendListModel</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -2386,12 +2438,10 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/circular_border_shape.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/circular_border_shape_register.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_dash_board.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_dash_board.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
@@ -2407,25 +2457,36 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/SendRequestActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_send_request.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapter.java" />
-        <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/incoming_request_row_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/FireBaseNotifications.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_incoming_request.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/firstlettercircleBlue.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterISendRequest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterSendRequest.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/send_request_row_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_dash_board_drawer.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_my_added_request.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/MyAddedRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_row_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/friends.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_my_added_request.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/Friend.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_dash_board_drawer.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterFriend.java" />
+        <option value="$PROJECT_DIR$/app/build.gradle" />
+        <option value="$PROJECT_DIR$/build.gradle" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_transaction.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/content_dash_board.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/FriendListModel.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_list_model.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/FriendListAdapter.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="571" />
     <option name="y" value="20" />
     <option name="width" value="1191" />
@@ -2439,6 +2500,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="MoneyTracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MoneyTracker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+            <path>
+              <item name="MoneyTracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="MoneyTracker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
@@ -2466,42 +2544,17 @@
               <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
               <item name="app" type="feadf853:AndroidModuleNode" />
               <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
               <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
             </path>
             <path>
               <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="menu" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="MoneyTracker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MoneyTracker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-            </path>
-            <path>
-              <item name="MoneyTracker" type="b2602c69:ProjectViewProjectNode" />
-              <item name="MoneyTracker" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="app" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2526,8 +2579,8 @@
       <recent name="com.example.rival.moneytracker" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi" />
       <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
+      <recent name="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi" />
       <recent name="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker" />
       <recent name="$PROJECT_DIR$/app/src/main/res/drawable" />
       <recent name="$PROJECT_DIR$/app" />
@@ -2660,36 +2713,37 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="18" width="1366" height="750" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="Android Profiler" order="5" show_stripe_button="false" weight="0.6687598" />
+      <window_info anchor="bottom" id="Android Profiler" order="5" weight="0.6687598" />
       <window_info anchor="bottom" id="TODO" order="12" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
       <window_info id="Image Layers" order="6" />
       <window_info id="Build Variants" order="1" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50075185" side_tool="true" weight="0.37362638" />
+      <window_info anchor="right" id="Preview" order="8" weight="0.32932332" />
       <window_info anchor="bottom" id="Run" order="8" weight="0.32967034" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32967034" />
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.4065934" />
-      <window_info active="true" anchor="bottom" id="Logcat" order="0" visible="true" weight="0.4144427" />
+      <window_info anchor="bottom" id="Logcat" order="0" visible="true" weight="0.36263737" />
       <window_info id="Captures" order="7" weight="0.25" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.20300752" />
-      <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49924812" weight="0.17268446" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="6" weight="0.24962406" />
+      <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49924812" weight="0.32967034" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.32932332" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
       <window_info id="Favorites" order="0" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="4" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Preview" order="8" weight="0.32932332" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="10" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="6" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="6" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="7" weight="0.32967034" />
     </layout>
     <layout-to-restore>
@@ -2709,6 +2763,7 @@
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50075185" side_tool="true" weight="0.37362638" />
       <window_info anchor="right" id="Preview" order="8" visible="true" weight="0.32932332" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="6" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="7" weight="0.32967034" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="bottom" id="Logcat" order="0" weight="0.48194662" />
       <window_info anchor="bottom" id="Version Control" order="3" />
@@ -2721,7 +2776,6 @@
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
-      <window_info anchor="bottom" id="Find" order="7" weight="0.32967034" />
       <window_info anchor="bottom" id="Debug" order="9" weight="0.4" />
     </layout-to-restore>
   </component>
@@ -2734,46 +2788,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/mailicon.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-mdpi/mailicon.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="2" column="38" selection-start-line="2" selection-start-column="38" selection-end-line="2" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/mailicon.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/circular_border_shape_register.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="65">
-          <caret line="5" column="52" selection-start-line="5" selection-start-column="52" selection-end-line="5" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/passwordicon.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-hdpi/phoneIcon.png" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_xyz.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_xyz.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/xyz.java" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_xyz_drawer.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
@@ -2863,16 +2877,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dash_board.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/app_bar_dash_board.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -2880,16 +2884,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="78">
           <caret line="6" column="40" selection-start-line="6" selection-start-column="40" selection-end-line="6" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_dash_board.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="1" column="5" selection-start-line="1" selection-start-column="5" selection-end-line="1" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -2948,20 +2942,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="10" column="56" selection-start-line="10" selection-start-column="56" selection-end-line="10" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/constraint-layout-1.1.3.aar/9270127ba55ba5d3122e2189ad1808c1/jars/classes.jar!/android/support/constraint/Constraints.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="91">
@@ -2983,19 +2963,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="53" column="13" lean-forward="true" selection-start-line="53" selection-start-column="13" selection-end-line="53" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="24" column="34" selection-start-line="24" selection-start-column="34" selection-end-line="24" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -3013,26 +2980,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_dash_board_drawer.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="19" column="40" selection-start-line="19" selection-start-column="40" selection-end-line="19" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="171" column="74" selection-start-line="171" selection-start-column="74" selection-end-line="171" selection-end-column="74" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/send_request_row_layout.xml">
       <provider editor-type-id="android-designer2">
         <state />
@@ -3040,6 +2987,84 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="234">
           <caret line="18" column="37" selection-start-line="18" selection-start-column="37" selection-end-line="18" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="507">
+          <caret line="64" column="23" lean-forward="true" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="40" column="57" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/MyAddedRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="113" selection-start-line="113" selection-end-line="113" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_added_request.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="14" column="45" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="37" column="39" selection-start-line="37" selection-start-column="39" selection-end-line="37" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterFriend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="36" column="17" selection-start-line="36" selection-start-column="17" selection-end-line="36" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/activity_dash_board_drawer.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="79">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="34" selection-end-line="17" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friends.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="18" column="34" lean-forward="true" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_send_request.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="25" selection-start-line="25" selection-end-line="57" selection-end-column="44" />
         </state>
       </provider>
     </entry>
@@ -3053,44 +3078,119 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java">
+    <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="507">
-          <caret line="64" column="23" lean-forward="true" selection-start-line="64" selection-start-column="23" selection-end-line="64" selection-end-column="23" />
+        <state relative-caret-position="247">
+          <caret line="19" column="42" selection-start-line="19" selection-start-column="42" selection-end-line="19" selection-end-column="42" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_send_request.xml">
+    <entry file="file://$PROJECT_DIR$/app/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="447">
+          <caret line="39" column="47" selection-start-line="39" selection-start-column="47" selection-end-line="39" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/Friend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-18">
+          <caret line="52" column="48" lean-forward="true" selection-start-line="52" selection-start-column="48" selection-end-line="52" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dash_board.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-325">
-          <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
+        <state relative-caret-position="247">
+          <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="286">
-          <caret line="40" column="57" selection-start-line="40" selection-start-column="57" selection-end-line="40" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_my_added_request.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_dash_board.xml">
       <provider editor-type-id="android-designer2">
         <state />
       </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="208">
-          <caret line="16" column="8" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+        <state relative-caret-position="91">
+          <caret line="7" column="30" selection-start-line="7" selection-start-column="30" selection-end-line="7" selection-end-column="30" />
+          <folding>
+            <element signature="e#326#366#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/MyAddedRequest.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_row_layout.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
+        <state relative-caret-position="163">
+          <caret line="43" column="43" lean-forward="true" selection-start-line="43" selection-start-column="43" selection-end-line="43" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_transaction.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="44" column="11" selection-start-line="44" selection-start-column="11" selection-end-line="44" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="63" column="7" selection-start-line="63" selection-start-column="7" selection-end-line="64" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
+          <folding>
+            <element signature="e#1023#1074#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_list_model.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="29" column="48" selection-start-line="29" selection-start-column="48" selection-end-line="29" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/FriendListModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="14" column="5" lean-forward="true" selection-start-line="14" selection-start-column="5" selection-end-line="14" selection-end-column="5" />
+          <folding>
+            <element signature="e#289#290#0" expanded="true" />
+            <element signature="e#316#317#0" expanded="true" />
+            <element signature="e#347#348#0" expanded="true" />
+            <element signature="e#374#375#0" expanded="true" />
+            <element signature="e#415#416#0" expanded="true" />
+            <element signature="e#452#453#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/FriendListAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="164">
+          <caret line="41" column="9" lean-forward="true" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

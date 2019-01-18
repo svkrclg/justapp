@@ -35,7 +35,9 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".SendRequestActivity" />
         <activity android:name=".IncomingRequest" />
-        <activity android:name=".MyAddedRequest"></activity>
+        <activity android:name=".Friend" />
+        <activity android:name=".MyAddedRequest" />
+        <activity android:name=".AddTransaction"></activity>
     </application>
 
 </manifest>

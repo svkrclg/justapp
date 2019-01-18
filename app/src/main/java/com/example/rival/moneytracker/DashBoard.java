@@ -34,7 +34,13 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.w3c.dom.Text;
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class DashBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +55,7 @@ public class DashBoard extends AppCompatActivity
     private SharedPreferences.Editor editor;
     private FloatingActionMenu floatingActionMenu;
     private String token;
+    String TAG="DashBoard";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +71,6 @@ public class DashBoard extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         firebaseAuth=FirebaseAuth.getInstance();
@@ -73,7 +79,12 @@ public class DashBoard extends AppCompatActivity
         name=prefs.getString("name", "NAME");
         phone=prefs.getString("phone", "phoneNo");
         email=prefs.getString("email", "email");
-        uid=prefs.getString("uid", "uid");
+        uid=firebaseAuth.getUid();
+        if(!firebaseAuth.getUid().toString().equals(prefs.getString("uid", "uid")))
+        {
+          editor.putString("uid", uid);
+        }
+        LocalSaveOfFriend();
         Log.d("DashBoard", name+", "+phone+", "+email);
         View header=navigationView.getHeaderView(0);
         TextView nav_bar_first_letter=(TextView) header.findViewById(R.id.nav_bar_first_letter);
@@ -96,7 +107,7 @@ public class DashBoard extends AppCompatActivity
         creatTran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateTrannsactionPageOpen();
+                CreateTransactionPageOpen();
             }
         });
         //Storing token
@@ -154,8 +165,13 @@ public class DashBoard extends AppCompatActivity
         i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);
     }
-    public void CreateTrannsactionPageOpen()
+    public void CreateTransactionPageOpen()
     {
+        floatingActionMenu.close(true);
+        Intent i=   new Intent(getApplicationContext(), AddTransaction.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(i);
+
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -172,8 +188,10 @@ public class DashBoard extends AppCompatActivity
             Intent i=   new Intent(getApplicationContext(), MyAddedRequest.class);
             i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(i);
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.Friends) {
+            Intent i=   new Intent(getApplicationContext(), Friend.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(i);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_logout) {
@@ -192,5 +210,84 @@ public class DashBoard extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    int i=0;
+    public void LocalSaveOfFriend(){
+        final HashMap<String, String > friendList=new HashMap<>();
+        databaseReference.child("users").child(uid).child("friend").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                final long count =dataSnapshot.getChildrenCount();
+                for (DataSnapshot ds: dataSnapshot.getChildren()
+                     ) {
+                    i++;
+                    final String uid=ds.getKey().toString();
+                    Log.d(TAG,ds.getKey().toString()+", "+ds.getValue(Boolean.class) +"Chiren count "+dataSnapshot.getChildrenCount());
+                    databaseReference.child("userNameByUid").child(uid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            final String name=dataSnapshot.getValue(String.class);
+                            databaseReference.child("userPhoneByUid").child(uid).addValueEventListener(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                  final String phone=dataSnapshot.getValue(String.class);
+                                  friendList.put(name, uid+"_"+phone);
+                                  if(count==i)
+                                       CreateHashAndSaveLocal(friendList);
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+    public void CreateHashAndSaveLocal(HashMap<String, String > hashMap)
+    {
+        JSONObject jsonObject = new JSONObject(hashMap);
+        String jsonString = jsonObject.toString();
+        editor.remove("friendMap").commit();
+        editor.putString("friendMap", jsonString);
+        editor.commit();
+        Log.d(TAG, jsonString);
+    }
+    public  void CheckLocal(View view)
+    {
+        HashMap<String,String> outputMap = new HashMap<>();
+        String jsonString =prefs.getString("friendMap", "Not found");
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Iterator<String> keysItr = jsonObject.keys();
+        while(keysItr.hasNext()) {
+            String k = keysItr.next();
+            String v = null;
+            try {
+                v = (String) jsonObject.get(k);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            outputMap.put(k,v);
+        }
+        Log.d(TAG, outputMap.toString());
     }
 }

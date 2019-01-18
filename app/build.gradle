@@ -38,5 +38,7 @@ dependencies {
     implementation 'br.com.simplepass:loading-button-android:1.14.0'
     //floaing action button
     implementation 'com.github.clans:fab:1.6.4'
+    //Radio button github library
+    implementation 'com.github.ceryle:RadioRealButton:v2.1.1'
 }
 apply plugin: 'com.google.gms.google-services'
