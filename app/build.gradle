@@ -39,6 +39,6 @@ dependencies {
     //floaing action button
     implementation 'com.github.clans:fab:1.6.4'
     //Radio button github library
-    implementation 'com.github.ceryle:RadioRealButton:v2.1.1'
+    implementation 'com.github.patgdut:RadioRealButton:v2.1.2'
 }
 apply plugin: 'com.google.gms.google-services'

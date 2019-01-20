@@ -20,12 +20,13 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <com.github.florent37.materialtextfield.MaterialTextField
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_marginTop="8dp"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
@@ -40,22 +41,32 @@
             android:lines="1"
             android:inputType="text"
             android:id="@+id/Opponent"
-            android:hint="Give name" />
+            android:hint="Type name or number" />
     </com.github.florent37.materialtextfield.MaterialTextField>
             <ListView
-                android:layout_below="@id/bossOftoAddName"
                 android:layout_width="match_parent"
-                android:id="@+id/FriendListView"
-                android:layout_above="@id/AddTransaction"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_below="@id/bossOftoAddName"
+                android:id="@+id/FriendListView"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_below="@id/FriendListView"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:id="@+id/toHide">
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="8dp"
                 android:id="@+id/bossOfAmount"
-                android:visibility="gone"
-                android:layout_below="@+id/bossOftoAddName"
                 android:layout_marginLeft="20dp"
                 app:mtf_labelColor="@color/colorPrimaryDark"
                 app:mtf_openKeyboardOnFocus="true"
@@ -74,18 +85,16 @@
         android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginTop="8dp"
-        android:layout_below="@+id/bossOfAmount"
         android:layout_marginLeft="20dp"
+        android:id="@+id/bossOfReason"
         app:mtf_labelColor="@color/colorPrimaryDark"
         app:mtf_openKeyboardOnFocus="true"
-        android:visibility="gone"
         app:mtf_image="@drawable/mailicon">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
             android:lines="1"
-            android:inputType="number"
             android:id="@+id/Reason"
             android:hint="Reason(Optional)" />
     </com.github.florent37.materialtextfield.MaterialTextField>
@@ -93,8 +102,7 @@
 
         <co.ceryle.radiorealbutton.RadioRealButtonGroup
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_above="@+id/AddTransaction"
+            android:id="@+id/Radio"
             android:layout_height="wrap_content"
             app:rrbg_animateDrawables_enter="overshoot"
             app:rrbg_animateTexts_enter="overshoot"
@@ -107,18 +115,20 @@
             <co.ceryle.radiorealbutton.RadioRealButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/HehastoGive"
                 app:rrb_drawable="@mipmap/ic_launcher"
                 app:rrb_drawableHeight="36dp"
                 app:rrb_drawablePadding="8dp"
                 app:rrb_drawableWidth="36dp"
                 app:rrb_ripple="true"
                 app:rrb_rippleColor="@color/black"
-                app:rrb_text="He has to give "
+                app:rrb_text="I will get "
                 app:rrb_textColor="@color/black"/>
 
             <co.ceryle.radiorealbutton.RadioRealButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/IhavetoGive"
                 app:rrb_drawable="@mipmap/ic_launcher"
                 app:rrb_drawableGravity="right"
                 app:rrb_drawableHeight="36dp"
@@ -129,22 +139,20 @@
                 app:rrb_text="I will give "
                 app:rrb_textColor="@color/black"/>
         </co.ceryle.radiorealbutton.RadioRealButtonGroup>
-
-        <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+        </LinearLayout>
+    <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
         android:id="@+id/AddTransaction"
         android:layout_width="match_parent"
         android:layout_gravity="center"
-        android:layout_alignParentBottom="true"
         android:layout_height="wrap_content"
         android:text="Add Transaction"
-        android:layout_margin="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="10dp"
         android:background="@drawable/circular_border_shape"
         app:spinning_bar_width="30dp"
-        android:fontFamily="sans-serif-condensed"
-        app:initialCornerAngle="30dp"
-        android:clickable="false"
         app:spinning_bar_color="@color/colorPrimaryDark"
         android:textColor="@color/colorPrimaryDark"
         app:spinning_bar_padding="6dp"/>
-        </RelativeLayout>
-    </LinearLayout>
+</LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

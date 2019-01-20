@@ -1,16 +1,26 @@
 package com.example.rival.moneytracker;
 
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -22,6 +32,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+
+import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
+import br.com.simplepass.loading_button_lib.interfaces.OnAnimationEndListener;
+import co.ceryle.radiorealbutton.RadioRealButton;
+import co.ceryle.radiorealbutton.RadioRealButtonGroup;
 
 public class AddTransaction extends AppCompatActivity {
 
@@ -36,6 +52,14 @@ public class AddTransaction extends AppCompatActivity {
     EditText Edtname;
     HashMap<String,String> FriendHashMap;
     FriendListAdapter adapter;
+    boolean  istransactionAdded,isOpponentSelected=false;
+    EditText Edtamount, Edtreason;
+    RadioRealButtonGroup radioRealButtonGroup;
+    RadioRealButton HehastoGive, IhavetoGive;
+    LinearLayout ll;
+    CircularProgressButton addTransaction;
+    String TAG="AddTransaction";
+    String opponentUid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +72,19 @@ public class AddTransaction extends AppCompatActivity {
         editor=prefs.edit();
         listView=(ListView) findViewById(R.id.FriendListView);
         Edtname=(EditText) findViewById(R.id.Opponent);
+        Edtamount=(EditText) findViewById(R.id.Amount);
+        Edtreason=(EditText) findViewById(R.id.Reason);
+        ll = (LinearLayout) findViewById(R.id.toHide);
+        radioRealButtonGroup = (RadioRealButtonGroup)findViewById(R.id.Radio);
+        HehastoGive=(RadioRealButton) findViewById(R.id.HehastoGive);
+        IhavetoGive=(RadioRealButton) findViewById(R.id.IhavetoGive);
+        addTransaction=(CircularProgressButton) findViewById(R.id.AddTransaction);
+        addTransaction.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commitTransaction();
+            }
+        });
         friendListModels=new ArrayList<>();
         FriendHashMap = new HashMap<>();
         String jsonString =prefs.getString("friendMap", "Not found");
@@ -68,7 +105,7 @@ public class AddTransaction extends AppCompatActivity {
             }
             FriendHashMap.put(k,v);
         }
-        Edtname.addTextChangedListener(new TextWatcher() {
+       final TextWatcher textwatcher=  new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -81,7 +118,19 @@ public class AddTransaction extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                  String input =s.toString();
+                if(istransactionAdded==true)
+                {
+                    istransactionAdded=false;
+                    Edtamount.setText("");
+                    Edtreason.setText("");
+                    HehastoGive.setChecked(false);
+                    IhavetoGive.setChecked(false);
+                    addTransaction.setText("Add Transaction");
+                    addTransaction.setBackgroundColor(R.drawable.circular_border_shape);
+                }
+                if(isOpponentSelected==true)
+                    ll.setVisibility(View.GONE);
+                String input =s.toString();
                 friendListModels.clear();
                   if(s.toString().length()<=2)
                   {
@@ -92,6 +141,8 @@ public class AddTransaction extends AppCompatActivity {
                   }
                   HashMap<String, String> filteredHashmap=new HashMap<>();
                   filteredHashmap=getFilteredFriendList(input);
+                  if(filteredHashmap.size()==0)
+                      friendListModels.add(new FriendListModel("Not found","404","Must be in your friend list"));
                   for(HashMap.Entry<String, String> entry: filteredHashmap.entrySet())
                   {
                       String name=entry.getKey();
@@ -105,19 +156,29 @@ public class AddTransaction extends AppCompatActivity {
 
                 listView.setAdapter(adapter);
             }
-        });
+        };
+        Edtname.addTextChangedListener(textwatcher);
+/*        Edtname.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus==true)
+                    ll.setVisibility(View.GONE);
+                else
+                    ll.setVisibility(View.VISIBLE);
+            }
+        });*/
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
                 FriendListModel friendListModel= friendListModels.get(position);
+                isOpponentSelected=true;
+                Edtname.setText(friendListModel.getName());
+                opponentUid=friendListModel.getuid();
+                listView.setAdapter(null);
+                ll.setVisibility(View.VISIBLE);
 
-                Snackbar.make(view, friendListModel.getName()+"\n"+friendListModel.getName()+" API: "+friendListModel.getuid()+", "+friendListModel.getPhone(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
             }
         });
-
-
 
     }
     public HashMap<String,String> getFilteredFriendList(String s)
@@ -126,10 +187,80 @@ public class AddTransaction extends AppCompatActivity {
         for (HashMap.Entry<String, String> entry : FriendHashMap.entrySet()) {
             String key = entry.getKey();
             String value = entry.getValue();
-            if(key.startsWith(s.toUpperCase()))
+            String uid_phone[]=value.split("_");
+            if(key.startsWith(s.toUpperCase()) || uid_phone[1].startsWith(s) )
                  filtered.put(key,value);
             // ...
         }
         return filtered;
     }
+public void commitTransaction() {
+        if(istransactionAdded== true)
+            onBackPressed();
+        if(Edtname.getText().toString().length()==0)
+        {
+            Toast.makeText(AddTransaction.this, "Please provide id your partner", Toast.LENGTH_LONG).show();
+            return;
+        }
+    String amt = Edtamount.getText().toString();
+    int amount=0;
+
+    if (amt == null)
+    {
+        Toast.makeText(AddTransaction.this, "Please provide amount", Toast.LENGTH_LONG).show();
+        return;
+    }
+    else
+    {
+        try {
+          amount=Integer.parseInt(amt);
+        }
+        catch (NumberFormatException e)
+        {
+            Toast.makeText(AddTransaction.this, "Amount invalid ", Toast.LENGTH_LONG).show();
+            return;
+        }
+    }
+    if((IhavetoGive.isChecked() ||HehastoGive.isChecked())==false)
+    {
+        Toast.makeText(AddTransaction.this, "Select the option down below", Toast.LENGTH_LONG).show();
+        return;
+    }
+        addTransaction.startAnimation();
+    Map<String,Object> transaction = new HashMap<>();
+    if(IhavetoGive.isChecked()==true)
+    {
+        transaction.put("fromUid", uid);
+        transaction.put("toUid", opponentUid);
+
+    }
+    else
+    {
+        transaction.put("fromUid", opponentUid);
+        transaction.put("toUid", uid);
+
+    }
+    transaction.put("addedByUid", uid);
+    transaction.put("amount", amount);
+    String reason=Edtreason.getText().toString();
+    if(reason.length()==0)
+    transaction.put("reason", "No reason");
+    else
+        transaction.put("reason", reason);
+    long timeinMillis=System.currentTimeMillis();
+    Log.d(TAG, transaction.toString());
+    databaseReference.child("pendingTransaction").child(timeinMillis+"").updateChildren(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
+        @Override
+        public void onComplete(@NonNull Task<Void> task) {
+            addTransaction.revertAnimation(new OnAnimationEndListener() {
+                @Override
+                public void onAnimationEnd() {
+                    addTransaction.setBackgroundColor(R.drawable.circular_border_shape_green);
+                    addTransaction.setText("TAP TO CONTINUE");
+                    istransactionAdded=true;
+                }
+            });
+        }
+    });
+}
 }

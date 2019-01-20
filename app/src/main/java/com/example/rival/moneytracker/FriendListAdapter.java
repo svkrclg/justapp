@@ -67,6 +67,9 @@ public class FriendListAdapter extends ArrayAdapter<FriendListModel> implements 
 
         viewHolder.txtName.setText(FriendListModel.getName());
         viewHolder.txtPhone.setText(FriendListModel.getPhone());
+        if(FriendListModel.getuid().equals("404"))
+            viewHolder.firstLetter.setText("X");
+        else
         viewHolder.firstLetter.setText(FriendListModel.getName().charAt(0)+"");
         // Return the completed view to render on screen
         return convertView;
