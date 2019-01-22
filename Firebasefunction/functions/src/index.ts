@@ -160,4 +160,61 @@ exports.incomingRequestAccepted = functions.database.ref("/users/{uid}/incomingR
 
              }
         
-       })
+       });
+exports.transactionCreated=functions.database.ref('/transactions/{tid}')
+       .onCreate(async (snapshot, context) => {
+           const tidDetails=snapshot.val();
+           console.log("created tid: ", context.params.tid);
+           console.log("snap shot captured: ", tidDetails);
+           const tid=context.params.tid;
+           const touid=tidDetails.to;
+           const fromuid=tidDetails.from;
+           const addedbyuid=tidDetails.addedBy;
+           const amount =tidDetails.amount;
+           let tonotifyuid=null;
+           let info;
+           if(touid===addedbyuid)
+              {
+                  tonotifyuid=fromuid;
+                  info="requested you to pay";
+              }
+           else
+              {
+                  tonotifyuid=touid;
+                  info="wants to pay you";
+              }
+           const notifyTokenP= admin.database().ref("/users/"+tonotifyuid+"/firebaseToken").once('value');
+           const notifyToken= await notifyTokenP.then(results=>{
+              // console.log("results[0]", results.val());
+               return results.val();
+           });
+           const addedBynameP=admin.database().ref("/users/"+addedbyuid+"/name").once('value');
+           const addedByname=await addedBynameP.then(results=>{
+               return results.val();
+           });
+           console.log("To notifications token: ", notifyToken);
+           const payload = {
+            notification:{
+                title:"Transaction Requested",
+                body: addedByname+" "+info+" "+amount
+              }
+          };
+          const response = await admin.messaging().sendToDevice(notifyToken, payload);
+          let pendingtransactionData={ [addedbyuid]:true, [tonotifyuid]:false};
+          let reference=admin.database().ref("/users/"+touid+"/pendingTransactions/"+tid);
+          reference.set(pendingtransactionData)
+          .then(function(){
+            console.log("Written");
+          })
+          .catch(function(){
+            console.log("error");
+          })
+          let refTidInPending=admin.database().ref("/users/"+fromuid+"/pendingTransactions/"+tid);
+          refTidInPending.set(pendingtransactionData)
+          .then(function(){
+            console.log("Writtendone");
+          })
+          .catch(function(){
+            console.log("error");
+          })
+       });

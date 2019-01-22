@@ -196,7 +196,10 @@ public class AddTransaction extends AppCompatActivity {
     }
 public void commitTransaction() {
         if(istransactionAdded== true)
+        {
             onBackPressed();
+            return;
+        }
         if(Edtname.getText().toString().length()==0)
         {
             Toast.makeText(AddTransaction.this, "Please provide id your partner", Toast.LENGTH_LONG).show();
@@ -230,17 +233,17 @@ public void commitTransaction() {
     Map<String,Object> transaction = new HashMap<>();
     if(IhavetoGive.isChecked()==true)
     {
-        transaction.put("fromUid", uid);
-        transaction.put("toUid", opponentUid);
+        transaction.put("from", uid);
+        transaction.put("to", opponentUid);
 
     }
     else
     {
-        transaction.put("fromUid", opponentUid);
-        transaction.put("toUid", uid);
+        transaction.put("from", opponentUid);
+        transaction.put("to", uid);
 
     }
-    transaction.put("addedByUid", uid);
+    transaction.put("addedBy", uid);
     transaction.put("amount", amount);
     String reason=Edtreason.getText().toString();
     if(reason.length()==0)
@@ -249,7 +252,7 @@ public void commitTransaction() {
         transaction.put("reason", reason);
     long timeinMillis=System.currentTimeMillis();
     Log.d(TAG, transaction.toString());
-    databaseReference.child("pendingTransaction").child(timeinMillis+"").updateChildren(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
+    databaseReference.child("transactions").child(timeinMillis+"").updateChildren(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
         @Override
         public void onComplete(@NonNull Task<Void> task) {
             addTransaction.revertAnimation(new OnAnimationEndListener() {

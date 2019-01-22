@@ -11,4 +11,7 @@
     <string name="shared_pref_name">MYID</string>
     <string name="title_activity_send_request">SendRequestActivity</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
