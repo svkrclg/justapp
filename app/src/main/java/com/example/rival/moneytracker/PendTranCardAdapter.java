@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -57,8 +58,7 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Reject "+ pendTranClass.getOpponentUid());
-                list.remove(i);
-                notifyDataSetChanged();
+                Toast.makeText(context, "Deleting: "+ pendTranClass.getDateInMillis(), Toast.LENGTH_LONG).show();
                 deletePendingTransaction(pendTranClass);
             }
         });
@@ -66,8 +66,7 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Confirm "+ pendTranClass.getOpponentUid());
-                list.remove(i);
-                notifyDataSetChanged();
+                Toast.makeText(context, "Accpeting: "+ pendTranClass.getDateInMillis(), Toast.LENGTH_LONG).show();
                 confirmPendingTransaction(pendTranClass);
             }
         });

@@ -10,6 +10,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +44,7 @@ public class ConfirmedTransaction extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
+    private String TAG="ConfirmedTransaction";
     private OnFragmentInteractionListener mListener;
     private RecyclerView mConfirmTransactionRView;
     private ArrayList<ConfTranClass> mArraylist=new ArrayList<>();
@@ -100,34 +102,73 @@ public class ConfirmedTransaction extends Fragment {
         loadData();
         return view;
     }
-    int i;
+    int i=0;
     HashMap<String, Integer> storeUidIndex=new HashMap<>();
     private void loadData()
     {
 
-        i = 0;
         databaseReference.child("users").child(uid).child("myTransactions").addChildEventListener(new ChildEventListener() {
              @Override
-             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                 for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                     String uid=ds.getKey().toString();
-                     storeUidIndex.put(uid, i++);
+             public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String s) {
+                     final String oppnuid=ds.getKey().toString();
+                     Log.d(TAG, "2"+oppnuid);
+                     storeUidIndex.put(oppnuid, i++);
+                     Log.d(TAG, "Children"+ds.toString());
+                     final int netTotal=ds.child("netTotal").getValue(Integer.class);
+                     databaseReference.child("userNameByUid").child(oppnuid).addValueEventListener(new ValueEventListener() {
+                         int nt=netTotal;
+                         String Ouid=oppnuid;
+                         @Override
+                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                             String name=dataSnapshot.getValue(String.class);
+                             String direction;
+                             if(nt<0)
+                                 direction="going";
+                             else
+                                 direction="coming";
+                             mArraylist.add(new ConfTranClass(Math.abs(nt), Ouid, name, direction));
+                             mAdapter.notifyDataSetChanged();
+                         }
 
-                 }
+                         @Override
+                         public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                         }
+                     });
+
+
+
              }
 
              @Override
              public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                   Log.d(TAG, "change "+dataSnapshot.toString()+ "---" +s);
+                   int pos=storeUidIndex.get(dataSnapshot.getKey());
+                   try {
+                       ConfTranClass object = mArraylist.get(pos);
+                       int nt = dataSnapshot.child("netTotal").getValue(Integer.class);
+                       String direction = nt < 0 ? "going" : "coming";
+                       ConfTranClass newObject = new ConfTranClass(Math.abs(nt), object.getOpponentUid(), object.getName(), direction);
+                       mArraylist.set(pos, newObject);
+                       mAdapter.notifyDataSetChanged();
+                   }
+                   catch (IndexOutOfBoundsException e)
+                   {
+                       e.printStackTrace();
+                   }
              }
 
              @Override
              public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                 int pos =storeUidIndex.get(dataSnapshot.getKey());
+                 mArraylist.remove(pos);
+                 mAdapter.notifyDataSetChanged();
 
              }
 
              @Override
              public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                 Log.d(TAG, "moved "+dataSnapshot.toString()+ "---" +s);
 
              }
 
