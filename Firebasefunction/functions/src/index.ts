@@ -218,3 +218,298 @@ exports.transactionCreated=functions.database.ref('/transactions/{tid}')
             console.log("error");
           })
        });
+exports.actionOnPendingTransactions=functions.database.ref("/users/{uid}/pendingTransactions/{ptid}")
+       .onUpdate(async(change, context) => {
+              let uid=context.params.uid;
+              let ptid=context.params.ptid;
+              let beforeShot=change.before.val();
+              let afterShot= change.after.val();
+              let uidArr=Object.keys(beforeShot);
+              let uid1=uidArr[0];
+              let uid2=uidArr[1];
+              let uid1valueB=change.before.child(uid1).val();
+              let uid2valueB=change.before.child(uid2).val();
+              let uid1valueA=change.after.child(uid1).val();
+              let uid2valueA=change.after.child(uid2).val();
+              console.log(uid1, "----", uid2, "----",uid1valueB, "----", uid2valueB);
+              //if the change is performed by addedby
+              if((uid1valueB===true &&uid1===uid)|| (uid2valueB===true &&uid2===uid))
+              {
+                //Deleted by addedby
+                console.log("Change by addedby");
+                if((uid1valueA===false &&uid1===uid)|| (uid2valueA===false &&uid2===uid))
+                 {
+                  console.log("Change by addedby for delete");
+                   let opponentuid;
+                   if(uid1===uid)
+                    opponentuid=uid2;
+                   else 
+                    opponentuid=uid1; 
+                   //Remove pending transactions from addedby
+                   const addedByPendingTrans=admin.database().ref("/users/"+uid+"/pendingTransactions/"+ptid);
+                   addedByPendingTrans.remove().then(function(){
+                     console.log("removed from addedby");
+                   }).catch(function(error){
+                     console.log("error");
+                   });
+                   //Delete in opponent
+                   const opponentPendingTrans=admin.database().ref("/users/"+opponentuid+"/pendingTransactions/"+ptid);
+                   opponentPendingTrans.remove().then(function(){
+                     console.log("removed from opponent");
+                   }).catch(function(error){
+                     console.log("error");
+                   });
+                   const removefromTransactions=admin.database().ref("/transactions/"+ptid);
+                   removefromTransactions.remove().then(function(){
+                     console.log("removed from tranactions");
+                   }).catch(function(error){
+                     console.log("error");
+                   });
+                  
+                  
+                 }
+                }
+                //change by performed by opponent
+              else if((uid1valueB===true && uid1!== uid) ||(uid2valueB===true && uid2!== uid)) {
+                //Deleted by opponent
+                console.log("Change by opponent");
+                if((uid1valueB===true && uid1valueA===false  && uid1!==uid) || (uid2valueB===true && uid2valueA===false  && uid2!==uid)) 
+                {
+                  console.log("Change by opponet for delete");
+                     let tonotifyuid;
+                     if(uid1valueB===true)
+                        tonotifyuid=uid1;
+                     else  
+                        tonotifyuid=uid2;
+                     console.log("toNotifyuid for delete: ", tonotifyuid);
+                     const removefromopponent=admin.database().ref("/users/"+uid+"/pendingTransactions/"+ptid);
+                     removefromopponent.remove().then(function(){
+                       console.log("Removed from opponent,");
+                     }).catch(function(error){
+                       console.log("error");
+                     })
+                     const toNotifyuidToken=await admin.database().ref("/users/"+tonotifyuid+"/firebaseToken").once('value')
+                                            .then(function(dataspht){
+                                                    return dataspht.val();
+                                            });
+                     const uidname=await admin.database().ref("/users/"+uid+"/name").once('value')
+                                            .then(function(dataspht){
+                                                    return dataspht.val();
+                                            });                      
+                     const removefromaddedby=admin.database().ref("/users/"+tonotifyuid+"/pendingTransactions/"+ptid);
+                     removefromaddedby.remove().then(function(){
+                       console.log("Removed from addedby,");
+                     }).catch(function(error){
+                       console.log("error");
+                     });
+                     const removefromtransactions=admin.database().ref("/transactions/"+ptid);
+                     removefromtransactions.remove().then(function(){
+                       console.log("Removed from tranactions,");
+                     }).catch(function(error){
+                       console.log("error");
+                     })
+
+                     console.log("my token:", toNotifyuidToken);
+                     const payload={
+                       notification:{
+                         title:"Your transaction request rejected",
+                         body: uidname+" rejected your transaction."
+                       },
+                       data:{
+                           jio:"sevs"
+                       }
+                     }
+                     const response= admin.messaging().sendToDevice(toNotifyuidToken, payload);
+
+
+                } 
+                //Accepted By opponent
+                if((uid1valueB===false && uid1valueA===true &&uid1===uid) ||(uid2valueB===false && uid1valueA===true &&uid2===uid))
+                {
+                  console.log("Change by opponeent for accept");
+                  let tonotifyuid;
+                  if(uid1valueB===true)
+                        tonotifyuid=uid1;
+                  else  
+                        tonotifyuid=uid2;
+                 console.log("tonotifyuid for accept: ", tonotifyuid);
+                 const removefromopponent=admin.database().ref("/users/"+uid+"/pendingTransactions/"+ptid);
+                  removefromopponent.remove().then(function(){
+                    console.log("Removed from opponent,");
+                  }).catch(function(error){
+                    console.log("error");
+                  });
+                 const removefromaddedby=admin.database().ref("/users/"+tonotifyuid+"/pendingTransactions/"+ptid);
+                  removefromaddedby.remove().then(function(){
+                    console.log("Removed from addedby,");
+                  }).catch(function(error){
+                    console.log("error");
+                  });
+                  const toNotifyuidToken=await admin.database().ref("/users/"+tonotifyuid+"/firebaseToken").once('value')
+                                            .then(function(dataspht){
+                                                    return dataspht.val();
+                                            });
+                     const uidname=await admin.database().ref("/users/"+uid+"/name").once('value')
+                                            .then(function(dataspht){
+                                                    return dataspht.val();
+                                            });    
+                 //getting the snapshot of transaction which is going to be deleted further
+                 const gettransactionshot= await admin.database().ref("/transactions/"+ptid).once('value')
+                 .then(function(dataSnapshot){
+                   console.log(dataSnapshot.val());
+                   return dataSnapshot.val();
+                 })
+                 
+                 const removefromtransactions=admin.database().ref("/transactions/"+ptid);
+                  removefromtransactions.remove().then(function(){
+                    console.log("Removed from tranactions,");
+                  }).catch(function(error){
+                    console.log("error");
+                  })
+                
+                let reference=admin.database().ref("/confirmedTransactions/"+ptid);
+                reference.set(gettransactionshot)
+                .then(function(){
+                console.log("Written");
+                })
+                .catch(function(){
+                console.log("error");
+                    })
+                    console.log("my token:", toNotifyuidToken);
+                    const payload={
+                      notification:{
+                        title:"Your transaction request rejected",
+                        body: uidname+" accepted your transaction."
+                      },
+                      data:{
+                          jio:"sevs"
+                      }
+                    }
+                    const response= admin.messaging().sendToDevice(toNotifyuidToken, payload);
+
+
+                }
+              }  
+       });
+exports.handleEachConfirmedTransactions=functions.database.ref("/confirmedTransactions/{tid}")
+       .onCreate(async(snapshot, context) => {
+          console.log("transactions confirmed: ", snapshot.val());
+          const tid=context.params.tid;
+          const addedbyuid=snapshot.val().addedBy;
+          const touid=snapshot.val().to;
+          const fromuid=snapshot.val().from;
+          let amount=snapshot.val().amount;
+          //add the transaction in addedby
+          if(addedbyuid===touid)
+          {
+             //insert in addedby
+            let preamountA= await admin.database().ref("/users/"+addedbyuid+"/myTransactions/"+fromuid+"/netTotal").once('value')
+            .then(function(dataSnapshot){
+              if(dataSnapshot.val()===null)
+                   return 0;
+              else 
+                 return dataSnapshot.val();
+            })
+            
+            let newamountA=amount+preamountA;
+            let totalrefA=admin.database().ref("/users/"+addedbyuid+"/myTransactions/"+fromuid+"/netTotal");
+            totalrefA.set(newamountA)
+            .then(function(){
+              console.log("total written");
+              })
+              .catch(function(){
+              console.log("errortotal");
+              })
+            let transactionrefA=admin.database().ref("/users/"+addedbyuid+"/myTransactions/"+fromuid+"/transactions/"+tid);
+            transactionrefA.set(true)
+            .then(function(){
+                console.log("total written");
+                })
+                .catch(function(){
+                console.log("errortotal");
+                })
+            //insert in opponent
+            let preamountO= await admin.database().ref("/users/"+fromuid+"/myTransactions/"+touid+"/netTotal").once('value')
+            .then(function(dataSnapshot){
+              if(dataSnapshot.val()===null)
+                   return 0;
+              else 
+                 return dataSnapshot.val();
+            })
+            
+            let newamountO=preamountO-amount;
+            let totalrefO=admin.database().ref("/users/"+fromuid+"/myTransactions/"+touid+"/netTotal");
+            totalrefO.set(newamountO)
+            .then(function(){
+              console.log("total written");
+              })
+              .catch(function(){
+              console.log("errortotal");
+              })
+            let transactionrefO=admin.database().ref("/users/"+fromuid+"/myTransactions/"+touid+"/transactions/"+tid);
+            transactionrefO.set(true)
+            .then(function(){
+                console.log("total written");
+                })
+                .catch(function(){
+                console.log("errortotal");
+                })
+          }
+          else
+          {
+             //insert in addedby
+            let preamountA= await admin.database().ref("/users/"+addedbyuid+"/myTransactions/"+touid+"/netTotal").once('value')
+            .then(function(dataSnapshot){
+              console.log(dataSnapshot.val());
+              if(dataSnapshot.val()===null)
+                   return 0;
+              else 
+                 return dataSnapshot.val();
+            })
+            
+            let newamountA=preamountA-amount;
+            let totalrefA=admin.database().ref("/users/"+addedbyuid+"/myTransactions/"+touid+"/netTotal");
+            totalrefA.set(newamountA)
+            .then(function(){
+              console.log("total written");
+              })
+              .catch(function(){
+              console.log("errortotal");
+              })
+            let transactionrefA=admin.database().ref("/users/"+addedbyuid+"/myTransactions/"+touid+"/transactions/"+tid);
+            transactionrefA.set(true)
+            .then(function(){
+                console.log("total written");
+                })
+                .catch(function(){
+                console.log("errortotal");
+                })
+            //insert in opponent
+            let preamountO= await admin.database().ref("/users/"+touid+"/myTransactions/"+addedbyuid+"/netTotal").once('value')
+            .then(function(dataSnapshot){
+              if(dataSnapshot.val()===null)
+                   return 0;
+              else 
+                 return dataSnapshot.val();
+            })
+            
+            let newamountO=amount+preamountO;
+            let totalrefO=admin.database().ref("/users/"+touid+"/myTransactions/"+addedbyuid+"/netTotal");
+            totalrefO.set(newamountO)
+            .then(function(){
+              console.log("total written");
+              })
+              .catch(function(){
+              console.log("errortotal");
+              })
+            let transactionrefO=admin.database().ref("/users/"+touid+"/myTransactions/"+addedbyuid+"/transactions/"+tid);
+            transactionrefO.set(true)
+            .then(function(){
+                console.log("total written");
+                })
+                .catch(function(){
+                console.log("errortotal");
+                })
+          }
+
+       });

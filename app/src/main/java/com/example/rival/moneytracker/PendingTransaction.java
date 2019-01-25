@@ -3,18 +3,30 @@ package com.example.rival.moneytracker;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -39,7 +51,10 @@ public class PendingTransaction extends Fragment {
     private RecyclerView mPendingTransactionRView;
     private ArrayList<PendTranClass>  mArraylist=new ArrayList<>();
     private PendTranCardAdapter mAdapter;
-
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
+    private String uid;
     public PendingTransaction() {
         // Required empty public constructor
     }
@@ -82,18 +97,110 @@ public class PendingTransaction extends Fragment {
         mPendingTransactionRView.setItemAnimator( new DefaultItemAnimator());
         mPendingTransactionRView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         mPendingTransactionRView.setAdapter(mAdapter);
+        firebaseAuth=FirebaseAuth.getInstance();
+        firebaseDatabase=FirebaseDatabase.getInstance();
+        uid=firebaseAuth.getUid();
+        databaseReference=firebaseDatabase.getReference();
         loadData();
         return view;
     }
-
+   int i=0;
+   Boolean isMyAdded;
     public void loadData(){
-        mArraylist.add(new PendTranClass("saurav", "ssvs","gsdrgb", "1", "svd" ));
-        mArraylist.add(new PendTranClass("saurav", "ssvs","gsdrgb", "2", "svd" ));
-        mArraylist.add(new PendTranClass("saurav", "ssvs","gsdrgb", "3", "svd" ));
-        mArraylist.add(new PendTranClass("saurav", "ssvs","gsdrgb", "4", "svd" ));
-        mArraylist.add(new PendTranClass("saurav", "ssvs","gsdrgb", "5", "svd" ));
-        mArraylist.add(new PendTranClass("saurav", "ssvs","gsdrgb", "6", "svd" ));
-        mAdapter.notifyDataSetChanged();
+        databaseReference.child("users").child(uid).child("pendingTransactions").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mArraylist.clear();
+                mAdapter.notifyDataSetChanged();
+                final long count=dataSnapshot.getChildrenCount();
+                Log.d(TAG, "Children count: "+count);
+                for (DataSnapshot ds:dataSnapshot.getChildren()) {
+
+                    final String timeInMillis=ds.getKey().toString();
+                    final long timeInMillisLong=Long.parseLong(timeInMillis);
+                    String Tranuid[]=new String[2];
+                    Boolean TranStatus[]=new Boolean[2];
+                    int two=0;
+                   for(DataSnapshot dsChildren: ds.getChildren())
+                   {
+                       Tranuid[two]=dsChildren.getKey();
+                       TranStatus[two]=dsChildren.getValue(Boolean.class);
+                       two++;
+                   }
+                   //Check added by whom
+                    Log.d("PendingTransaction " ,i+" : "+Tranuid[0]+" "+TranStatus[0]+ " "+Tranuid[1]+" "+TranStatus[1]);
+                    isMyAdded = false;
+                    if(Tranuid[0].equals(uid))
+                   {
+                       //Added By me
+                       if(TranStatus[0]==true)
+                       {
+                        isMyAdded=true;
+                           Log.d("PendingTransaction ", i+" 1");
+                       }
+                   }
+                    if(Tranuid[1].equals(uid))
+                    {
+                        //Added By me
+                        if(TranStatus[1]==true)
+                        {
+                            isMyAdded=true;
+                            Log.d("PendingTransaction ", i+" 2");
+                        }
+                    }
+                    //GetOpponet uid
+                    final String opponetUid;
+                    if(Tranuid[0].equals(uid))
+                        opponetUid=Tranuid[1];
+                    else
+                        opponetUid=Tranuid[0];
+                    //Get opponet name
+                    databaseReference.child("userNameByUid").child(opponetUid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        boolean finalIsMyAdded=isMyAdded;
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            final String Opponetname=dataSnapshot.getValue(String.class);
+                            //Get reason
+                            databaseReference.child("transactions").child(timeInMillis).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    final String reason=dataSnapshot.child("reason").getValue(String.class);
+                                    int amount =dataSnapshot.child("amount").getValue(Integer.class);
+                                    String toUid=dataSnapshot.child("to").getValue(String.class);
+                                    String fromUid=dataSnapshot.child("from").getValue(String.class);
+                                    String addedUid=dataSnapshot.child("addedBy").getValue(String.class);
+                                    String dir;
+                                    if(toUid.equals(uid))
+                                        dir="coming";
+                                    else
+                                        dir="going";
+                                    mArraylist.add(new PendTranClass(finalIsMyAdded, amount, reason+"\n"+dir, opponetUid, Opponetname, timeInMillisLong));
+                                    mAdapter.notifyDataSetChanged();
+
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                   Log.d("PendingTransaction", "Key"+ds.getKey());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

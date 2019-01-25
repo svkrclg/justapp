@@ -1,15 +1,19 @@
 package com.example.rival.moneytracker;
 
 public class PendTranClass {
-    String amount,reason,opponentUid, name;
-    String dateInMillis;
+    String reason,opponentUid, name;
+    int amount;
+    long dateInMillis;
 
-    public PendTranClass(String amount, String reason, String opponentUid, String name, String dateInMillis) {
+    Boolean isAddedByMe;
+
+    public PendTranClass(Boolean isAddedByMe, int  amount, String reason, String opponentUid, String name, long dateInMillis) {
         this.amount = amount;
         this.reason = reason;
         this.opponentUid = opponentUid;
         this.name = name;
         this.dateInMillis = dateInMillis;
+        this.isAddedByMe=isAddedByMe;
     }
 
     public String getName() {
@@ -19,11 +23,11 @@ public class PendTranClass {
         this.name = name;
     }
 
-    public String getAmount() {
+    public int getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 
@@ -43,11 +47,20 @@ public class PendTranClass {
         this.opponentUid = opponentUid;
     }
 
-    public String getDateInMillis() {
+    public long getDateInMillis() {
         return dateInMillis;
     }
 
-    public void setDateInMillis(String dateInMillis) {
+    public void setDateInMillis(long dateInMillis) {
         this.dateInMillis = dateInMillis;
     }
+
+    public Boolean getAddedByMe() {
+        return isAddedByMe;
+    }
+
+    public void setAddedByMe(Boolean addedByMe) {
+        isAddedByMe = addedByMe;
+    }
+
 }

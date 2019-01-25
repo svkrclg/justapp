@@ -91,20 +91,21 @@ public class AddTransaction extends AppCompatActivity {
         JSONObject jsonObject = null;
         try {
             jsonObject = new JSONObject(jsonString);
+            Iterator<String> keysItr = jsonObject.keys();
+            while(keysItr.hasNext()) {
+                String k = keysItr.next();
+                String v = null;
+                try {
+                    v = (String) jsonObject.get(k);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                FriendHashMap.put(k,v);
+            }
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Iterator<String> keysItr = jsonObject.keys();
-        while(keysItr.hasNext()) {
-            String k = keysItr.next();
-            String v = null;
-            try {
-                v = (String) jsonObject.get(k);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            FriendHashMap.put(k,v);
-        }
+
        final TextWatcher textwatcher=  new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

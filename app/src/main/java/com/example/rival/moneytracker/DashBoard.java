@@ -48,9 +48,9 @@ import java.util.Map;
 public class DashBoard extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, PendingTransaction.OnFragmentInteractionListener, ConfirmedTransaction.OnFragmentInteractionListener {
 
-    public FirebaseDatabase firebaseDatabase;
-    public FirebaseAuth firebaseAuth;
-    public DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
     public String uid;
     public String name;
     public String phone,email;
