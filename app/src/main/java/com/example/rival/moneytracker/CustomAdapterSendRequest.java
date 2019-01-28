@@ -18,13 +18,11 @@ import java.util.ArrayList;
 import static android.support.constraint.Constraints.TAG;
 
 public class CustomAdapterSendRequest extends RecyclerView.Adapter<CustomAdapterSendRequest.MyViewHolder> {
-    public ArrayList<Character> firstLetter =new ArrayList<>();
-    public ArrayList<String> name= new ArrayList<>();
-    public ArrayList<String> uid= new ArrayList<>();
-    public ArrayList<String> phone= new ArrayList<>();
+    ArrayList<SendRequestPOJO> sendRequestPOJOS=new ArrayList<>();
     Context context;
-    public CustomAdapterSendRequest(Context context) {
+    public CustomAdapterSendRequest(Context context, ArrayList<SendRequestPOJO> sendRequestPOJOS) {
         this.context = context;
+        this.sendRequestPOJOS=sendRequestPOJOS;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,32 +35,15 @@ public class CustomAdapterSendRequest extends RecyclerView.Adapter<CustomAdapter
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // set the data in items
-        holder.firstLetter.setText(firstLetter.get(position)+"");
-        holder.name.setText(name.get(position));
-        holder.incomingphone.setText(phone.get(position));
+        SendRequestPOJO obj=sendRequestPOJOS.get(position);
+        holder.firstLetter.setText(obj.getFirstLetter()+"");
+        holder.name.setText(obj.getName());
+        holder.incomingphone.setText(obj.getPhone());
     }
 
-
-    public void deleteItem(final int po)
-    {
-        Log.d(TAG, po+" Todelete");
-        String toremoveuid=uid.get(po);
-        firstLetter.remove(po);
-        phone.remove(po);
-        name.remove(po);
-        uid.remove(po);
-        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toremoveuid).removeValue(new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                Log.d(TAG, "DatabaseReferecne: "+databaseReference.toString());
-                notifyDataSetChanged();
-                notifyItemRangeChanged(po, phone.size());
-            }
-        });
-    }
     @Override
     public int getItemCount() {
-        return phone.size();
+        return sendRequestPOJOS.size();
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // init the item view's

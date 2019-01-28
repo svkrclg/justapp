@@ -1,6 +1,7 @@
 package com.example.rival.moneytracker;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -53,6 +54,11 @@ public class ConfTranCardAdapter extends RecyclerView.Adapter<ConfTranCardAdapte
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Confirm "+ confTranClass.getOpponentUid());
+                Intent i=new Intent(context, WithFriendRecord.class);
+                i.putExtra("Name", confTranClass.getName());
+                i.putExtra("OppnUid", confTranClass.getOpponentUid());
+                i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                context.startActivity(i);
             }
         });
 

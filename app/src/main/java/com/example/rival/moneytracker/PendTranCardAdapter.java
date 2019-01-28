@@ -49,7 +49,7 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
         myViewHolder.opponentName.setText(pendTranClass.getName());
         myViewHolder.reason.setText(pendTranClass.getReason()+"\n"+pendTranClass.getAddedByMe());
         myViewHolder.amount.setText(pendTranClass.getAmount()+"");
-        if(pendTranClass.isAddedByMe==true)
+        if(pendTranClass.getAddedByMe()==true)
         {
             myViewHolder.confirm.setVisibility(View.GONE);
             myViewHolder.reject.setText("Delete");

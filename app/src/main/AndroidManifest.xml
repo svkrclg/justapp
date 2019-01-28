@@ -12,11 +12,6 @@
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="stateHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
 
@@ -37,7 +32,16 @@
         <activity android:name=".IncomingRequest" />
         <activity android:name=".Friend" />
         <activity android:name=".MyAddedRequest" />
-        <activity android:name=".AddTransaction" ></activity>
+        <activity android:name=".AddTransaction" />
+        <activity android:name=".WithFriendRecord" />
+        <activity android:name=".SplashActivity"
+                  android:theme="@style/SplashTheme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

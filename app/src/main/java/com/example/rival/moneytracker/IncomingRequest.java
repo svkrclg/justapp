@@ -33,7 +33,8 @@ public class IncomingRequest extends AppCompatActivity {
     public static  String uid;
     CustomAdapterIncomingRequest customAdapter;
     RecyclerView recyclerView;
-    HashMap<String, Integer > toDeleteUid=new HashMap<>();
+    ArrayList<String> toDeleteUid=new ArrayList<>();
+    ArrayList<IncomingRequestPOJO> mArraylist=new ArrayList<>();
     int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,33 +51,30 @@ public class IncomingRequest extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.IncomingRequestrecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        customAdapter = new CustomAdapterIncomingRequest(IncomingRequest.this);
+        customAdapter = new CustomAdapterIncomingRequest(IncomingRequest.this, mArraylist);
+        recyclerView.setAdapter(customAdapter);
         databaseReference.child("users").child(uid).child("incomingRequest").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                     Log.d(TAG, dataSnapshot.toString());
                     final String fromuid = dataSnapshot.getKey();
-                    toDeleteUid.put(fromuid, i);
-                    i++;
-                    customAdapter.uid.add(fromuid);
                     Boolean boo = dataSnapshot.getValue(Boolean.class);
                     Log.d(TAG, fromuid + ", " + boo + ", ");
                     databaseReference.child("userNameByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            String name = dataSnapshot.getValue(String.class);
+                            final String name = dataSnapshot.getValue(String.class);
                             Log.d(TAG, "Name: " + name);
-                            customAdapter.name.add(name);
-                            customAdapter.firstLetter.add(name.toUpperCase().charAt(0));
                             databaseReference.child("userPhoneByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     String phone = dataSnapshot.getValue(String.class);
                                     Log.d(TAG, "Phone " + phone);
-                                    customAdapter.phone.add(phone);
+                                    mArraylist.add(new IncomingRequestPOJO(name.toUpperCase().charAt(0), name, phone, fromuid ));
+                                    toDeleteUid.add(fromuid);
+                                    customAdapter.notifyDataSetChanged();
 
-                                    recyclerView.setAdapter(customAdapter);
                                 }
 
                                 @Override
@@ -102,8 +100,10 @@ public class IncomingRequest extends AppCompatActivity {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 String uidDeleted=dataSnapshot.getKey().toString();
-                int pos=customAdapter.uid.indexOf(uidDeleted);
-                customAdapter.deleteItem(pos);
+                int pos=toDeleteUid.indexOf(uidDeleted);
+                toDeleteUid.remove(pos);
+                mArraylist.remove(pos);
+                customAdapter.notifyDataSetChanged();
             }
 
 

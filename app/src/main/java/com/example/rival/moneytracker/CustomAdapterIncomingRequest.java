@@ -20,14 +20,12 @@ import java.util.ArrayList;
 import static android.support.constraint.Constraints.TAG;
 
 public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAdapterIncomingRequest.MyViewHolder> {
-    public ArrayList<Character> firstLetter =new ArrayList<>();
-    public ArrayList<String> name= new ArrayList<>();
-    public ArrayList<String> uid= new ArrayList<>();
-    public ArrayList<String> phone= new ArrayList<>();
+
     Context context;
-    Boolean fuck, fuck1=true;
-    public CustomAdapterIncomingRequest(Context context) {
+    ArrayList<IncomingRequestPOJO> incomingRequestPOJOS= new ArrayList<>();
+    public CustomAdapterIncomingRequest(Context context, ArrayList<IncomingRequestPOJO> incomingRequestPOJOS) {
         this.context = context;
+        this.incomingRequestPOJOS=incomingRequestPOJOS;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -40,77 +38,48 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // set the data in items
-        holder.firstLetter.setText(firstLetter.get(position)+"");
-        holder.name.setText(name.get(position));
-        holder.incomingphone.setText(phone.get(position));
+        final IncomingRequestPOJO obj=incomingRequestPOJOS.get(position);
+        holder.firstLetter.setText(obj.getFirstLetter()+"");
+        holder.name.setText(obj.getName());
+        holder.incomingphone.setText(obj.getPhone());
         holder.decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fuck=true;
-                Log.d(TAG, "UID: "+ uid.toArray().toString()+", phone: "+phone.toArray().toString());
-                notifyDataSetChanged();
-                final int po=position;
-                Log.d(TAG, po+" Tosend");
-                deleteItem(po);
+
+                deleteItem(obj.getUid());
             }
         });
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fuck1=true;
-                Log.d(TAG, "UID: "+ uid.toArray().toString()+", phone: "+phone.toArray().toString());
-                notifyDataSetChanged();
-                final int po=position;
-                Log.d(TAG, po+" Tosend");
-                addItem(po);
+                addItem(obj.getUid());
+                new CreateFriendCache(context).LocalSaveOfFriend();
             }
         });
     }
 
-    public void addItem(final int po)
+    public void addItem(String toAddUid)
     {
-        if(fuck1!=true)
-            return;
-        Log.d(TAG, po+" Todelete");
-        String toremoveuid=uid.get(po);
-        firstLetter.remove(po);
-        phone.remove(po);
-        name.remove(po);
-        uid.remove(po);
-        fuck=false;
-        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toremoveuid).setValue(true, new DatabaseReference.CompletionListener() {
+        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toAddUid).setValue(true, new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                 Log.d(TAG, "DatabaseReferecne: "+databaseReference.toString());
-                notifyDataSetChanged();
-                notifyItemRangeChanged(po, phone.size());
             }
         });
     }
 
-    public void deleteItem(final int po)
+    public void deleteItem(String toDeleteUId)
     {
-        if(fuck!=true)
-            return;
-        Log.d(TAG, po+" Todelete");
-        String toremoveuid=uid.get(po);
-        firstLetter.remove(po);
-        phone.remove(po);
-        name.remove(po);
-        uid.remove(po);
-        fuck=false;
-        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toremoveuid).removeValue(new DatabaseReference.CompletionListener() {
+        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toDeleteUId).removeValue(new DatabaseReference.CompletionListener() {
             @Override
             public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
                 Log.d(TAG, "DatabaseReferecne: "+databaseReference.toString());
-                notifyDataSetChanged();
-                notifyItemRangeChanged(po, phone.size());
             }
         });
     }
     @Override
     public int getItemCount() {
-        return phone.size();
+        return incomingRequestPOJOS.size();
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // init the item view's

@@ -103,7 +103,7 @@ public class ConfirmedTransaction extends Fragment {
         return view;
     }
     int i=0;
-    HashMap<String, Integer> storeUidIndex=new HashMap<>();
+    ArrayList<String> storeUidIndex=new ArrayList<>();
     private void loadData()
     {
 
@@ -112,7 +112,6 @@ public class ConfirmedTransaction extends Fragment {
              public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String s) {
                      final String oppnuid=ds.getKey().toString();
                      Log.d(TAG, "2"+oppnuid);
-                     storeUidIndex.put(oppnuid, i++);
                      Log.d(TAG, "Children"+ds.toString());
                      final int netTotal=ds.child("netTotal").getValue(Integer.class);
                      databaseReference.child("userNameByUid").child(oppnuid).addValueEventListener(new ValueEventListener() {
@@ -127,6 +126,7 @@ public class ConfirmedTransaction extends Fragment {
                              else
                                  direction="coming";
                              mArraylist.add(new ConfTranClass(Math.abs(nt), Ouid, name, direction));
+                             storeUidIndex.add(Ouid);
                              mAdapter.notifyDataSetChanged();
                          }
 
@@ -143,8 +143,8 @@ public class ConfirmedTransaction extends Fragment {
              @Override
              public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                    Log.d(TAG, "change "+dataSnapshot.toString()+ "---" +s);
-                   int pos=storeUidIndex.get(dataSnapshot.getKey());
                    try {
+                       int pos = storeUidIndex.indexOf(dataSnapshot.getKey());
                        ConfTranClass object = mArraylist.get(pos);
                        int nt = dataSnapshot.child("netTotal").getValue(Integer.class);
                        String direction = nt < 0 ? "going" : "coming";
@@ -152,15 +152,16 @@ public class ConfirmedTransaction extends Fragment {
                        mArraylist.set(pos, newObject);
                        mAdapter.notifyDataSetChanged();
                    }
-                   catch (IndexOutOfBoundsException e)
+                   catch (Exception e)
                    {
-                       e.printStackTrace();
+                       Log.d(TAG, "Yes exception: "+e.toString());
                    }
              }
 
              @Override
              public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                 int pos =storeUidIndex.get(dataSnapshot.getKey());
+                 int pos =storeUidIndex.indexOf(dataSnapshot.getKey());
+                 storeUidIndex.remove(dataSnapshot.getKey());
                  mArraylist.remove(pos);
                  mAdapter.notifyDataSetChanged();
 

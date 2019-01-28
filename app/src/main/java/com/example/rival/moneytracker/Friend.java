@@ -26,9 +26,9 @@ public class Friend extends AppCompatActivity {
     private ArrayList<String> Name=new ArrayList<String>();
     private ArrayList<String> incomingUid=new ArrayList<String>();
     private ArrayList<String> incomingphone=new ArrayList<String>();
-    public static FirebaseDatabase firebaseDatabase;
-    public static FirebaseAuth firebaseAuth;
-    public static DatabaseReference databaseReference;
+    private FirebaseDatabase firebaseDatabase;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference databaseReference;
     String TAG= "IncomingRequest";
     public static  String uid;
     CustomAdapterFriend customAdapter;

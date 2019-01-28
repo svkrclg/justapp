@@ -22,10 +22,7 @@ import java.util.HashMap;
 
 public class MyAddedRequest extends AppCompatActivity {
 
-    private ArrayList<Character> firstLetter=new ArrayList<Character>();
-    private ArrayList<String> Name=new ArrayList<String>();
-    private ArrayList<String> incomingUid=new ArrayList<String>();
-    private ArrayList<String> incomingphone=new ArrayList<String>();
+    private ArrayList<SendRequestPOJO> mArrayList=new ArrayList<>();
     public static FirebaseDatabase firebaseDatabase;
     public static FirebaseAuth firebaseAuth;
     public static DatabaseReference databaseReference;
@@ -33,7 +30,7 @@ public class MyAddedRequest extends AppCompatActivity {
     public static  String uid;
     CustomAdapterSendRequest customAdapter;
     RecyclerView recyclerView;
-    HashMap<String, Integer > toDeleteUid=new HashMap<>();
+    ArrayList<String> toDeleteUid=new ArrayList<>();
     int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,33 +47,29 @@ public class MyAddedRequest extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.SendRequestrecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        customAdapter = new CustomAdapterSendRequest(MyAddedRequest.this);
+        customAdapter = new CustomAdapterSendRequest(MyAddedRequest.this,mArrayList);
+        recyclerView.setAdapter(customAdapter);
         databaseReference.child("users").child(uid).child("pendingSendRequest").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
                 Log.d(TAG, dataSnapshot.toString());
                 final String fromuid = dataSnapshot.getKey();
-                toDeleteUid.put(fromuid, i);
-                i++;
-                customAdapter.uid.add(fromuid);
                 Boolean boo = dataSnapshot.getValue(Boolean.class);
                 Log.d(TAG, fromuid + ", " + boo + ", ");
                 databaseReference.child("userNameByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String name = dataSnapshot.getValue(String.class);
+                        final String name = dataSnapshot.getValue(String.class);
                         Log.d(TAG, "Name: " + name);
-                        customAdapter.name.add(name);
-                        customAdapter.firstLetter.add(name.toUpperCase().charAt(0));
                         databaseReference.child("userPhoneByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String phone = dataSnapshot.getValue(String.class);
                                 Log.d(TAG, "Phone " + phone);
-                                customAdapter.phone.add(phone);
-
-                                recyclerView.setAdapter(customAdapter);
+                                mArrayList.add(new SendRequestPOJO(name, fromuid,phone, name.toUpperCase().charAt(0)));
+                                toDeleteUid.add(fromuid);
+                                customAdapter.notifyDataSetChanged();
                             }
 
                             @Override
@@ -102,8 +95,10 @@ public class MyAddedRequest extends AppCompatActivity {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 String uidDeleted=dataSnapshot.getKey().toString();
-                int pos=customAdapter.uid.indexOf(uidDeleted);
-                customAdapter.deleteItem(pos);
+                int pos=toDeleteUid.indexOf(uidDeleted);
+                toDeleteUid.remove(pos);
+                mArrayList.remove(pos);
+                customAdapter.notifyDataSetChanged();
             }
 
 

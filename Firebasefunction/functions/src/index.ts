@@ -357,7 +357,16 @@ exports.actionOnPendingTransactions=functions.database.ref("/users/{uid}/pending
                  const gettransactionshot= await admin.database().ref("/transactions/"+ptid).once('value')
                  .then(function(dataSnapshot){
                    console.log(dataSnapshot.val());
-                   return dataSnapshot.val();
+                   var shot=dataSnapshot.val(); 
+                   var aUid=shot.addedBy;
+                   var amt=shot.amount;
+                   var fUid=shot.from;
+                   var rsn=shot.reason;
+                   var tUid=shot.to;
+                   var timeStamp=Date.now();
+                   console.log("Test: "+aUid);
+                   console.log("Test: "+aUid.toString());
+                   return {addedBy: aUid, amount: amt, from: fUid, reason:rsn, to:tUid, confirmTimeStamp:timeStamp };
                  })
                  
                  const removefromtransactions=admin.database().ref("/transactions/"+ptid);
@@ -369,23 +378,23 @@ exports.actionOnPendingTransactions=functions.database.ref("/users/{uid}/pending
                 
                 let reference=admin.database().ref("/confirmedTransactions/"+ptid);
                 reference.set(gettransactionshot)
-                .then(function(){
-                console.log("Written");
-                })
-                .catch(function(){
-                console.log("error");
-                    })
-                    console.log("my token:", toNotifyuidToken);
-                    const payload={
-                      notification:{
-                        title:"Your transaction request rejected",
-                        body: uidname+" accepted your transaction."
-                      },
-                      data:{
-                          jio:"sevs"
-                      }
-                    }
-                    const response= admin.messaging().sendToDevice(toNotifyuidToken, payload);
+                         .then(function(){
+                            console.log("Written");
+                         })
+                        .catch(function(){
+                            console.log("error");
+                         })
+                console.log("my token:", toNotifyuidToken);
+                const payload={
+                  notification:{
+                    title:"Your transaction request rejected",
+                    body: uidname+" accepted your transaction."
+                  },
+                  data:{
+                      jio:"sevs"
+                  }
+                }
+                const response= admin.messaging().sendToDevice(toNotifyuidToken, payload);
 
 
                 }

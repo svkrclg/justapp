@@ -112,7 +112,7 @@ public class DashBoard extends AppCompatActivity
         {
           editor.putString("uid", uid);
         }
-        LocalSaveOfFriend();
+        new CreateFriendCache(this).LocalSaveOfFriend();
         Log.d("DashBoard", name+", "+phone+", "+email);
         View header=navigationView.getHeaderView(0);
         TextView nav_bar_first_letter=(TextView) header.findViewById(R.id.nav_bar_first_letter);
@@ -240,61 +240,6 @@ public class DashBoard extends AppCompatActivity
         return true;
     }
     int i=0;
-    public void LocalSaveOfFriend(){
-        final HashMap<String, String > friendList=new HashMap<>();
-        databaseReference.child("users").child(uid).child("friend").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final long count =dataSnapshot.getChildrenCount();
-                for (DataSnapshot ds: dataSnapshot.getChildren()
-                     ) {
-                    i++;
-                    final String uid=ds.getKey().toString();
-                    Log.d(TAG,ds.getKey().toString()+", "+ds.getValue(Boolean.class) +"Chiren count "+dataSnapshot.getChildrenCount());
-                    databaseReference.child("userNameByUid").child(uid).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            final String name=dataSnapshot.getValue(String.class);
-                            databaseReference.child("userPhoneByUid").child(uid).addValueEventListener(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                  final String phone=dataSnapshot.getValue(String.class);
-                                  friendList.put(name, uid+"_"+phone);
-                                  if(count==i)
-                                       CreateHashAndSaveLocal(friendList);
-
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-    public void CreateHashAndSaveLocal(HashMap<String, String > hashMap)
-    {
-        JSONObject jsonObject = new JSONObject(hashMap);
-        String jsonString = jsonObject.toString();
-        editor.remove("friendMap").commit();
-        editor.putString("friendMap", jsonString);
-        editor.commit();
-        Log.d(TAG, jsonString);
-    }
     public  void CheckLocal(View view)
     {
         HashMap<String,String> outputMap = new HashMap<>();
