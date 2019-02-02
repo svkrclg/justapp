@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -22,10 +25,7 @@ import java.util.HashMap;
 
 public class Friend extends AppCompatActivity {
 
-    private ArrayList<Character> firstLetter=new ArrayList<Character>();
-    private ArrayList<String> Name=new ArrayList<String>();
-    private ArrayList<String> incomingUid=new ArrayList<String>();
-    private ArrayList<String> incomingphone=new ArrayList<String>();
+    private ArrayList<FriendPOJO> mArrayList= new ArrayList<>();
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
@@ -33,8 +33,10 @@ public class Friend extends AppCompatActivity {
     public static  String uid;
     CustomAdapterFriend customAdapter;
     RecyclerView recyclerView;
-    HashMap<String, Integer > toDeleteUid=new HashMap<>();
+    ArrayList<String> indexing=new ArrayList<>();
     int i=0;
+    ProgressBar progressBar;
+    TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,35 +50,49 @@ public class Friend extends AppCompatActivity {
         databaseReference=firebaseDatabase.getReference();
         uid=firebaseAuth.getUid();
         recyclerView = (RecyclerView) findViewById(R.id.FriendrecyclerView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        tv=(TextView) findViewById(R.id.notFound);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
-        customAdapter = new CustomAdapterFriend(Friend.this);
+        customAdapter = new CustomAdapterFriend(Friend.this, mArrayList);
+        recyclerView.setAdapter(customAdapter);
+        databaseReference.child("users").child(uid).child("friend").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.GONE);
+                if(dataSnapshot.getChildrenCount()==0)
+                {
+                    tv.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "wtF: "+dataSnapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         databaseReference.child("users").child(uid).child("friend").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                tv.setVisibility(View.GONE);
                 Log.d(TAG, dataSnapshot.toString());
                 final String fromuid = dataSnapshot.getKey();
-                toDeleteUid.put(fromuid, i);
-                i++;
-                customAdapter.uid.add(fromuid);
                 Boolean boo = dataSnapshot.getValue(Boolean.class);
                 Log.d(TAG, fromuid + ", " + boo + ", ");
                 databaseReference.child("userNameByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        String name = dataSnapshot.getValue(String.class);
+                        final String name = dataSnapshot.getValue(String.class);
                         Log.d(TAG, "Name: " + name);
-                        customAdapter.name.add(name);
-                        customAdapter.firstLetter.add(name.toUpperCase().charAt(0));
                         databaseReference.child("userPhoneByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                 String phone = dataSnapshot.getValue(String.class);
                                 Log.d(TAG, "Phone " + phone);
-                                customAdapter.phone.add(phone);
-
-                                recyclerView.setAdapter(customAdapter);
+                                mArrayList.add(new FriendPOJO(name.toUpperCase().charAt(0), name, fromuid, phone));
+                                indexing.add(fromuid);
+                                customAdapter.notifyDataSetChanged();
                             }
 
                             @Override
@@ -102,8 +118,9 @@ public class Friend extends AppCompatActivity {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
                 String uidDeleted=dataSnapshot.getKey().toString();
-                int pos=customAdapter.uid.indexOf(uidDeleted);
-                customAdapter.deleteItem(pos);
+                int pos=indexing.indexOf(uidDeleted);
+                mArrayList.remove(pos);
+                customAdapter.notifyDataSetChanged();
             }
 
 

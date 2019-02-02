@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,6 +42,8 @@ public class WithFriendRecord extends AppCompatActivity {
     Calendar c;
     SimpleDateFormat sdf;
     String name;
+    ProgressBar progressBar;
+    TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,16 +64,36 @@ public class WithFriendRecord extends AppCompatActivity {
         c = Calendar.getInstance();
         sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         recyclerView = (RecyclerView) findViewById(R.id.FriendRecordrecyclerView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        tv=(TextView) findViewById(R.id.notFound);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         customAdapterFriendRecord=new CustomAdapterFriendRecord(this, mArrayList );
         recyclerView.setAdapter(customAdapterFriendRecord);
+        databaseReference.child("users").child(uid).child("myTransactions").child(oppnUid).child("transactions").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                progressBar.setVisibility(View.GONE);
+                if(dataSnapshot.getChildrenCount()==0)
+                {
+                    tv.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "wtF: "+dataSnapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         LoadData();
     }
     private void LoadData(){
        databaseReference.child("users").child(uid).child("myTransactions").child(oppnUid).child("transactions").addListenerForSingleValueEvent(new ValueEventListener() {
            @Override
            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+               tv.setVisibility(View.GONE);
                for (DataSnapshot ds:dataSnapshot.getChildren()) {
                     final String StimeStamp=ds.getKey();
                     Long timestamp=Long.parseLong(StimeStamp);
@@ -94,12 +119,13 @@ public class WithFriendRecord extends AppCompatActivity {
                             {
                                 Log.d(TAG, "Excp:"+e.toString());
                             }
-                            String ObjReason, Objtime, ObjisAddedByMe, Objdirection;
+                            String ObjReason, Objtime, Objdirection;
+                            Boolean ObjisAddedByMe;
                             int ObjAmount;
                             if(addedBy.equals(uid))
-                                    ObjisAddedByMe="Added By me";
+                                    ObjisAddedByMe=true;
                             else
-                                    ObjisAddedByMe="Added by "+name;
+                                    ObjisAddedByMe=false;
                             ObjReason=reason;
                             Objtime=time;
                             ObjAmount=amount;

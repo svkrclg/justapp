@@ -14,6 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -57,6 +60,8 @@ public class PendingTransaction extends Fragment {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private String uid;
+    ProgressBar progressBar;
+    TextView tv;
     public PendingTransaction() {
         // Required empty public constructor
     }
@@ -103,6 +108,24 @@ public class PendingTransaction extends Fragment {
         firebaseDatabase=FirebaseDatabase.getInstance();
         uid=firebaseAuth.getUid();
         databaseReference=firebaseDatabase.getReference();
+        progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
+        tv=(TextView) view.findViewById(R.id.notFound);
+        databaseReference.child("users").child(uid).child("pendingTransactions").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                progressBar.setVisibility(View.GONE);
+                if(dataSnapshot.getChildrenCount()==0)
+                {
+                    tv.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "wtF: "+dataSnapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         loadData();
         return view;
     }
@@ -114,6 +137,7 @@ public class PendingTransaction extends Fragment {
         databaseReference.child("users").child(uid).child("pendingTransactions").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                tv.setVisibility(View.GONE);
                      final String keytimeMillis=dataSnapshot.getKey();
                      String Tuid[]=new String[2];
                      Boolean status[]= new Boolean[2];
@@ -204,6 +228,8 @@ public class PendingTransaction extends Fragment {
                 mArraylist.remove(pos);
                 mAdapter.notifyDataSetChanged();
                 Log.d(TAG, "IndexTracking: "+index);
+                if(mArraylist.isEmpty())
+                    tv.setVisibility(View.VISIBLE);
             }
 
             @Override

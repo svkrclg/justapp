@@ -223,14 +223,20 @@ public class DashBoard extends AppCompatActivity
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_logout) {
-            editor.clear().commit();
-            firebaseAuth.signOut();
-            Intent i= new Intent(getApplicationContext(), LoginActivity.class);
-            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-            startActivity(i);
-            finish();
+            databaseReference.child("users").child(uid).child("firebaseToken").setValue("NULL").addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    editor.clear().commit();
+                    firebaseAuth.signOut();
+                    Intent i= new Intent(getApplicationContext(), LoginActivity.class);
+                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    startActivity(i);
+                    finish();
+                }
+            });
+
         } else if (id == R.id.nav_send) {
 
         }

@@ -17,13 +17,11 @@ import java.util.ArrayList;
 import static android.support.constraint.Constraints.TAG;
 
 public class CustomAdapterFriend extends RecyclerView.Adapter<CustomAdapterFriend.MyViewHolder> {
-    public ArrayList<Character> firstLetter =new ArrayList<>();
-    public ArrayList<String> name= new ArrayList<>();
-    public ArrayList<String> uid= new ArrayList<>();
-    public ArrayList<String> phone= new ArrayList<>();
+    public ArrayList<FriendPOJO> friendPOJOS;
     Context context;
-    public CustomAdapterFriend(Context context) {
+    public CustomAdapterFriend(Context context , ArrayList<FriendPOJO> friendPOJOS) {
         this.context = context;
+        this.friendPOJOS=friendPOJOS;
     }
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -36,32 +34,15 @@ public class CustomAdapterFriend extends RecyclerView.Adapter<CustomAdapterFrien
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // set the data in items
-        holder.friendfirstLetter.setText(firstLetter.get(position)+"");
-        holder.friendname.setText(name.get(position));
-        holder.friendphone.setText(phone.get(position));
+        FriendPOJO obj=friendPOJOS.get(position);
+        holder.friendfirstLetter.setText(obj.getFirstLetter()+"");
+        holder.friendname.setText(obj.getName());
+        holder.friendphone.setText(obj.getPhone());
     }
 
-
-    public void deleteItem(final int po)
-    {
-        Log.d(TAG, po+" Todelete");
-        String toremoveuid=uid.get(po);
-        firstLetter.remove(po);
-        phone.remove(po);
-        name.remove(po);
-        uid.remove(po);
-        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toremoveuid).removeValue(new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                Log.d(TAG, "DatabaseReferecne: "+databaseReference.toString());
-                notifyDataSetChanged();
-                notifyItemRangeChanged(po, phone.size());
-            }
-        });
-    }
     @Override
     public int getItemCount() {
-        return phone.size();
+        return friendPOJOS.size();
     }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // init the item view's

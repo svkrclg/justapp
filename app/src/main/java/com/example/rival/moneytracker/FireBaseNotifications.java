@@ -31,8 +31,17 @@ public class FireBaseNotifications extends FirebaseMessagingService {
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+            try {
+                Log.d(TAG, "Message data payload: " + remoteMessage.getData());
+                Log.d(TAG, "Message data payload data: " + remoteMessage.getData().get("code"));
+                if (remoteMessage.getData().get("code").equals("001"))
+                    new CreateFriendCache(getApplicationContext()).LocalSaveOfFriend();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
             //  Toast.makeText(this, "Hi", Toast.LENGTH_LONG).show();
+
         }
 
         // Check if message contains a notification payload.
@@ -60,6 +69,12 @@ public class FireBaseNotifications extends FirebaseMessagingService {
     public void onNewToken(String s) {
 
         super.onNewToken(s);
-        databaseReference.child("users").child(uid).child("firebaseToken").setValue(s);
+        try{
+            databaseReference.child("users").child(uid).child("firebaseToken").setValue(s);
+        }
+        catch (Exception e)
+        {
+
+        }
     }
 }

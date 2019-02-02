@@ -96,6 +96,11 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
     }
 
     @Override
+    public void onViewAttachedToWindow(@NonNull MyViewHolder holder) {
+        super.onViewAttachedToWindow(holder);
+    }
+
+    @Override
     public int getItemCount() {
         return list.size();
     }

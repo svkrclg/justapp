@@ -2,12 +2,12 @@ package com.example.rival.moneytracker;
 
 public class friendRecordPOJO {
     String reason, time;
-    String isAddedByMe;
+    Boolean isAddedByMe;
     int amount;
     String direction;
 
     public friendRecordPOJO(String reason,
-                            String time, String isAddedByMe, int amount, String direction) {
+                            String time, Boolean isAddedByMe, int amount, String direction) {
         this.reason = reason;
         this.time = time;
         this.isAddedByMe = isAddedByMe;
@@ -23,7 +23,7 @@ public class friendRecordPOJO {
         return time;
     }
 
-    public String getAddedByMe() {
+    public Boolean getAddedByMe() {
         return isAddedByMe;
     }
 

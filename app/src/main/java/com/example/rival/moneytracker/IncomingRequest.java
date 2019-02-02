@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -35,6 +38,8 @@ public class IncomingRequest extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<String> toDeleteUid=new ArrayList<>();
     ArrayList<IncomingRequestPOJO> mArraylist=new ArrayList<>();
+    ProgressBar progressBar;
+    TextView tv;
     int i=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,51 +49,76 @@ public class IncomingRequest extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        firebaseAuth=FirebaseAuth.getInstance();
-        firebaseDatabase=FirebaseDatabase.getInstance();
-        databaseReference=firebaseDatabase.getReference();
-        uid=firebaseAuth.getUid();
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        tv=(TextView) findViewById(R.id.notFound);
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+        uid = firebaseAuth.getUid();
         recyclerView = (RecyclerView) findViewById(R.id.IncomingRequestrecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         customAdapter = new CustomAdapterIncomingRequest(IncomingRequest.this, mArraylist);
         recyclerView.setAdapter(customAdapter);
+        databaseReference.child("users").child(uid).child("incomingRequest").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                progressBar.setVisibility(View.GONE);
+                if(dataSnapshot.getChildrenCount()==0)
+                {
+                    tv.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "wtF: "+dataSnapshot.getChildrenCount());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+        addListener();
+
+    }
+    public void addListener(){
         databaseReference.child("users").child(uid).child("incomingRequest").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Log.d(TAG, "Check for child count: "+dataSnapshot.getChildrenCount());
+                Log.d(TAG, dataSnapshot.toString());
+                tv.setVisibility(View.GONE);
+                final String fromuid = dataSnapshot.getKey();
+                Boolean boo = dataSnapshot.getValue(Boolean.class);
+                Log.d(TAG, fromuid + ", " + boo + ", ");
+                databaseReference.child("userNameByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final String name = dataSnapshot.getValue(String.class);
+                        Log.d(TAG, "Name: " + name);
+                        databaseReference.child("userPhoneByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                String phone = dataSnapshot.getValue(String.class);
+                                Log.d(TAG, "Phone " + phone);
+                                mArraylist.add(new IncomingRequestPOJO(name.toUpperCase().charAt(0), name, phone, fromuid));
+                                toDeleteUid.add(fromuid);
+                                customAdapter.notifyDataSetChanged();
 
-                    Log.d(TAG, dataSnapshot.toString());
-                    final String fromuid = dataSnapshot.getKey();
-                    Boolean boo = dataSnapshot.getValue(Boolean.class);
-                    Log.d(TAG, fromuid + ", " + boo + ", ");
-                    databaseReference.child("userNameByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            final String name = dataSnapshot.getValue(String.class);
-                            Log.d(TAG, "Name: " + name);
-                            databaseReference.child("userPhoneByUid").child(fromuid).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    String phone = dataSnapshot.getValue(String.class);
-                                    Log.d(TAG, "Phone " + phone);
-                                    mArraylist.add(new IncomingRequestPOJO(name.toUpperCase().charAt(0), name, phone, fromuid ));
-                                    toDeleteUid.add(fromuid);
-                                    customAdapter.notifyDataSetChanged();
+                            }
 
-                                }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+                    }
 
-                                }
-                            });
-                        }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
+                    }
+                });
 
             }
 
@@ -99,11 +129,13 @@ public class IncomingRequest extends AppCompatActivity {
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-                String uidDeleted=dataSnapshot.getKey().toString();
-                int pos=toDeleteUid.indexOf(uidDeleted);
+                String uidDeleted = dataSnapshot.getKey().toString();
+                int pos = toDeleteUid.indexOf(uidDeleted);
                 toDeleteUid.remove(pos);
                 mArraylist.remove(pos);
                 customAdapter.notifyDataSetChanged();
+                if(mArraylist.isEmpty())
+                    tv.setVisibility(View.VISIBLE);
             }
 
 
@@ -117,10 +149,7 @@ public class IncomingRequest extends AppCompatActivity {
 
             }
         });
-
-
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

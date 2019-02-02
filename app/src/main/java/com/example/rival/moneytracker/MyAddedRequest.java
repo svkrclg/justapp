@@ -8,6 +8,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -32,6 +35,8 @@ public class MyAddedRequest extends AppCompatActivity {
     RecyclerView recyclerView;
     ArrayList<String> toDeleteUid=new ArrayList<>();
     int i=0;
+    ProgressBar progressBar;
+    TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,14 +50,34 @@ public class MyAddedRequest extends AppCompatActivity {
         databaseReference=firebaseDatabase.getReference();
         uid=firebaseAuth.getUid();
         recyclerView = (RecyclerView) findViewById(R.id.SendRequestrecyclerView);
+        progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        tv=(TextView) findViewById(R.id.notFound);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         customAdapter = new CustomAdapterSendRequest(MyAddedRequest.this,mArrayList);
         recyclerView.setAdapter(customAdapter);
+        databaseReference.child("users").child(uid).child("pendingSendRequest").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                progressBar.setVisibility(View.GONE);
+                if(dataSnapshot.getChildrenCount()==0)
+                {
+                    tv.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
+                    Log.d(TAG, "wtF: "+dataSnapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         databaseReference.child("users").child(uid).child("pendingSendRequest").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                tv.setVisibility(View.GONE);
                 Log.d(TAG, dataSnapshot.toString());
                 final String fromuid = dataSnapshot.getKey();
                 Boolean boo = dataSnapshot.getValue(Boolean.class);
@@ -98,7 +123,9 @@ public class MyAddedRequest extends AppCompatActivity {
                 int pos=toDeleteUid.indexOf(uidDeleted);
                 toDeleteUid.remove(pos);
                 mArrayList.remove(pos);
-                customAdapter.notifyDataSetChanged();
+                customAdapter.notifyDataSetChanged();;
+                if(mArrayList.isEmpty())
+                    tv.setVisibility(View.VISIBLE);
             }
 
 

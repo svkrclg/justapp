@@ -153,6 +153,9 @@ exports.incomingRequestAccepted = functions.database.ref("/users/{uid}/incomingR
               notification:{
                 title:"Friend Request Accpeted",
                 body: fromName+" accept your request"
+              },
+              data:{
+                code: "001"
               }
             }
             const response=await admin.messaging().sendToDevice(myToken, payload);

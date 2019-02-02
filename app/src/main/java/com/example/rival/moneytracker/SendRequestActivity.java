@@ -1,6 +1,7 @@
 package com.example.rival.moneytracker;
 
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -52,6 +53,8 @@ public class SendRequestActivity extends AppCompatActivity {
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
         uid=firebaseAuth.getUid();
+        DatabaseReference scoresRef = FirebaseDatabase.getInstance().getReference("users/"+uid);
+        scoresRef.keepSynced(true);
         addfrndButton=(CircularProgressButton) findViewById(R.id.sendReq);
         addfrndButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,21 +72,23 @@ public class SendRequestActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
-                addfrndButton.setText("Searching");
-                if(s.toString().length()==0)
+                if(requestSend==true)
                 {
-                    addfrndButton.setText("Phone number not valid");
+                    addfrndButton.revertAnimation(new OnAnimationEndListener() {
+                        @Override
+                        public void onAnimationEnd() {
+                            addfrndButton.setBackgroundColor(Color.TRANSPARENT);
+                            addfrndButton.setText("Searching");
+                            addfrndButton.setTextColor(Color.BLACK);
+                        }
+                    });
+                    requestSend=false;
                 }
-                if(nameFound==true)
-                    addfrndButton.setBackgroundColor(Color.WHITE);
                 if(s.toString().length()<=5)
                 {
-                    startedType=false;
-                    nameFound=false;
                     return;
-                 }
-                 nameFound=false;
-                startedType=true;
+                }
+                addfrndButton.setText("Searching");
                 Log.d("EditText Study", "afterTextChanged: "+s.toString());
                 String phoneNo=s.toString();
                 SearchPhoneNumber(phoneNo);
@@ -108,7 +113,10 @@ public class SendRequestActivity extends AppCompatActivity {
                         getnamefromUid(recpuid);
                     }
                     else
+                    {
                         founduid=false;
+                        addfrndButton.setText("Not found");
+                    }
                     Log.d(TAG, "onDataChange: " + dataSnapshot.getValue(String.class));
             }
 
@@ -127,14 +135,8 @@ public class SendRequestActivity extends AppCompatActivity {
          databaseReference.child("users").child(uid).child("pendingSendRequest").child(recpuid).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
              @Override
              public void onComplete(@NonNull Task<Void> task) {
-                 addfrndButton.revertAnimation(new OnAnimationEndListener() {
-                     @Override
-                     public void onAnimationEnd() {
-                         addfrndButton.setBackgroundColor(Color.GREEN);
-                         addfrndButton.setText("Request send");
-                         requestSend=true;
-                     }
-                 });
+                 addfrndButton.doneLoadingAnimation(getResources().getColor(R.color.colorPrimaryDark), BitmapFactory.decodeResource(getResources(), R.drawable.done));
+                 requestSend=true;
              }
          });
       }
@@ -180,7 +182,8 @@ public class SendRequestActivity extends AppCompatActivity {
                                                 else
                                                 {
                                                     addfrndButton.setText("Add "+recpname);
-                                                    addfrndButton.setBackgroundColor(Color.GREEN);
+                                                    addfrndButton.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+                                                    addfrndButton.setTextColor(Color.WHITE);
                                                     nameFound=true;
                                                 }
                                             }

@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -25,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import static android.support.constraint.Constraints.TAG;
 
 
 /**
@@ -53,6 +57,9 @@ public class ConfirmedTransaction extends Fragment {
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
     private String uid;
+
+    ProgressBar progressBar;
+    TextView tv;
     public ConfirmedTransaction() {
         // Required empty public constructor
     }
@@ -90,6 +97,8 @@ public class ConfirmedTransaction extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_confirmed_transaction, container, false);
         mConfirmTransactionRView=(RecyclerView) view.findViewById(R.id.ConfirmTransactionrecyclerView);
+        progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
+        tv=(TextView) view.findViewById(R.id.notFound);
         mAdapter=new ConfTranCardAdapter(getContext(), mArraylist);
         mConfirmTransactionRView.setLayoutManager(new LinearLayoutManager(getContext()));
         mConfirmTransactionRView.setItemAnimator( new DefaultItemAnimator());
@@ -99,6 +108,23 @@ public class ConfirmedTransaction extends Fragment {
         firebaseDatabase=FirebaseDatabase.getInstance();
         uid=firebaseAuth.getUid();
         databaseReference=firebaseDatabase.getReference();
+        databaseReference.child("users").child(uid).child("myTransactions").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                progressBar.setVisibility(View.GONE);
+                if(dataSnapshot.getChildrenCount()==0)
+                {
+                    tv.setVisibility(View.VISIBLE);
+                    Log.d(TAG, "wtF: "+dataSnapshot.getChildrenCount());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         loadData();
         return view;
     }
@@ -110,6 +136,7 @@ public class ConfirmedTransaction extends Fragment {
         databaseReference.child("users").child(uid).child("myTransactions").addChildEventListener(new ChildEventListener() {
              @Override
              public void onChildAdded(@NonNull DataSnapshot ds, @Nullable String s) {
+                     tv.setVisibility(View.GONE);
                      final String oppnuid=ds.getKey().toString();
                      Log.d(TAG, "2"+oppnuid);
                      Log.d(TAG, "Children"+ds.toString());
@@ -164,6 +191,8 @@ public class ConfirmedTransaction extends Fragment {
                  storeUidIndex.remove(dataSnapshot.getKey());
                  mArraylist.remove(pos);
                  mAdapter.notifyDataSetChanged();
+                 if(mArraylist.isEmpty())
+                     tv.setVisibility(View.VISIBLE);
 
              }
 

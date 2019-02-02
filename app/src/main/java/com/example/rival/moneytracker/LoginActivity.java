@@ -41,7 +41,6 @@ public class LoginActivity extends AppCompatActivity {
     private  SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         firebaseAuth= FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser()!=null)
         {
