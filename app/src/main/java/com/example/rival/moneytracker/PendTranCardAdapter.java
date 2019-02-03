@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,12 +49,16 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
 
         final PendTranClass pendTranClass=list.get(i);
         myViewHolder.opponentName.setText(pendTranClass.getName());
-        myViewHolder.reason.setText(pendTranClass.getReason()+"\n"+pendTranClass.getAddedByMe());
+        myViewHolder.reason.setText(pendTranClass.getReason()+"");
         myViewHolder.amount.setText(pendTranClass.getAmount()+"");
+        if(pendTranClass.getDirection().equals("coming"))
+            myViewHolder.direction.setImageResource(R.drawable.incoming_money);
+        else
+            myViewHolder.direction.setImageResource(R.drawable.outgoing_money);
         if(pendTranClass.getAddedByMe()==true)
         {
             myViewHolder.confirm.setVisibility(View.GONE);
-            myViewHolder.reject.setText("Delete");
+            myViewHolder.reject.setImageResource(R.drawable.delete);
         }
         myViewHolder.reject.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,18 +112,19 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
     }
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
-    TextView opponentName;
+    TextView opponentName, firstLetter;
     TextView amount, reason;
-    Button confirm, reject;
+    ImageButton confirm, reject;
+    ImageView direction;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
+            firstLetter=itemView.findViewById(R.id.firstLetter);
             amount=itemView.findViewById(R.id.amountPend);
             reason=itemView.findViewById(R.id.reasonPend);
             opponentName=itemView.findViewById(R.id.opponentName);
             confirm=itemView.findViewById(R.id.ConfirmTransaction);
             reject=itemView.findViewById(R.id.RejectTransaction);
-
-
+            direction=itemView.findViewById(R.id.direction);
         }
     }
 }

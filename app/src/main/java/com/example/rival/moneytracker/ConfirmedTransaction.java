@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -100,9 +101,7 @@ public class ConfirmedTransaction extends Fragment {
         progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
         tv=(TextView) view.findViewById(R.id.notFound);
         mAdapter=new ConfTranCardAdapter(getContext(), mArraylist);
-        mConfirmTransactionRView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mConfirmTransactionRView.setItemAnimator( new DefaultItemAnimator());
-        mConfirmTransactionRView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+        mConfirmTransactionRView.setLayoutManager(new GridLayoutManager(getContext(), 2));
         mConfirmTransactionRView.setAdapter(mAdapter);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();

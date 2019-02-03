@@ -195,7 +195,7 @@ public class PendingTransaction extends Fragment {
                                 Log.d(TAG, "key: "+keytimeMillis +" index: "+index);
                                 storeIndex.add(keytimeMillis);
                                 index++;
-                                mArraylist.add(new PendTranClass(finalIsMyAdded, amount, reason+"\n"+dir, opponetUid, Opponetname, Long.parseLong(keytimeMillis)));
+                                mArraylist.add(new PendTranClass(finalIsMyAdded, amount, reason, opponetUid, Opponetname, Long.parseLong(keytimeMillis), dir));
                                 mAdapter.notifyDataSetChanged();
 
                             }

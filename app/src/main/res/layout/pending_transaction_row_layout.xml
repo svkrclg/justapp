@@ -1,79 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView android:layout_width="match_parent"
-    android:layout_height="110dp"
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardCornerRadius="8dp"
     android:layout_margin="5dp"
-    android:background="@color/colorAccent"
+    android:background="@drawable/addedbyme"
     xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
    <LinearLayout
-       android:layout_width="match_parent"
+       android:layout_width="280dp"
        android:layout_height="match_parent"
-       android:layout_marginBottom="10dp"
-       android:layout_marginRight="10dp"
-       android:layout_marginLeft="10dp"
-       android:orientation="horizontal">
+       android:padding="5dp"
+       android:orientation="vertical">
        <LinearLayout
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:orientation="vertical">
-       <ImageView
-           android:layout_width="80dp"
-           android:src="@drawable/me"
-           android:layout_height="80dp" />
+           android:orientation="horizontal">
            <TextView
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
+               android:textSize="20dp"
+               android:id="@+id/amountPend"
                android:layout_gravity="center"
-               android:text="ME"/>
+               android:text="Amount"/>
+       <ImageView
+           android:layout_margin="10dp"
+           android:layout_width="80dp"
+           android:src="@drawable/outgoing_money"
+           android:id="@+id/direction"
+           android:layout_height="80dp" />
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginLeft="10dp"
+               android:layout_gravity="center"
+               android:orientation="vertical">
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:gravity="center"
+               android:id="@+id/firstLetter"
+               android:background="@drawable/firstlettercircleyellow"
+               android:text="S"
+               android:textSize="30sp"/>
+               <TextView
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="center"
+                   android:id="@+id/opponentName"
+                   android:text="Name"/>
+           </LinearLayout>
        </LinearLayout>
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:orientation="vertical">
        <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:textSize="20dp"
-           android:id="@+id/amountPend"
-           android:text="Amount"/>
-       <TextView
-           android:layout_width="wrap_content"
+           android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="Reason"
+           android:textAlignment="center"
            android:textSize="20dp"
            android:id="@+id/reasonPend"/>
-       </LinearLayout>
-       <LinearLayout
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:orientation="vertical">
-           <ImageView
-               android:layout_width="80dp"
-               android:src="@drawable/me"
-               android:layout_height="80dp" />
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_gravity="center"
-               android:id="@+id/opponentName"
-               android:text="Name"/>
-       </LinearLayout>
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="vertical">
-       <Button
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:text="Accept"
-           android:id="@+id/ConfirmTransaction"/>
-       <Button
-           android:layout_width="match_parent"
-           android:layout_height="match_parent"
-           android:text="Reject"
-           android:id="@+id/RejectTransaction"/>
+   </LinearLayout>
 
-   </LinearLayout>
-   </LinearLayout>
-</android.support.v7.widget.CardView>
+        <View
+            android:id="@+id/divider2"
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:background="?android:attr/listDivider" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/radius_topright_bottomright"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/transparent"
+                android:id="@+id/ConfirmTransaction"
+                android:layout_marginLeft="3dp"
+                android:src="@drawable/accept" />
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/white" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/RejectTransaction"
+                android:background="@android:color/transparent"
+                android:scaleType="fitXY"
+                android:src="@drawable/reject"/>
+
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

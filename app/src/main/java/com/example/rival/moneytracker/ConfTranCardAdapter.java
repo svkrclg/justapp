@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -48,9 +49,17 @@ public class ConfTranCardAdapter extends RecyclerView.Adapter<ConfTranCardAdapte
 
         final ConfTranClass confTranClass=list.get(i);
         myViewHolder.opponentName.setText(confTranClass.getName());
-        myViewHolder.amount.setText(confTranClass.getAmount()+"");
-        myViewHolder.direction.setText(confTranClass.getDirection());
-        myViewHolder.cardView.setOnClickListener(new View.OnClickListener() {
+        if(confTranClass.getDirection().equals("going"))
+        {
+            myViewHolder.amount.setText("-"+ confTranClass.getAmount());
+            myViewHolder.opponentName.setBackgroundResource(R.drawable.name_bg_going);
+        }
+        else
+        {
+            myViewHolder.amount.setText("+"+ confTranClass.getAmount());
+            myViewHolder.opponentName.setBackgroundResource(R.drawable.name_bg_coming);
+        }
+        myViewHolder.rl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Confirm "+ confTranClass.getOpponentUid());
@@ -71,15 +80,13 @@ public class ConfTranCardAdapter extends RecyclerView.Adapter<ConfTranCardAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
     TextView opponentName;
-    TextView amount, direction;
-    CardView cardView;
+    TextView amount;
+    RelativeLayout rl;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            cardView=itemView.findViewById(R.id.CardviewConfTran);
             amount=itemView.findViewById(R.id.amount);
-            direction=itemView.findViewById(R.id.direction);
-            opponentName=itemView.findViewById(R.id.oppname);
-
+            opponentName=itemView.findViewById(R.id.oppnname);
+            rl=(RelativeLayout) itemView.findViewById(R.id.relativelayout);
 
         }
     }
