@@ -56,7 +56,6 @@ public class DashBoard extends AppCompatActivity
     public String phone,email;
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
-    private FloatingActionMenu floatingActionMenu;
     private String token;
     String TAG="DashBoard";
     @Override
@@ -121,23 +120,6 @@ public class DashBoard extends AppCompatActivity
         TextView nav_bar_phone=(TextView)header.findViewById(R.id.nav_bar_phone);
         nav_bar_name.setText(name);
         nav_bar_phone.setText(phone);
-        //Setting floting action menu
-        floatingActionMenu=(FloatingActionMenu) findViewById(R.id.fabmenu);
-        floatingActionMenu.setClosedOnTouchOutside(true);
-        FloatingActionButton addfrnd=(FloatingActionButton) findViewById(R.id.menu_item1);
-        FloatingActionButton creatTran=(FloatingActionButton) findViewById(R.id.menu_item2);
-        addfrnd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SendRequestActivityOpen();
-            }
-        });
-        creatTran.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                CreateTransactionPageOpen();
-            }
-        });
         //Storing token
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -180,7 +162,18 @@ public class DashBoard extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_qr) {
+            Intent i=   new Intent(getApplicationContext(), QRcode.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(i);
+            return true;
+        }
+        else if (id == R.id.action_addTran) {
+            CreateTransactionPageOpen();
+            return true;
+        }
+        else if (id == R.id.action_addFriend) {
+            SendRequestActivityOpen();
             return true;
         }
 
@@ -188,14 +181,13 @@ public class DashBoard extends AppCompatActivity
     }
     public void SendRequestActivityOpen()
     {
-        floatingActionMenu.close(true);
+
         Intent i=   new Intent(getApplicationContext(), SendRequestActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);
     }
     public void CreateTransactionPageOpen()
     {
-        floatingActionMenu.close(true);
         Intent i=   new Intent(getApplicationContext(), AddTransaction.class);
         i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         startActivity(i);

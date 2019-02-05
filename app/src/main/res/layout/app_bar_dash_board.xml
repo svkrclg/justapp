@@ -23,31 +23,4 @@
 
     <include layout="@layout/content_dash_board" />
 
-    <com.github.clans.fab.FloatingActionMenu
-        android:id="@+id/fabmenu"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:menu_labels_position="left"
-        android:paddingBottom="20dp"
-        app:menu_backgroundColor="#8bffffff"
-        android:paddingRight="20dp"
-        android:layout_gravity="end|bottom">
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/person"
-            fab:fab_label="Add friend"
-            fab:fab_size="mini" />
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/create"
-            fab:fab_label="Create Transaction"
-            fab:fab_size="mini" />
-
-    </com.github.clans.fab.FloatingActionMenu>
-
 </android.support.design.widget.CoordinatorLayout>

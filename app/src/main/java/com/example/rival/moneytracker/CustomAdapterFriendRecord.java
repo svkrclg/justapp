@@ -2,10 +2,13 @@ package com.example.rival.moneytracker;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -14,6 +17,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+
+import static android.support.constraint.Constraints.TAG;
 
 public class CustomAdapterFriendRecord extends RecyclerView.Adapter<CustomAdapterFriendRecord.MyViewHolder> {
     private Context context;
@@ -40,6 +45,7 @@ public class CustomAdapterFriendRecord extends RecyclerView.Adapter<CustomAdapte
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
         final friendRecordPOJO record=list.get(i);
+        Log.d(TAG, "Content: "+ record.getTime()+" "+ record.getReason());
         myViewHolder.time.setText(record.getTime());
         if(record.getDirection().equals("going"))
                 myViewHolder.amount.setText("-"+record.getAmount());
@@ -52,7 +58,7 @@ public class CustomAdapterFriendRecord extends RecyclerView.Adapter<CustomAdapte
         int paddingPixelLR = (int)(paddingDpLR * density);
         int paddingDpTB=15;
         int paddingPixelTB = (int)(paddingDpTB * density);
-
+        Log.d(TAG, "Density: "+paddingPixelTB);
         if(record.getAddedByMe()==true)
         {
             myViewHolder.details.setBackgroundResource(R.drawable.addedbyme);
@@ -64,7 +70,6 @@ public class CustomAdapterFriendRecord extends RecyclerView.Adapter<CustomAdapte
         }
         else
         {
-
             myViewHolder.details.setBackgroundResource(R.drawable.addedbyoppn);
             RelativeLayout.LayoutParams params=(RelativeLayout.LayoutParams)myViewHolder.details.getLayoutParams();
             params.addRule(RelativeLayout.ALIGN_PARENT_START);
@@ -81,6 +86,12 @@ public class CustomAdapterFriendRecord extends RecyclerView.Adapter<CustomAdapte
     public int getItemCount() {
         return list.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
     TextView amount;

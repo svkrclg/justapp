@@ -28,7 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 
 import static android.support.constraint.Constraints.TAG;
@@ -61,6 +64,8 @@ public class PendingTransaction extends Fragment {
     private DatabaseReference databaseReference;
     private String uid;
     ProgressBar progressBar;
+    Calendar c;
+    SimpleDateFormat sdf;
     TextView tv;
     public PendingTransaction() {
         // Required empty public constructor
@@ -101,12 +106,12 @@ public class PendingTransaction extends Fragment {
         mPendingTransactionRView=(RecyclerView) view.findViewById(R.id.pendingTransactionrecyclerView);
         mAdapter=new PendTranCardAdapter(getContext(), mArraylist);
         mPendingTransactionRView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mPendingTransactionRView.setItemAnimator( new DefaultItemAnimator());
-        mPendingTransactionRView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         mPendingTransactionRView.setAdapter(mAdapter);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
         uid=firebaseAuth.getUid();
+        c = Calendar.getInstance();
+        sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         databaseReference=firebaseDatabase.getReference();
         progressBar=(ProgressBar) view.findViewById(R.id.progressBar);
         tv=(TextView) view.findViewById(R.id.notFound);
@@ -195,7 +200,18 @@ public class PendingTransaction extends Fragment {
                                 Log.d(TAG, "key: "+keytimeMillis +" index: "+index);
                                 storeIndex.add(keytimeMillis);
                                 index++;
-                                mArraylist.add(new PendTranClass(finalIsMyAdded, amount, reason, opponetUid, Opponetname, Long.parseLong(keytimeMillis), dir));
+                                String time="--";
+                                Log.d(TAG, "Kuch bhi");
+                                try {
+                                    c.setTimeInMillis(Long.parseLong(keytimeMillis));
+                                    Date d = c.getTime();
+                                    time = sdf.format(d);
+                                }
+                                catch (Exception e)
+                                {
+                                    Log.d(TAG, "Excp:"+e.toString());
+                                }
+                                mArraylist.add(new PendTranClass(finalIsMyAdded, amount, reason, opponetUid, Opponetname, Long.parseLong(keytimeMillis), dir, time));
                                 mAdapter.notifyDataSetChanged();
 
                             }

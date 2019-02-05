@@ -6,12 +6,17 @@ public class PendTranClass {
     long dateInMillis;
     String direction;
     Boolean isAddedByMe;
+    String date;
+
+    public String getDate() {
+        return date;
+    }
 
     public String getDirection() {
         return direction;
     }
 
-    public PendTranClass(Boolean isAddedByMe, int  amount, String reason, String opponentUid, String name, long dateInMillis, String direction) {
+    public PendTranClass(Boolean isAddedByMe, int  amount, String reason, String opponentUid, String name, long dateInMillis, String direction, String date) {
         this.amount = amount;
         this.reason = reason;
         this.opponentUid = opponentUid;
@@ -19,6 +24,7 @@ public class PendTranClass {
         this.dateInMillis = dateInMillis;
         this.isAddedByMe=isAddedByMe;
         this.direction=direction;
+        this.date=date;
     }
 
     public String getName() {

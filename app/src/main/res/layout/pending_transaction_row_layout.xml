@@ -1,102 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="5dp"
+    android:paddingBottom="10dp"
     android:background="@drawable/addedbyme"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingEnd="10dp"
         android:orientation="horizontal">
-   <LinearLayout
-       android:layout_width="280dp"
-       android:layout_height="match_parent"
-       android:padding="5dp"
-       android:orientation="vertical">
        <LinearLayout
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:orientation="horizontal">
+           android:layout_gravity="center"
+           android:orientation="vertical">
            <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:textSize="20dp"
-               android:id="@+id/amountPend"
-               android:layout_gravity="center"
-               android:text="Amount"/>
-       <ImageView
-           android:layout_margin="10dp"
-           android:layout_width="80dp"
-           android:src="@drawable/outgoing_money"
-           android:id="@+id/direction"
-           android:layout_height="80dp" />
-           <LinearLayout
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="10dp"
-               android:layout_gravity="center"
-               android:orientation="vertical">
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               android:layout_width="70dp"
+               android:layout_height="70dp"
+               android:background="@drawable/firstlettercircleblue"
                android:gravity="center"
-               android:id="@+id/firstLetter"
-               android:background="@drawable/firstlettercircleyellow"
                android:text="S"
-               android:textSize="30sp"/>
-               <TextView
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_gravity="center"
-                   android:id="@+id/opponentName"
-                   android:text="Name"/>
-           </LinearLayout>
-       </LinearLayout>
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:text="Reason"
-           android:textAlignment="center"
-           android:textSize="20dp"
-           android:id="@+id/reasonPend"/>
-   </LinearLayout>
+               android:id="@+id/firstLetter"
+               android:textColor="#fff"
+               android:textSize="50dp"/>
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/opponentName"
+               android:text="Name"
+               android:maxEms="5"
+               android:layout_gravity="center"
+               android:textSize="20dp" />
 
-        <View
-            android:id="@+id/divider2"
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:background="?android:attr/listDivider" />
+       </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/radius_topright_bottomright"
+            android:layout_marginLeft="10dp"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@android:color/transparent"
-                android:id="@+id/ConfirmTransaction"
-                android:layout_marginLeft="3dp"
-                android:src="@drawable/accept" />
-
-            <View
-                android:id="@+id/divider3"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:id="@+id/Statement"
+            android:text="Statement"/>
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/white" />
-            <ImageButton
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/RejectTransaction"
-                android:background="@android:color/transparent"
-                android:scaleType="fitXY"
-                android:src="@drawable/reject"/>
-
+                android:text="Reason"
+                android:textAlignment="center"
+                android:textSize="15dp"
+                android:id="@+id/reasonPend"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Requested On: "
+                android:id="@+id/RequestedOn"
+                android:textSize="10dp"
+                android:textAlignment="viewEnd"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Accept"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/button_bg"
+                    android:layout_toLeftOf="@id/rejectTrans"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:id="@+id/acceptTrans"/>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Reject"
+                    android:background="@drawable/button_bg"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/rejectTrans"/>
+            </RelativeLayout>
         </LinearLayout>
+
     </LinearLayout>
 </RelativeLayout>

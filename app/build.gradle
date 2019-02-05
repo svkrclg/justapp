@@ -41,5 +41,9 @@ dependencies {
     implementation 'com.github.clans:fab:1.6.4'
     //Radio button github library
     implementation 'com.github.patgdut:RadioRealButton:v2.1.2'
+    //QR code generater
+    implementation 'com.github.kenglxn.QRGen:android:2.2.0'
+    //QR code scanner
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
 }
 apply plugin: 'com.google.gms.google-services'

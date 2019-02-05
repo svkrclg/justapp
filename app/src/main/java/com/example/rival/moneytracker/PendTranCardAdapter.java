@@ -1,6 +1,7 @@
 package com.example.rival.moneytracker;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -45,24 +46,31 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
 
         final PendTranClass pendTranClass=list.get(i);
+        myViewHolder.firstLetter.setText(pendTranClass.getName().charAt(0)+"");
+        myViewHolder.confirm.setBackgroundResource(R.drawable.button_bg);
+        myViewHolder.reject.setBackgroundResource(R.drawable.button_bg);
+        myViewHolder.confirm.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
+        myViewHolder.reject.setTextColor(context.getResources().getColor(R.color.colorPrimaryDark));
         myViewHolder.opponentName.setText(pendTranClass.getName());
+        myViewHolder.requestOn.setText("Requested On: "+pendTranClass.getDate());
         myViewHolder.reason.setText(pendTranClass.getReason()+"");
-        myViewHolder.amount.setText(pendTranClass.getAmount()+"");
         if(pendTranClass.getDirection().equals("coming"))
-            myViewHolder.direction.setImageResource(R.drawable.incoming_money);
+            myViewHolder.statement.setText("Wants to pay you "+pendTranClass.getAmount());
         else
-            myViewHolder.direction.setImageResource(R.drawable.outgoing_money);
+            myViewHolder.statement.setText("Wants you to pay "+pendTranClass.getAmount());
         if(pendTranClass.getAddedByMe()==true)
         {
             myViewHolder.confirm.setVisibility(View.GONE);
-            myViewHolder.reject.setImageResource(R.drawable.delete);
+            myViewHolder.reject.setText("Delete"+"");
         }
         myViewHolder.reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                myViewHolder.reject.setBackgroundResource(R.drawable.button_bg_onclick);
+                myViewHolder.reject.setTextColor(Color.WHITE);
                 Log.d(TAG, "Reject "+ pendTranClass.getOpponentUid());
                 Toast.makeText(context, "Deleting: "+ pendTranClass.getDateInMillis(), Toast.LENGTH_LONG).show();
                 deletePendingTransaction(pendTranClass);
@@ -72,6 +80,8 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
             @Override
             public void onClick(View v) {
                 Log.d(TAG, "Confirm "+ pendTranClass.getOpponentUid());
+                myViewHolder.confirm.setBackgroundResource(R.drawable.button_bg_onclick);
+                myViewHolder.confirm.setTextColor(Color.WHITE);
                 Toast.makeText(context, "Accpeting: "+ pendTranClass.getDateInMillis(), Toast.LENGTH_LONG).show();
                 confirmPendingTransaction(pendTranClass);
             }
@@ -113,18 +123,17 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
     TextView opponentName, firstLetter;
-    TextView amount, reason;
-    ImageButton confirm, reject;
-    ImageView direction;
+    TextView statement, requestOn, reason;
+    Button confirm, reject;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             firstLetter=itemView.findViewById(R.id.firstLetter);
-            amount=itemView.findViewById(R.id.amountPend);
+            statement=itemView.findViewById(R.id.Statement);
             reason=itemView.findViewById(R.id.reasonPend);
             opponentName=itemView.findViewById(R.id.opponentName);
-            confirm=itemView.findViewById(R.id.ConfirmTransaction);
-            reject=itemView.findViewById(R.id.RejectTransaction);
-            direction=itemView.findViewById(R.id.direction);
+            confirm=itemView.findViewById(R.id.acceptTrans);
+            reject=itemView.findViewById(R.id.rejectTrans);
+            requestOn=itemView.findViewById(R.id.RequestedOn);
         }
     }
 }

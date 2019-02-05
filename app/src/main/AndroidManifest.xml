@@ -3,17 +3,16 @@
     package="com.example.rival.moneytracker">
 
     <application
+        android:name=".MyFirebaseApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:name=".MyFirebaseApp"
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="stateHidden">
-        </activity>
+            android:windowSoftInputMode="stateHidden"></activity>
         <activity android:name=".RegisterActivity" />
 
         <service
@@ -35,14 +34,16 @@
         <activity android:name=".MyAddedRequest" />
         <activity android:name=".AddTransaction" />
         <activity android:name=".WithFriendRecord" />
-        <activity android:name=".SplashActivity"
-                  android:theme="@style/SplashTheme">
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".QRcode"></activity>
     </application>
 
 </manifest>
