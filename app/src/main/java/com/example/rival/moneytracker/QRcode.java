@@ -2,17 +2,24 @@ package com.example.rival.moneytracker;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -29,6 +36,7 @@ public class QRcode extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReference;
+    ProgressBar progressBar;
     String uid;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +44,7 @@ public class QRcode extends AppCompatActivity {
         setContentView(R.layout.activity_qrcode);
         ImageView imageView=(ImageView) findViewById(R.id.imageView);
         scan=(Button) findViewById(R.id.btn_scan);
+        progressBar=(ProgressBar) findViewById(R.id.progressBar2);
         firebaseAuth=FirebaseAuth.getInstance();
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
@@ -52,12 +61,38 @@ public class QRcode extends AppCompatActivity {
 
     }
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+    protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
+        final IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
         if (result != null) {
             //if qrcode has nothing in it
-            if (result.getContents() == null) {
-                Toast.makeText(this, "Result Not Found", Toast.LENGTH_LONG).show();
+            if (result.getContents() != null) {
+                  progressBar.setVisibility(View.VISIBLE);
+                  databaseReference.child("users").child(uid).child("qrcode").child(result.getContents()).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                      @Override
+                      public void onComplete(@NonNull Task<Void> task) {
+                          databaseReference.child("users").child(uid).child("qrcode").child(result.getContents()).addValueEventListener(new ValueEventListener() {
+                              @Override
+                              public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                  Log.d("QRCODE", dataSnapshot.getValue(Boolean.class)+"");
+                                  if(dataSnapshot.getValue(Boolean.class))
+                                  {
+                                      databaseReference.child("users").child(uid).child("qrcode").child(result.getContents()).removeValue();
+                                      databaseReference.child("users").child(uid).child("qrcode").child(result.getContents()).removeEventListener(this);
+                                      progressBar.setVisibility(View.GONE);
+                                      Toast.makeText(getApplicationContext(), "Friend Added", Toast.LENGTH_LONG).show();
+                                      onBackPressed();
+                                      finish();
+                                  }
+                              }
+
+                              @Override
+                              public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                              }
+                          });
+                      }
+                  });
+
             } else {
                 String oppnUId=result.getContents();
                 Toast.makeText(this, oppnUId, Toast.LENGTH_LONG).show();

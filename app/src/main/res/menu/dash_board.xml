@@ -4,16 +4,19 @@
     <item
         android:id="@+id/action_qr"
         android:icon="@drawable/qr"
+        android:orderInCategory="2"
         android:title="Show QR"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_addTran"
         android:icon="@drawable/addmoney"
+        android:orderInCategory="1"
         android:title="Add Transaction"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_addFriend"
         android:icon="@drawable/add_friend"
+        android:orderInCategory="3"
         android:title="Add Friend"
-        app:showAsAction="always" />
+        app:showAsAction="ifRoom" />
 </menu>

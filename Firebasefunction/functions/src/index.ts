@@ -525,3 +525,146 @@ exports.handleEachConfirmedTransactions=functions.database.ref("/confirmedTransa
           }
 
        });
+exports.qrcode=functions.database.ref("/users/{uid}/qrcode/{oppnuid}")
+               .onCreate(async(snapshot, context) =>{
+                      let uid=context.params.uid;
+                      let oppnuid=context.params.oppnuid;
+                      console.log(uid +" "+oppnuid+ " "+ snapshot.val());
+                      if(snapshot.val()===false){
+                      let promise3=admin.database().ref("/users/"+uid+"/qrcode/"+oppnuid);
+                        promise3.set(true)
+                           .then(function(){
+                              console.log(uid+ "..."+ oppnuid+"..."+snapshot.val());
+                            })
+                            .catch(function(){
+                              console.log("error");
+                            })
+                      let promise=admin.database().ref("/users/"+uid+"/friend/"+oppnuid);
+                      promise.set(true)
+                         .then(function(){
+                            console.log(uid+ "..."+ oppnuid+"..."+snapshot.val());
+                          })
+                          .catch(function(){
+                            console.log("error");
+                          })
+                      let promise2=admin.database().ref("/users/"+oppnuid+"/friend/"+uid);
+                      promise2.set(true)
+                         .then(function(){
+                            console.log(uid+ "..."+ oppnuid+"..."+snapshot.val());
+                          })
+                          .catch(function(){
+                            console.log("error");
+                          })
+                        }
+               });
+exports.deleteHistoryRequested=functions.database.ref("/users/{uid}/deleteHistory/{oppnUid}/")
+                .onCreate(async(snapshot, context)=>{
+                  const uid=context.params.uid;
+                  const oppnUid=context.params.oppnUid;
+                  if(snapshot.val()===false){
+                     //Get notification token of oppnUid
+                     const myTokenP= admin.database().ref("/users/"+oppnUid+"/firebaseToken").once('value');
+                     const myToken=await myTokenP.then(results=>{
+                                  return results.val();
+                     });
+                     //Get name 
+                     const uidNameP= admin.database().ref("/users/"+uid+"/name").once('value');
+                     const uidName=await uidNameP.then(results=>{
+                                  return results.val();
+                     });
+                     //Set Requestarrived in oppnUid
+                     let setDeleteRequestInOppn=admin.database().ref("/users/"+oppnUid+"/deleteRequestArrived/"+uid)
+                                                .set(false).then(function(){
+                                                  console.log("successsss");
+                                                }).catch(function(){
+                                                  console.log("failureeee");
+                                                });
+                      const payload={
+                        notification:{
+                          title:"Request to delete history",
+                          body: uidName+" wants to delete history"
+                        }
+                      }
+                      const response= admin.messaging().sendToDevice(myToken, payload);
+                  }
+                });
+exports.historydeleteRequestAccepted=functions.database.ref("/users/{uid}/deleteRequestArrived/{oppnUid}/")
+                  .onUpdate(async (change, context)=>{
+                         const uid=context.params.uid;
+                         const oppnUid=context.params.oppnUid;
+                         const beforeV=change.before.val();
+                         const afterV=change.after.val();
+                         if(beforeV===false && afterV===true)
+                         {
+                              let getTransactions =await admin.database().ref("/users/"+uid+"/myTransactions/"+oppnUid+"/transactions")
+                                            .once('value').then(function(snapshot){
+                                              console.log(snapshot.val());
+                                              snapshot.forEach(element => {
+                                                 let delConfirmedTransction= admin.database().ref("/confirmedTransactions/"+element.key)
+                                                             .remove().then(function(){
+                                                               console.log("transaction deleted"+element.key);
+                                                             })
+                                                             .catch(function(){
+                                                                 console.log("problem");
+                                                             });
+                                              });
+                                            })
+                              
+                              let deleteFromMe=admin.database().ref("/users/"+uid+"/myTransactions/"+oppnUid).remove();
+                              let deleteFromOppn=admin.database().ref("/users/"+oppnUid+"/myTransactions/"+uid).remove();
+                              const myTokenP= admin.database().ref("/users/"+oppnUid+"/firebaseToken").once('value');
+                              const myToken=await myTokenP.then(results=>{
+                                              return results.val();
+                                          });
+                              const uidNameP= admin.database().ref("/users/"+uid+"/name").once('value');
+                                        const uidName=await uidNameP.then(results=>{
+                                         return results.val();
+                               });
+                              const payload={
+                                notification:{
+                                  title:"History deletion request accepted",
+                                  body: uidName+"accepted to delete transaction history with you"
+                                }
+                              }
+                              const response= admin.messaging().sendToDevice(myToken, payload);
+                              let deleteRequestArrivedDeletion=admin.database().ref("/users/"+uid+"/deleteRequestArrived/"+oppnUid).remove().then(function(){
+                                console.log("deleteRequestArrivedDeletion success");
+                              }).catch(function(){
+                                console.log("deleteRequestArrivedDeletion failure");
+                              });
+                              let deleteHistoryDeletion=admin.database().ref("/users/"+oppnUid+"/deleteHistory/"+uid).remove().then(function(){
+                                console.log("deleteHistoyDelte success");
+                              }).catch(function(){
+                                console.log("deleteHistoyDelte failure");
+                              });
+
+                         }
+                  })
+exports.historydeleteRequestRejected=functions.database.ref("/users/{uid}/deleteRequestArrived/{oppnUid}/")
+                  .onDelete(async (snapshot, context)=>{
+                  let uid=context.params.uid;
+                  let oppnUid=context.params.oppnUid;
+                  if(snapshot.val()===false)
+                  {
+                    let deleteHistoryDeletion=admin.database().ref("/users/"+oppnUid+"/deleteHistory/"+uid).remove().then(function(){
+                      console.log("deleteHistoyDelte success");
+                    }).catch(function(){
+                      console.log("deleteHistoyDelte failure");
+                    });
+                    const myTokenP= admin.database().ref("/users/"+oppnUid+"/firebaseToken").once('value');
+                    const myToken=await myTokenP.then(results=>{
+                                              return results.val();
+                                          });
+                    const uidNameP= admin.database().ref("/users/"+uid+"/name").once('value');
+                    const uidName=await uidNameP.then(results=>{
+                                         return results.val();
+                               });
+                              const payload={
+                                notification:{
+                                  title:"History deletion request reject",
+                                  body: uidName+" don't want to delete the transaction history with you"
+                                }
+                              }
+                              const response= admin.messaging().sendToDevice(myToken, payload);
+                  }
+                  })
