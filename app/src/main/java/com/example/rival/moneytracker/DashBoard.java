@@ -315,6 +315,7 @@ public class DashBoard extends AppCompatActivity
     {
         final AlertDialog.Builder alertDialog =new AlertDialog.Builder(this);
         alertDialog.setTitle("Request for delete history");
+        alertDialog.setCancelable(false);
         alertDialog.setMessage(name+" wants to delete transaction history with you");
         alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override

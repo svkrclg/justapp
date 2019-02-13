@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:windowSoftInputMode="stateHidden"></activity>
+            android:windowSoftInputMode="stateHidden" />
         <activity android:name=".RegisterActivity" />
 
         <service
@@ -43,7 +43,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QRcode"></activity>
+        <activity android:name=".QRcode" />
+        <activity android:name=".ResetPassword"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_margin="10dp"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="Enter OTP:"
+      android:id="@+id/Head"
+      android:textSize="20sp"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OTP"
+        android:layout_below="@id/Head"
+        android:id="@+id/edtOTP"
+        android:textSize="33sp"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Resend OTP."
+        android:id="@+id/resendOtp"
+        android:layout_below="@id/edtOTP"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:padding="10dp"
+        android:layout_below="@+id/resendOtp"
+        android:id="@+id/btsubmit"/>
+</RelativeLayout>

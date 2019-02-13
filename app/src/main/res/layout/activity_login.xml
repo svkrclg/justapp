@@ -28,14 +28,14 @@
             app:mtf_labelColor="@color/colorPrimaryDark"
             app:mtf_openKeyboardOnFocus="true"
             app:mtf_image="@drawable/mailicon">
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="#000"
-            android:lines="1"
-            android:inputType="textEmailAddress"
-            android:id="@+id/loginEmail"
-            android:hint="E-mail" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#000"
+                android:lines="1"
+                android:inputType="textEmailAddress"
+                android:id="@+id/loginEmail"
+                android:hint="E-mail" />
         </com.github.florent37.materialtextfield.MaterialTextField>
         <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="match_parent"
@@ -51,6 +51,15 @@
                 android:id="@+id/loginPassword"
                 android:hint="Password" />
         </com.github.florent37.materialtextfield.MaterialTextField>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot Password? "
+            android:layout_margin="10dp"
+            android:textSize="15dp"
+            android:onClick="ResetPassword"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/passwordReset"/>
         <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
             android:id="@+id/btn_Login"
             android:layout_width="match_parent"
