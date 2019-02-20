@@ -100,45 +100,46 @@ public class FireBaseNotifications extends FirebaseMessagingService {
     }
     public void ShowNotification()
     {
-        Intent intent=new Intent(getApplicationContext(), DashBoard.class);
+        Intent intent=new Intent(this, DashBoard.class);
+        Log.d(TAG, "Context:" + this);
         switch (code)
         {
             case "1":
-                intent=new Intent(getApplicationContext(), IncomingRequest.class);
+                intent=new Intent(this, IncomingRequest.class);
                 break;
             case "2":
-                intent=new Intent(getApplicationContext(), Friend.class);
-                new CreateFriendCache(getApplicationContext()).LocalSaveOfFriend();
+                intent=new Intent(this, Friend.class);
+                new CreateFriendCache(this).LocalSaveOfFriend();
                 break;
             case "3":
-                intent=new Intent(getApplicationContext(), DashBoard.class);
+                intent=new Intent(this, DashBoard.class);
                 intent.putExtra("OpenPending", true);
                 break;
             case "4":
-                intent=new Intent(getApplicationContext(), WithFriendRecord.class);
+                intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
                 break;
             case "5":
-                intent=new Intent(getApplicationContext(), WithFriendRecord.class);
+                intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
                 break;
             case "6":
-                intent=new Intent(getApplicationContext(), DashBoard.class);
+                intent=new Intent(this, DashBoard.class);
                 break;
             case "7":
-                intent=new Intent(getApplicationContext(), DashBoard.class);
+                intent=new Intent(this, DashBoard.class);
                 break;
             case "8":
-                intent=new Intent(getApplicationContext(), WithFriendRecord.class);
+                intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
                 break;
             default:
                 Log.d(TAG, "Hmmmm.... ");
         }
-        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(), 0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent=PendingIntent.getActivity(this, 0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         createNotificationChannel();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.add)

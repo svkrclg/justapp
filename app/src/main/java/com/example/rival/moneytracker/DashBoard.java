@@ -64,6 +64,7 @@ public class DashBoard extends AppCompatActivity
     private  TabLayout tabLayout;
     String TAG="DashBoard";
     private ViewPager viewPager;
+    ChildEventListener cel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -258,24 +259,25 @@ public class DashBoard extends AppCompatActivity
 
     }
 
-    public void CheckForDeleteHistory(){
-        databaseReference.child("users").child(uid).child("deleteRequestArrived").addChildEventListener(new ChildEventListener() {
+    public void CheckForDeleteHistory() {
+
+        cel = new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                     final String oppnuid=dataSnapshot.getKey();
-                     databaseReference.child("userNameByUid").child(oppnuid).addListenerForSingleValueEvent(new ValueEventListener() {
-                         @Override
-                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                             String name=dataSnapshot.getValue(String.class);
-                             showAlertDialog(name, oppnuid);
-                         }
+                final String oppnuid = dataSnapshot.getKey();
+                databaseReference.child("userNameByUid").child(oppnuid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        String name = dataSnapshot.getValue(String.class);
+                        showAlertDialog(name, oppnuid);
+                    }
 
-                         @Override
-                         public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                         }
-                     });
-                }
+                    }
+                });
+            }
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -296,7 +298,7 @@ public class DashBoard extends AppCompatActivity
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        };
     }
     public void showAlertDialog(String name , final String oppUid)
     {
@@ -328,6 +330,7 @@ public class DashBoard extends AppCompatActivity
             }
         });
         AlertDialog dialog=alertDialog.create();
+
         dialog.show();
     }
     private void ListenForPendingTranasactionCount(){
@@ -346,6 +349,20 @@ public class DashBoard extends AppCompatActivity
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+        databaseReference.child("users").child(uid).child("deleteRequestArrived").addChildEventListener(cel);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(TAG, "onPause");
+        databaseReference.child("users").child(uid).child("deleteRequestArrived").removeEventListener(cel);
     }
 
 }
