@@ -177,6 +177,7 @@ public class PendingTransaction extends Fragment {
                     opponetUid=Tuid[1];
                 else
                     opponetUid=Tuid[0];
+                Log.d("Testing V", "isMyAdded: "+isMyAdded+"  : "+keytimeMillis);
                 //Get opponet name
                 databaseReference.child("userNameByUid").child(opponetUid).addListenerForSingleValueEvent(new ValueEventListener() {
                     boolean finalIsMyAdded=isMyAdded;
@@ -211,6 +212,7 @@ public class PendingTransaction extends Fragment {
                                 {
                                     Log.d(TAG, "Excp:"+e.toString());
                                 }
+                                Log.d("Testing V" ,"finalIsMyAdded: "+finalIsMyAdded+"  : "+keytimeMillis);
                                 mArraylist.add(new PendTranClass(finalIsMyAdded, amount, reason, opponetUid, Opponetname, Long.parseLong(keytimeMillis), dir, time));
                                 mAdapter.notifyDataSetChanged();
 

@@ -48,9 +48,9 @@ public class CustomAdapterFriendRecord extends RecyclerView.Adapter<CustomAdapte
         Log.d(TAG, "Content: "+ record.getTime()+" "+ record.getReason());
         myViewHolder.time.setText(record.getTime());
         if(record.getDirection().equals("going"))
-                myViewHolder.amount.setText("-"+record.getAmount());
+                myViewHolder.amount.setText("- "+" ₹ "+record.getAmount());
         else
-            myViewHolder.amount.setText("+"+record.getAmount());
+            myViewHolder.amount.setText("+ "+" ₹ "+record.getAmount());
         myViewHolder.reason.setText(record.getReason()+"");
         myViewHolder.time.setText(record.getTime());
         int paddingDpLR = 25;

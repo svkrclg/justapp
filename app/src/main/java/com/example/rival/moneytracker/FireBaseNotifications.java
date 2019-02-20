@@ -1,6 +1,16 @@
 package com.example.rival.moneytracker;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
+import android.os.Build;
 import android.preference.PreferenceManager;
+import android.provider.Settings;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -14,7 +24,13 @@ public class FireBaseNotifications extends FirebaseMessagingService {
     private DatabaseReference databaseReference;
     private FirebaseAuth firebaseAuth;
     private static final String TAG = "MyFirebaseMsgService";
-    String uid;
+    String CHANNEL_ID="Money";
+    private String uid;
+    private String title;
+    private String body;
+    private String code;
+    private String id;
+    private String name;
     public FireBaseNotifications() {
         super();
         firebaseDatabase=FirebaseDatabase.getInstance();
@@ -32,10 +48,12 @@ public class FireBaseNotifications extends FirebaseMessagingService {
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
             try {
-                Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-                Log.d(TAG, "Message data payload data: " + remoteMessage.getData().get("code"));
-                if (remoteMessage.getData().get("code").equals("001"))
-                    new CreateFriendCache(getApplicationContext()).LocalSaveOfFriend();
+                code=remoteMessage.getData().get("code");
+                if(code.equals("4") || code.equals("5") ||code.equals("8"))
+                {
+                    id=remoteMessage.getData().get("id");
+                    name=remoteMessage.getData().get("name");
+                }
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -46,7 +64,10 @@ public class FireBaseNotifications extends FirebaseMessagingService {
 
         // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
+            title=remoteMessage.getNotification().getTitle();
+            body=remoteMessage.getNotification().getBody();
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
+            ShowNotification();
         }
 
     }
@@ -75,6 +96,69 @@ public class FireBaseNotifications extends FirebaseMessagingService {
         catch (Exception e)
         {
 
+        }
+    }
+    public void ShowNotification()
+    {
+        Intent intent=new Intent(getApplicationContext(), DashBoard.class);
+        switch (code)
+        {
+            case "1":
+                intent=new Intent(getApplicationContext(), IncomingRequest.class);
+                break;
+            case "2":
+                intent=new Intent(getApplicationContext(), Friend.class);
+                new CreateFriendCache(getApplicationContext()).LocalSaveOfFriend();
+                break;
+            case "3":
+                intent=new Intent(getApplicationContext(), DashBoard.class);
+                intent.putExtra("OpenPending", true);
+                break;
+            case "4":
+                intent=new Intent(getApplicationContext(), WithFriendRecord.class);
+                intent.putExtra("OppnUid", id);
+                intent.putExtra("Name", name);
+                break;
+            case "5":
+                intent=new Intent(getApplicationContext(), WithFriendRecord.class);
+                intent.putExtra("OppnUid", id);
+                intent.putExtra("Name", name);
+                break;
+            case "6":
+                intent=new Intent(getApplicationContext(), DashBoard.class);
+                break;
+            case "7":
+                intent=new Intent(getApplicationContext(), DashBoard.class);
+                break;
+            case "8":
+                intent=new Intent(getApplicationContext(), WithFriendRecord.class);
+                intent.putExtra("OppnUid", id);
+                intent.putExtra("Name", name);
+                break;
+            default:
+                Log.d(TAG, "Hmmmm.... ");
+        }
+        PendingIntent pendingIntent=PendingIntent.getActivity(getApplicationContext(), 0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        createNotificationChannel();
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setSmallIcon(R.drawable.add)
+                .setDefaults(Notification.DEFAULT_SOUND)
+                .setVibrate(new long[]{1000, 1000,1000,1000,1000})
+                .setContentTitle(title)
+                .setContentText(body)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(2, mBuilder.build());
+    }
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "name", importance);
+            channel.setDescription("description");
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
         }
     }
 }

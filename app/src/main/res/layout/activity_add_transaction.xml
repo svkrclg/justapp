@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/Create_transaction"
+            android:id="@+id/toolbar_create_transaction"
             app:title="Create Transaction"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"

@@ -197,8 +197,7 @@ public class RegisterActivity extends AppCompatActivity {
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.otp_dialog);
         Button dialogButton = (Button) dialog.findViewById(R.id.btsubmit);
-        EditText edt=(EditText) dialog.findViewById(R.id.edtOTP);
-        final String s=edt.getText().toString();
+        final EditText edt=(EditText) dialog.findViewById(R.id.edtOTP);
         TextView resendotp=(TextView) dialog.findViewById(R.id.resendOtp);
         resendotp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,6 +208,7 @@ public class RegisterActivity extends AppCompatActivity {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String  s=edt.getText().toString();
                 PhoneAuthCredential credential=PhoneAuthProvider.getCredential(verificationId, s);
                 signInWithPhoneAuthCredential(credential);
                 Toast.makeText(getApplicationContext(), "Got it", Toast.LENGTH_SHORT).show();

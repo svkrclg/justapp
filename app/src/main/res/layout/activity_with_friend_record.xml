@@ -22,6 +22,15 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:visibility="gone"
+            android:id="@+id/historyStatus"
+            android:textStyle="italic"
+            android:elevation="20dp"
+            android:text="You have requested to delete this history"/>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/FriendRecordrecyclerView"
             android:layout_margin="10dp"

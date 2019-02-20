@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -75,6 +76,10 @@ public class AddTransaction extends AppCompatActivity {
         Edtamount=(EditText) findViewById(R.id.Amount);
         Edtreason=(EditText) findViewById(R.id.Reason);
         ll = (LinearLayout) findViewById(R.id.toHide);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_create_transaction);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         radioRealButtonGroup = (RadioRealButtonGroup)findViewById(R.id.Radio);
         HehastoGive=(RadioRealButton) findViewById(R.id.HehastoGive);
         IhavetoGive=(RadioRealButton) findViewById(R.id.IhavetoGive);
@@ -267,4 +272,9 @@ public void commitTransaction() {
         }
     });
 }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 }

@@ -5,6 +5,12 @@
         android:id="@+id/delete_record"
         android:icon="@drawable/delete"
         android:orderInCategory="2"
-        android:title="Show QR"
-        app:showAsAction="always" />
+        android:title="Delete"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/addhere"
+        android:icon="@drawable/add"
+        app:showAsAction="ifRoom"
+        android:title="Add"
+        />
 </menu>

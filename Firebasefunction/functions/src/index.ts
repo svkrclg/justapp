@@ -78,7 +78,7 @@ exports.newIncomingRequestAdded=functions.database.ref("/users/{uid}/incomingReq
             body: fromName+" wants to add you."
           },
           data:{
-              jio:"sevs"
+              code: "1"
           }
         }
         const response=await admin.messaging().sendToDevice(myToken, payload);
@@ -151,11 +151,11 @@ exports.incomingRequestAccepted = functions.database.ref("/users/{uid}/incomingR
             console.log("my token:", myToken);
             const payload={
               notification:{
-                title:"Friend Request Accpeted",
-                body: fromName+" accept your request"
+                title:"Friend Request Accepted.",
+                body: fromName+" accepted your request."
               },
               data:{
-                code: "001"
+                code: "2"
               }
             }
             const response=await admin.messaging().sendToDevice(myToken, payload);
@@ -199,8 +199,12 @@ exports.transactionCreated=functions.database.ref('/transactions/{tid}')
            const payload = {
             notification:{
                 title:"Transaction Requested",
-                body: addedByname+" "+info+" "+amount
+                body: addedByname+" "+info+" "+ " ₹ "+amount
+              },
+              data:{
+                code: "3"
               }
+
           };
           const response = await admin.messaging().sendToDevice(notifyToken, payload);
           let pendingtransactionData={ [addedbyuid]:true, [tonotifyuid]:false};
@@ -315,11 +319,13 @@ exports.actionOnPendingTransactions=functions.database.ref("/users/{uid}/pending
                      console.log("my token:", toNotifyuidToken);
                      const payload={
                        notification:{
-                         title:"Your transaction request rejected",
+                         title:"Transaction request rejected.",
                          body: uidname+" rejected your transaction."
                        },
                        data:{
-                           jio:"sevs"
+                           code:"4",
+                           id:uid,
+                           name: uidname
                        }
                      }
                      const response= admin.messaging().sendToDevice(toNotifyuidToken, payload);
@@ -390,11 +396,13 @@ exports.actionOnPendingTransactions=functions.database.ref("/users/{uid}/pending
                 console.log("my token:", toNotifyuidToken);
                 const payload={
                   notification:{
-                    title:"Your transaction request rejected",
+                    title:"Transaction request accepted",
                     body: uidname+" accepted your transaction."
                   },
                   data:{
-                      jio:"sevs"
+                      code:"5",
+                      id:uid,
+                      name: uidname
                   }
                 }
                 const response= admin.messaging().sendToDevice(toNotifyuidToken, payload);
@@ -581,8 +589,11 @@ exports.deleteHistoryRequested=functions.database.ref("/users/{uid}/deleteHistor
                                                 });
                       const payload={
                         notification:{
-                          title:"Request to delete history",
-                          body: uidName+" wants to delete history"
+                          title:"Request to delete history.",
+                          body: uidName+" wants to delete history."
+                        },
+                        data:{
+                            code: "6"
                         }
                       }
                       const response= admin.messaging().sendToDevice(myToken, payload);
@@ -622,9 +633,12 @@ exports.historydeleteRequestAccepted=functions.database.ref("/users/{uid}/delete
                                });
                               const payload={
                                 notification:{
-                                  title:"History deletion request accepted",
-                                  body: uidName+"accepted to delete transaction history with you"
-                                }
+                                  title:"History deletion request accepted.",
+                                  body: uidName+" accepted to delete transaction history with you."
+                                },
+                                data:{
+                                code:"7"
+                                 }
                               }
                               const response= admin.messaging().sendToDevice(myToken, payload);
                               let deleteRequestArrivedDeletion=admin.database().ref("/users/"+uid+"/deleteRequestArrived/"+oppnUid).remove().then(function(){
@@ -663,6 +677,11 @@ exports.historydeleteRequestRejected=functions.database.ref("/users/{uid}/delete
                                 notification:{
                                   title:"History deletion request reject",
                                   body: uidName+" don't want to delete the transaction history with you"
+                                },
+                                data:{
+                                  code:"8",
+                                  id: uid,
+                                  name: uidName
                                 }
                               }
                               const response= admin.messaging().sendToDevice(myToken, payload);

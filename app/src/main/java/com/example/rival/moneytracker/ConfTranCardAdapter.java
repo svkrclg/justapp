@@ -51,12 +51,12 @@ public class ConfTranCardAdapter extends RecyclerView.Adapter<ConfTranCardAdapte
         myViewHolder.opponentName.setText(confTranClass.getName());
         if(confTranClass.getDirection().equals("going"))
         {
-            myViewHolder.amount.setText("-"+ confTranClass.getAmount());
+            myViewHolder.amount.setText("- "+ "₹ "+confTranClass.getAmount());
             myViewHolder.opponentName.setBackgroundResource(R.drawable.name_bg_going);
         }
         else
         {
-            myViewHolder.amount.setText("+"+ confTranClass.getAmount());
+            myViewHolder.amount.setText("+ "+ "₹ "+confTranClass.getAmount());
             myViewHolder.opponentName.setBackgroundResource(R.drawable.name_bg_coming);
         }
         myViewHolder.rl.setOnClickListener(new View.OnClickListener() {

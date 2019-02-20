@@ -61,7 +61,10 @@ public class DashBoard extends AppCompatActivity
     private SharedPreferences prefs;
     private SharedPreferences.Editor editor;
     private String token;
+    private  TabLayout tabLayout;
     String TAG="DashBoard";
+    private ViewPager viewPager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,12 +82,12 @@ public class DashBoard extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-        TabLayout tabLayout = (TabLayout)findViewById(R.id.tablayout);
+        tabLayout = (TabLayout)findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("Current Status"));
         tabLayout.addTab(tabLayout.newTab().setText("Pending"));
         tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        final ViewPager viewPager = (ViewPager)findViewById(R.id.pager);
+        viewPager = (ViewPager)findViewById(R.id.pager);
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -124,6 +127,14 @@ public class DashBoard extends AppCompatActivity
         TextView nav_bar_phone=(TextView)header.findViewById(R.id.nav_bar_phone);
         nav_bar_name.setText(name);
         nav_bar_phone.setText(phone);
+        Intent i=getIntent();
+        Log.d(TAG, i+"");
+        if(i!=null)
+        {
+            Log.d(TAG, "intent: "+i +"\n "+i.getBooleanExtra("OpenPending", false));
+            if(i.getBooleanExtra("OpenPending", false)==true)
+                viewPager.setCurrentItem(1, true);
+        }
         //Storing token
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
@@ -139,6 +150,7 @@ public class DashBoard extends AppCompatActivity
                     }
                 });
          CheckForDeleteHistory();
+         ListenForPendingTranasactionCount();
     }
 
     @Override
@@ -232,7 +244,6 @@ public class DashBoard extends AppCompatActivity
                     finish();
                 }
             });
-
         } else if (id == R.id.nav_send) {
 
         }
@@ -240,30 +251,6 @@ public class DashBoard extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-    int i=0;
-    public  void CheckLocal(View view)
-    {
-        HashMap<String,String> outputMap = new HashMap<>();
-        String jsonString =prefs.getString("friendMap", "Not found");
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Iterator<String> keysItr = jsonObject.keys();
-        while(keysItr.hasNext()) {
-            String k = keysItr.next();
-            String v = null;
-            try {
-                v = (String) jsonObject.get(k);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            outputMap.put(k,v);
-        }
-        Log.d(TAG, outputMap.toString());
     }
 
     @Override
@@ -313,7 +300,7 @@ public class DashBoard extends AppCompatActivity
     }
     public void showAlertDialog(String name , final String oppUid)
     {
-        final AlertDialog.Builder alertDialog =new AlertDialog.Builder(this);
+        final AlertDialog.Builder alertDialog =new AlertDialog.Builder(DashBoard.this);
         alertDialog.setTitle("Request for delete history");
         alertDialog.setCancelable(false);
         alertDialog.setMessage(name+" wants to delete transaction history with you");
@@ -343,4 +330,22 @@ public class DashBoard extends AppCompatActivity
         AlertDialog dialog=alertDialog.create();
         dialog.show();
     }
+    private void ListenForPendingTranasactionCount(){
+        databaseReference.child("users").child(uid).child("pendingTransactions").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Long n=dataSnapshot.getChildrenCount();
+                if(n>0)
+                    tabLayout.getTabAt(1).setText("Pending"+"("+n+")");
+                else
+                    tabLayout.getTabAt(1).setText("Pending");
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
 }

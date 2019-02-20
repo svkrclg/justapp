@@ -58,13 +58,18 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
         myViewHolder.requestOn.setText("Requested On: "+pendTranClass.getDate());
         myViewHolder.reason.setText(pendTranClass.getReason()+"");
         if(pendTranClass.getDirection().equals("coming"))
-            myViewHolder.statement.setText("Wants to pay you "+pendTranClass.getAmount());
+            myViewHolder.statement.setText("Wants to pay you ₹ "+pendTranClass.getAmount());
         else
-            myViewHolder.statement.setText("Wants you to pay "+pendTranClass.getAmount());
+            myViewHolder.statement.setText("Wants you to pay ₹ "+pendTranClass.getAmount());
         if(pendTranClass.getAddedByMe()==true)
         {
             myViewHolder.confirm.setVisibility(View.GONE);
             myViewHolder.reject.setText("Delete"+"");
+        }
+        else
+        {
+            myViewHolder.confirm.setVisibility(View.VISIBLE);
+            myViewHolder.reject.setText("Reject"+"");
         }
         myViewHolder.reject.setOnClickListener(new View.OnClickListener() {
             @Override
