@@ -73,11 +73,9 @@ exports.newIncomingRequestAdded=functions.database.ref("/users/{uid}/incomingReq
         });
         console.log("my token:", myToken);
         const payload={
-          notification:{
-            title:"Friend Request",
-            body: fromName+" wants to add you."
-          },
           data:{
+            title:"Friend Request",
+            body: fromName+" wants to add you.",
               code: "1"
           }
         }
@@ -150,11 +148,9 @@ exports.incomingRequestAccepted = functions.database.ref("/users/{uid}/incomingR
             });
             console.log("my token:", myToken);
             const payload={
-              notification:{
-                title:"Friend Request Accepted.",
-                body: fromName+" accepted your request."
-              },
               data:{
+                title:"Friend Request Accepted.",
+                body: fromName+" accepted your request.",
                 code: "2"
               }
             }
@@ -197,11 +193,9 @@ exports.transactionCreated=functions.database.ref('/transactions/{tid}')
            });
            console.log("To notifications token: ", notifyToken);
            const payload = {
-            notification:{
-                title:"Transaction Requested",
-                body: addedByname+" "+info+" "+ " ₹ "+amount
-              },
               data:{
+                title:"Transaction Requested",
+                body: addedByname+" "+info+" "+ " ₹ "+amount,
                 code: "3"
               }
 
@@ -318,11 +312,9 @@ exports.actionOnPendingTransactions=functions.database.ref("/users/{uid}/pending
 
                      console.log("my token:", toNotifyuidToken);
                      const payload={
-                       notification:{
-                         title:"Transaction request rejected.",
-                         body: uidname+" rejected your transaction."
-                       },
                        data:{
+                         title:"Transaction request rejected.",
+                         body: uidname+" rejected your transaction.",
                            code:"4",
                            id:uid,
                            name: uidname
@@ -395,11 +387,9 @@ exports.actionOnPendingTransactions=functions.database.ref("/users/{uid}/pending
                          })
                 console.log("my token:", toNotifyuidToken);
                 const payload={
-                  notification:{
-                    title:"Transaction request accepted",
-                    body: uidname+" accepted your transaction."
-                  },
                   data:{
+                     title:"Transaction request accepted",
+                    body: uidname+" accepted your transaction.",
                       code:"5",
                       id:uid,
                       name: uidname
@@ -588,11 +578,9 @@ exports.deleteHistoryRequested=functions.database.ref("/users/{uid}/deleteHistor
                                                   console.log("failureeee");
                                                 });
                       const payload={
-                        notification:{
-                          title:"Request to delete history.",
-                          body: uidName+" wants to delete history."
-                        },
                         data:{
+                          title:"Request to delete history.",
+                          body: uidName+" wants to delete history.",
                             code: "6"
                         }
                       }
@@ -632,11 +620,9 @@ exports.historydeleteRequestAccepted=functions.database.ref("/users/{uid}/delete
                                          return results.val();
                                });
                               const payload={
-                                notification:{
-                                  title:"History deletion request accepted.",
-                                  body: uidName+" accepted to delete transaction history with you."
-                                },
                                 data:{
+                                title:"History deletion request accepted.",
+                                body: uidName+" accepted to delete transaction history with you.",
                                 code:"7"
                                  }
                               }
@@ -674,11 +660,9 @@ exports.historydeleteRequestRejected=functions.database.ref("/users/{uid}/delete
                                          return results.val();
                                });
                               const payload={
-                                notification:{
-                                  title:"History deletion request reject",
-                                  body: uidName+" don't want to delete the transaction history with you"
-                                },
                                 data:{
+                                  title:"History deletion request reject",
+                                  body: uidName+" don't want to delete the transaction history with you",
                                   code:"8",
                                   id: uid,
                                   name: uidName

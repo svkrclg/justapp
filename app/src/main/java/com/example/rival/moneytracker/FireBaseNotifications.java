@@ -47,6 +47,7 @@ public class FireBaseNotifications extends FirebaseMessagingService {
 
         // Check if message contains a data payload.
         if (remoteMessage.getData().size() > 0) {
+            Log.d(TAG, remoteMessage.getData().get("code"));
             try {
                 code=remoteMessage.getData().get("code");
                 if(code.equals("4") || code.equals("5") ||code.equals("8"))
@@ -54,20 +55,15 @@ public class FireBaseNotifications extends FirebaseMessagingService {
                     id=remoteMessage.getData().get("id");
                     name=remoteMessage.getData().get("name");
                 }
+                title=remoteMessage.getData().get("title");
+                body=remoteMessage.getData().get("body");;
+                ShowNotification();
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
             //  Toast.makeText(this, "Hi", Toast.LENGTH_LONG).show();
 
-        }
-
-        // Check if message contains a notification payload.
-        if (remoteMessage.getNotification() != null) {
-            title=remoteMessage.getNotification().getTitle();
-            body=remoteMessage.getNotification().getBody();
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
-            ShowNotification();
         }
 
     }
@@ -156,7 +152,7 @@ public class FireBaseNotifications extends FirebaseMessagingService {
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             int importance = NotificationManager.IMPORTANCE_HIGH;
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "name", importance);
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "All", importance);
             channel.setDescription("description");
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
