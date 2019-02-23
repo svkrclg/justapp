@@ -3,36 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:id="@+id/a" android:checkableBehavior="single">
         <item
             android:id="@+id/incoming_request"
             android:icon="@drawable/ic_menu_camera"
-            android:title="Incoming Request" />
+            android:title="Approve Request" />
         <item
             android:id="@+id/send_request"
             android:icon="@drawable/add"
-            android:title="Your added on Pending" />
+            android:title="Sent Request" />
         <item
             android:id="@+id/Friends"
             android:icon="@drawable/friends"
             android:title="Friends" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
     </group>
+<group  android:id="@+id/b" android:checkableBehavior="single">
 
-    <item android:title="Communicate">
-        <menu>
+
             <item
-                android:id="@+id/nav_logout"
-                android:icon="@drawable/logout"
-                android:title="Logout" />
-            <item
-                android:id="@+id/nav_send"
+                android:id="@+id/about"
                 android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+                android:title="About" />
+            <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="Logout" />
+</group>
 
 </menu>

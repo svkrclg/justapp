@@ -52,7 +52,7 @@
             app:spinning_bar_width="30dp"
             android:fontFamily="sans-serif-condensed"
             app:initialCornerAngle="30dp"
-            android:clickable="false"
+            android:clickable="true"
             app:spinning_bar_color="@color/colorPrimaryDark"
             android:textColor="@color/colorPrimaryDark"
             app:spinning_bar_padding="6dp"/>

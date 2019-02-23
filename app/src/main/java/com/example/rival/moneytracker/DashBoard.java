@@ -229,8 +229,6 @@ public class DashBoard extends AppCompatActivity
             Intent i=   new Intent(getApplicationContext(), Friend.class);
             i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(i);
-        } else if (id == R.id.nav_manage) {
-
         } else if (id == R.id.nav_logout) {
             databaseReference.child("users").child(uid).child("firebaseToken").setValue("NULL").addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
@@ -245,7 +243,7 @@ public class DashBoard extends AppCompatActivity
                     finish();
                 }
             });
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.about) {
 
         }
 

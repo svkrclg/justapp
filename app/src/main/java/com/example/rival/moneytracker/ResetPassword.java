@@ -23,6 +23,7 @@ public class ResetPassword extends AppCompatActivity {
     CircularProgressButton btnReset;
     private FirebaseAuth firebaseAuth;
     String TAG="ResetPassword";
+    Boolean bEmailSent=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +35,18 @@ public class ResetPassword extends AppCompatActivity {
     }
     public void Reset(View view)
     {
+        if(bEmailSent==true)
+        {
+            onBackPressed();
+            return;
+        }
         resetEmail=edtResetEmail.getText().toString().trim();
         if(resetEmail.length()<1)
         {
             Toast.makeText(this, "Invalid Email", Toast.LENGTH_SHORT).show();
             return;
         }
+
         btnReset.startAnimation();
         Log.d(TAG, "Email: "+resetEmail);
         firebaseAuth.fetchSignInMethodsForEmail(resetEmail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
@@ -54,7 +61,9 @@ public class ResetPassword extends AppCompatActivity {
                        btnReset.revertAnimation(new OnAnimationEndListener() {
                            @Override
                            public void onAnimationEnd() {
-                               btnReset.setText("Email has not been registered. Try Again");
+                               Toast.makeText(getApplicationContext(), "This email is not registered.", Toast.LENGTH_LONG).show();
+                               btnReset.setText("Try Again");
+                               btnReset.setBackground(getResources().getDrawable(R.drawable.circular_border_shape));
                            }
                        });
 
@@ -70,7 +79,9 @@ public class ResetPassword extends AppCompatActivity {
                                    btnReset.revertAnimation(new OnAnimationEndListener() {
                                        @Override
                                        public void onAnimationEnd() {
-                                           btnReset.setText("Reset email sent.");
+                                           btnReset.setText("Reset email sent. Tap to go back.");
+                                           btnReset.setBackground(getResources().getDrawable(R.drawable.circular_border_shape));
+                                           bEmailSent=true;
                                        }
                                    });
                                }
@@ -80,7 +91,14 @@ public class ResetPassword extends AppCompatActivity {
                }
                else
                {
-
+                   btnReset.revertAnimation(new OnAnimationEndListener() {
+                       @Override
+                       public void onAnimationEnd() {
+                           Toast.makeText(getApplicationContext(), "Invalid email", Toast.LENGTH_LONG).show();
+                           btnReset.setText("Try Again");
+                           btnReset.setBackground(getResources().getDrawable(R.drawable.circular_border_shape));
+                       }
+                   });
                    Log.d(TAG, "failed: "+ task.getException() );
                }
             }

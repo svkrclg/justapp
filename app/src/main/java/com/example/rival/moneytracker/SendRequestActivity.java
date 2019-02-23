@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -38,8 +39,7 @@ public class SendRequestActivity extends AppCompatActivity {
     EditText phoneno;
     String TAG="SendRequestActivity";
     String recpuid,recpname;
-
-    boolean startedType,nameFound,requestSend,founduid=false;
+    boolean startedType,nameFound,requestSend,goBack, founduid=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +56,7 @@ public class SendRequestActivity extends AppCompatActivity {
         DatabaseReference scoresRef = FirebaseDatabase.getInstance().getReference("users/"+uid);
         scoresRef.keepSynced(true);
         addfrndButton=(CircularProgressButton) findViewById(R.id.sendReq);
+
         addfrndButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +73,8 @@ public class SendRequestActivity extends AppCompatActivity {
             }
             @Override
             public void afterTextChanged(Editable s) {
+                nameFound=false;
+                goBack=false;
                 if(requestSend==true)
                 {
                     addfrndButton.revertAnimation(new OnAnimationEndListener() {
@@ -79,7 +82,7 @@ public class SendRequestActivity extends AppCompatActivity {
                         public void onAnimationEnd() {
                             addfrndButton.setBackgroundColor(Color.TRANSPARENT);
                             addfrndButton.setText("Searching");
-                            addfrndButton.setTextColor(Color.BLACK);
+                            addfrndButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                         }
                     });
                     requestSend=false;
@@ -104,6 +107,7 @@ public class SendRequestActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     recpuid=dataSnapshot.getValue(String.class);
+                    addfrndButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
                     if(recpuid!=null)
                     {
                         founduid=true;
@@ -116,6 +120,7 @@ public class SendRequestActivity extends AppCompatActivity {
                     {
                         founduid=false;
                         addfrndButton.setText("Not found");
+                        addfrndButton.setBackgroundColor(Color.TRANSPARENT);
                     }
                     Log.d(TAG, "onDataChange: " + dataSnapshot.getValue(String.class));
             }
@@ -128,6 +133,7 @@ public class SendRequestActivity extends AppCompatActivity {
     }
     public void sendRequest()
     {
+        Log.d(TAG, nameFound+" "+goBack);
       if(nameFound==true)
       {
           addfrndButton.startAnimation();
@@ -135,10 +141,19 @@ public class SendRequestActivity extends AppCompatActivity {
          databaseReference.child("users").child(uid).child("pendingSendRequest").child(recpuid).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
              @Override
              public void onComplete(@NonNull Task<Void> task) {
-                 addfrndButton.doneLoadingAnimation(getResources().getColor(R.color.colorPrimaryDark), BitmapFactory.decodeResource(getResources(), R.drawable.done));
+                 Toast.makeText(SendRequestActivity.this, "Friend Request Send", Toast.LENGTH_SHORT).show();
+                 addfrndButton.doneLoadingAnimation(getResources().getColor(R.color.colorPrimaryDark), BitmapFactory.decodeResource(getResources(), R.drawable.right_arrow));
                  requestSend=true;
+                 goBack=true;
+                 nameFound=false;
+
              }
          });
+      }
+      else if(goBack==true)
+      {
+          Log.d(TAG, goBack+"");
+          onBackPressed();
       }
 
     }

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -17,6 +18,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -94,7 +97,23 @@ public class LoginActivity extends AppCompatActivity {
     public void loginUser()
     {
         String semail= email.getText().toString().trim();
-        String spassword=password.getText().toString().trim();
+        String spassword=password.getText().toString();
+        if(semail.length()==0)
+        {
+            Toast.makeText(getApplicationContext(), "Email cannot be empty.", Toast.LENGTH_LONG).show();
+            login.revertAnimation();
+            login.setBackground(getResources().getDrawable(R.drawable.circular_border_shape));
+
+            return;
+        }
+        else if(spassword.length()==0)
+        {
+            Toast.makeText(getApplicationContext(), "Password cannot be empty.", Toast.LENGTH_LONG).show();
+            login.revertAnimation();
+            login.setBackground(getResources().getDrawable(R.drawable.circular_border_shape));
+            return;
+        }
+
         Log.d("LoginActivity", semail+", "+spassword);
         firebaseAuth.signInWithEmailAndPassword(semail, spassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -156,13 +175,19 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else
                         {
-                            Toast.makeText(getApplicationContext(), "Please try again", Toast.LENGTH_LONG).show();
-                            login.revertAnimation(new OnAnimationEndListener() {
+                           if (task.getException() instanceof FirebaseAuthInvalidUserException)
+                            Toast.makeText(getApplicationContext(), "Email not registered", Toast.LENGTH_LONG).show();
+                           else if( task.getException() instanceof FirebaseAuthInvalidCredentialsException)
+                               Toast.makeText(getApplicationContext(), "Email and password combination is not correct", Toast.LENGTH_LONG).show();
+                           login.revertAnimation(new OnAnimationEndListener() {
                                 @Override
                                 public void onAnimationEnd() {
                                     login.setText("Try Again");
+                                    login.setBackground(getResources().getDrawable(R.drawable.circular_border_shape));
+
                                 }
                             });
+
 
                         }
                     }

@@ -127,12 +127,9 @@ public class AddTransaction extends AppCompatActivity {
                 if(istransactionAdded==true)
                 {
                     istransactionAdded=false;
-                    Edtamount.setText("");
-                    Edtreason.setText("");
-                    HehastoGive.setChecked(false);
-                    IhavetoGive.setChecked(false);
                     addTransaction.setText("Add Transaction");
-                    addTransaction.setBackgroundColor(R.drawable.circular_border_shape);
+                    addTransaction.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    addTransaction.setBackgroundColor(Color.TRANSPARENT);
                 }
                 if(isOpponentSelected==true)
                     ll.setVisibility(View.GONE);
@@ -163,16 +160,29 @@ public class AddTransaction extends AppCompatActivity {
                 listView.setAdapter(adapter);
             }
         };
-        Edtname.addTextChangedListener(textwatcher);
-/*        Edtname.setOnFocusChangeListener(new View.OnFocusChangeListener(){
+        final TextWatcher textwatcher2=  new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus==true)
-                    ll.setVisibility(View.GONE);
-                else
-                    ll.setVisibility(View.VISIBLE);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
-        });*/
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (istransactionAdded == true) {
+                    istransactionAdded = false;
+                    addTransaction.setText("Add Transaction");
+                    addTransaction.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    addTransaction.setBackgroundColor(Color.TRANSPARENT);
+                }
+            }
+        };
+        Edtamount.addTextChangedListener(textwatcher2);
+        Edtname.addTextChangedListener(textwatcher);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
