@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_margin="10dp"
     android:orientation="vertical"
+
     android:layout_height="wrap_content">
   <TextView
       android:layout_width="wrap_content"
@@ -14,21 +15,51 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="OTP"
+        android:hint="OTP"
+        android:inputType="number"
         android:layout_below="@id/Head"
         android:id="@+id/edtOTP"
         android:textSize="33sp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Resend OTP."
-        android:id="@+id/resendOtp"
-        android:layout_below="@id/edtOTP"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Submit"
         android:padding="10dp"
-        android:layout_below="@+id/resendOtp"
+        android:background="@drawable/button_bg"
+        android:layout_below="@+id/edtOTP"
         android:id="@+id/btsubmit"/>
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_below="@id/btsubmit"
+      android:layout_height="wrap_content">
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="OTP"
+      android:layout_alignParentLeft="true"
+      android:textStyle="italic"
+      android:id="@+id/detail"
+      android:paddingBottom="5dp"
+      android:paddingTop="10dp"/>
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="ChangeNumber?"
+      android:layout_below="@id/detail"
+      android:textStyle="italic"
+      android:textColor="@color/colorPrimaryDark"
+      android:id="@+id/changeNumber"
+      android:paddingBottom="15dp"/>
+
+    <TextView
+        android:id="@+id/resendOtp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/detail"
+        android:textStyle="italic"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignParentRight="true"
+        android:text="Resend OTP." />
+  </RelativeLayout>
 </RelativeLayout>

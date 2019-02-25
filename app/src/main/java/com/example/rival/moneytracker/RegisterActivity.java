@@ -1,6 +1,7 @@
 package com.example.rival.moneytracker;
 
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -24,12 +25,15 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.FirebaseTooManyRequestsException;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.SignInMethodQueryResult;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -104,20 +108,28 @@ public class RegisterActivity extends AppCompatActivity {
         mCallbacks=new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
             @Override
             public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
-                isSigninInProgres=true;
+              /*  if(isSigninInProgres==true)
+                    return;
+                isSigninInProgres=true;*/
                 Log.d(TAG, "onerifcationcomplete: ");
                 signInWithPhoneAuthCredential(phoneAuthCredential);
             }
 
             @Override
             public void onVerificationFailed(FirebaseException e) {
+                if(e instanceof FirebaseAuthInvalidCredentialsException)
+                   Toast.makeText(RegisterActivity.this, "Phone number invalid", Toast.LENGTH_SHORT).show();
+                else if(e instanceof FirebaseTooManyRequestsException)
+                    Toast.makeText(RegisterActivity.this, "Too many request. Try again later", Toast.LENGTH_SHORT).show();
+                register.revertAnimation();
                 Log.w(TAG, "onVerificationFailed", e);
             }
 
             @Override
             public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-                if(isSigninInProgres==true)
-                     return;
+                /*if(isSigninInProgres==true)
+                    return;
+                isSigninInProgres=true;*/
                 mForceResendingToken=forceResendingToken;
                 super.onCodeSent(s, forceResendingToken);
                 verificationId=s;
@@ -130,47 +142,85 @@ public class RegisterActivity extends AppCompatActivity {
     }
     public void Register(View view)
     {
-        register.startAnimation();
-        getNewUserRegistered();
-    }
-    public void getNewUserRegistered()
-    {
         Sname=name.getText().toString().trim().toUpperCase();
         Sphone=phone.getText().toString().trim();
         Semail=email.getText().toString().trim();
-        Spassword=password.getText().toString().trim();
-        SCpassword=cpassword.getText().toString().trim();
-        Log.d(TAG, "Inside f");
-        //Check mobile number of reuseablilty
+        Spassword=password.getText().toString();
+        SCpassword=cpassword.getText().toString();
+        Log.d(TAG, "@#:"+Sname.length());
+        if(Sname.length()==0)
+        {
+            Toast.makeText(this, "Invalid name", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(Sphone.length()!=13)
+        {
+            Toast.makeText(this, "Invalid phone", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(Semail.length()==0)
+        {
+            Toast.makeText(this, "Invalid email", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(Spassword.length()<6)
+        {
+            Toast.makeText(this, "Password should be atleast 6 character", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        else if(Spassword.equals(SCpassword)==false)
+        {
+            Toast.makeText(this, "Confirm password doesn't match", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        register.startAnimation();
         mRef=database.getReference();
-        mRef.child("userUidByPhone").child(Sphone.substring(3, Sphone.length())).addListenerForSingleValueEvent(new ValueEventListener() {
+        firebaseAuth.fetchSignInMethodsForEmail(Semail).addOnCompleteListener(new OnCompleteListener<SignInMethodQueryResult>() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Log.d(TAG, "PHone: "+Sphone);
-                Log.d(TAG, "dataSnapshot.getValue()"+dataSnapshot.getValue());
-                Log.d(TAG, "database.hasChildren()"+dataSnapshot.hasChildren());
-                Log.d(TAG, "dataSnapshot.getValue(String.class)"+dataSnapshot.getValue(String.class));
-                if(dataSnapshot.getValue() !=null)
+            public void onComplete(@NonNull Task<SignInMethodQueryResult> task) {
+                if(task.isSuccessful())
                 {
-                    Log.d(TAG, "In if part");
-                    Toast.makeText(RegisterActivity.this, "Phone number already in use", Toast.LENGTH_LONG).show();
-                    register.revertAnimation();
-                    return;
-                }
+                    if(task.getResult().getSignInMethods().size()==0)
+                    {
+                        //not registered
+                        mRef.child("userUidByPhone").child(Sphone.substring(3, Sphone.length())).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                if(dataSnapshot.getValue() !=null)
+                                {
+                                    Log.d(TAG, "In if part");
+                                    Toast.makeText(RegisterActivity.this, "Phone number already in use", Toast.LENGTH_LONG).show();
+                                    register.revertAnimation();
+                                    return;
+                                }
+                                else
+                                {
+                                    Log.d(TAG, "In else part" );
+                                    verifiyPhoneNumber(Sphone);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                     else
-                {
-                    Log.d(TAG, "In else part" );
-                    verifiyPhoneNumber(Sphone);
+                    {
+                        Toast.makeText(RegisterActivity.this, "Email already registered.", Toast.LENGTH_SHORT).show();
+                        register.revertAnimation();
+                    }
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                else
+                {
+                    if(task.getException() instanceof FirebaseAuthInvalidCredentialsException)
+                    {
+                        Toast.makeText(RegisterActivity.this, "Email not in correct format", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
-
-
     }
     public void verifiyPhoneNumber(String s)
     {
@@ -196,9 +246,19 @@ public class RegisterActivity extends AppCompatActivity {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
         dialog.setContentView(R.layout.otp_dialog);
-        Button dialogButton = (Button) dialog.findViewById(R.id.btsubmit);
+        final Button dialogButton = (Button) dialog.findViewById(R.id.btsubmit);
         final EditText edt=(EditText) dialog.findViewById(R.id.edtOTP);
+        final TextView detail=dialog.findViewById(R.id.detail);
+        detail.setText("OTP sent to: "+Sphone);
         TextView resendotp=(TextView) dialog.findViewById(R.id.resendOtp);
+        TextView changeNumber= dialog.findViewById(R.id.changeNumber);
+        changeNumber.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                register.revertAnimation();
+            }
+        });
         resendotp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -208,10 +268,16 @@ public class RegisterActivity extends AppCompatActivity {
         dialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String  s=edt.getText().toString();
+                if(s.length()==0)
+                {
+                    Toast.makeText(RegisterActivity.this, "OTP is invalid", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                dialogButton.setBackgroundResource(R.drawable.button_bg_onclick);
                 PhoneAuthCredential credential=PhoneAuthProvider.getCredential(verificationId, s);
-                signInWithPhoneAuthCredential(credential);
-                Toast.makeText(getApplicationContext(), "Got it", Toast.LENGTH_SHORT).show();
+                    signInWithPhoneAuthCredential(credential);
                 dialog.dismiss();
             }
         });
@@ -224,6 +290,7 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            dialog.dismiss();
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             user.delete()
@@ -274,9 +341,12 @@ public class RegisterActivity extends AppCompatActivity {
                                                                 }
                                                                 else
                                                                 {
-                                                                    Toast.makeText(RegisterActivity.this, "Try again later", Toast.LENGTH_LONG).show();
-                                                                    //Delete authenticated user by phone number
-
+                                                                    if(task.getException() instanceof FirebaseAuthWeakPasswordException)
+                                                                        Toast.makeText(RegisterActivity.this, "Password weak", Toast.LENGTH_LONG).show();
+                                                                    else
+                                                                        Toast.makeText(RegisterActivity.this, "Try again later", Toast.LENGTH_LONG).show();
+                                                                    register.revertAnimation();
+                                                                    Log.w(TAG, "hmm::: ", task.getException());
                                                                 }
                                                             }
                                                         });
@@ -285,11 +355,14 @@ public class RegisterActivity extends AppCompatActivity {
                                     });
                             // ...
                         } else {
+                            if(dialog.isShowing())
+                            dialog.dismiss();
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                Toast.makeText(RegisterActivity.this, "Unable to verify phone number", Toast.LENGTH_LONG).show();
                             }
+                            register.revertAnimation();
                         }
                     }
 

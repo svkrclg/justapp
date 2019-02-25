@@ -91,6 +91,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="number"
                     android:textColor="#000"
+                    android:maxLength="13"
                     android:id="@+id/phone"
                     android:hint="Phone Number" />
             </com.github.florent37.materialtextfield.MaterialTextField>
