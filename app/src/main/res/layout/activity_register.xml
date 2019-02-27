@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    android:id="@+id/relativelayout"
+    android:background="@drawable/animation_list"
+    tools:context=".RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,12 +25,12 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="Register"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="#fff"
                 android:textSize="20dp" />
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mtf_labelColor="@color/colorPrimaryDark"
+                app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
                 app:mtf_image="@drawable/name">
                 <EditText
@@ -41,7 +43,7 @@
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mtf_labelColor="@color/colorPrimaryDark"
+                app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
                 app:mtf_image="@drawable/mailicon">
                 <EditText
@@ -55,7 +57,7 @@
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mtf_labelColor="@color/colorPrimaryDark"
+                app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
                 app:mtf_image="@drawable/passwordicon">
                 <EditText
@@ -69,7 +71,7 @@
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mtf_labelColor="@color/colorPrimaryDark"
+                app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
                 app:mtf_image="@drawable/passwordicon">
                 <EditText
@@ -83,7 +85,7 @@
             <com.github.florent37.materialtextfield.MaterialTextField
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:mtf_labelColor="@color/colorPrimaryDark"
+                app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
                 app:mtf_image="@drawable/phoneicon">
                 <EditText
@@ -107,7 +109,7 @@
                 app:spinning_bar_width="30dp"
                 app:initialCornerAngle="30dp"
                 app:spinning_bar_color="@color/colorPrimaryDark"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"
                 app:spinning_bar_padding="6dp"/>
             <Button
                 android:id="@+id/To_login"

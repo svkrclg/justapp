@@ -4,6 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/relativelayout"
+    android:background="@drawable/animation_list"
     tools:context=".LoginActivity">
 
     <LinearLayout
@@ -20,12 +22,12 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="1dp"
             android:text="Login"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="#fff"
             android:textSize="20dp" />
         <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:mtf_labelColor="@color/colorPrimaryDark"
+            app:mtf_labelColor="@color/colorAccent"
             app:mtf_openKeyboardOnFocus="true"
             app:mtf_image="@drawable/mailicon">
             <EditText
@@ -40,7 +42,7 @@
         <com.github.florent37.materialtextfield.MaterialTextField
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:mtf_labelColor="@color/colorPrimaryDark"
+            app:mtf_labelColor="@color/colorAccent"
             app:mtf_openKeyboardOnFocus="true"
             app:mtf_image="@drawable/passwordicon">
             <EditText
@@ -71,7 +73,7 @@
             app:spinning_bar_width="30dp"
             android:onClick="Login"
             app:spinning_bar_color="@color/colorPrimaryDark"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccent"
             app:spinning_bar_padding="6dp"/>
         <Button
             android:id="@+id/To_Register"

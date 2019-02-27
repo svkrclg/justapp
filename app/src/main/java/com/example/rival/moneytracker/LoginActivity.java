@@ -3,6 +3,7 @@ package com.example.rival.moneytracker;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity {
     private String phone;
     private String emailid;// emailid to putString in sharedPref
     private  SharedPreferences.Editor editor;
+    AnimationDrawable animationDrawable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         firebaseAuth= FirebaseAuth.getInstance();
@@ -56,6 +58,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        animationDrawable =(AnimationDrawable)findViewById(R.id.relativelayout).getBackground();
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
         editor = getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE).edit();
@@ -84,6 +87,8 @@ public class LoginActivity extends AppCompatActivity {
         email=(EditText) findViewById(R.id.loginEmail);
         password=(EditText) findViewById(R.id.loginPassword);
         Log.d("LoginActivity", "IN oncreate");
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(2000);
 
     }
     public  void Login()
@@ -198,4 +203,17 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(new Intent(this, ResetPassword.class));
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (animationDrawable != null && !animationDrawable.isRunning())
+            animationDrawable.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (animationDrawable != null && animationDrawable.isRunning())
+            animationDrawable.stop();
+    }
 }

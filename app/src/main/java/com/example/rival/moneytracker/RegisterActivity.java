@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -64,10 +65,12 @@ public class RegisterActivity extends AppCompatActivity {
     PhoneAuthProvider.ForceResendingToken mForceResendingToken;
     String Sname,Sphone, Semail, Spassword, SCpassword;
     private Dialog dialog;
+    AnimationDrawable animationDrawable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        animationDrawable =(AnimationDrawable)findViewById(R.id.relativelayout).getBackground();
         firebaseAuth= FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         Tologin=(Button) findViewById(R.id.To_login);
@@ -138,7 +141,8 @@ public class RegisterActivity extends AppCompatActivity {
         };
         DatabaseReference scoresRef = FirebaseDatabase.getInstance().getReference("userUidByPhone");
         scoresRef.keepSynced(true);
-
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(2000);
     }
     public void Register(View view)
     {
@@ -368,5 +372,18 @@ public class RegisterActivity extends AppCompatActivity {
 
                 });
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (animationDrawable != null && !animationDrawable.isRunning())
+            animationDrawable.start();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (animationDrawable != null && animationDrawable.isRunning())
+            animationDrawable.stop();
     }
     }
