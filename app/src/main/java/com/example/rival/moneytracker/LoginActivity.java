@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         email=(EditText) findViewById(R.id.loginEmail);
         password=(EditText) findViewById(R.id.loginPassword);
         Log.d("LoginActivity", "IN oncreate");
-        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(2000);
 
     }

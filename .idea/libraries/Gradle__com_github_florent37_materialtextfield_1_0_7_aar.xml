@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.florent37:materialtextfield:1.0.7@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/materialtextfield-1.0.7.aar/f81856a1c0ea845eca323aef4a9f8043/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/materialtextfield-1.0.7.aar/f81856a1c0ea845eca323aef4a9f8043/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/materialtextfield-1.0.7.aar/98090c17ed0d0e0bb680504e651290fb/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/materialtextfield-1.0.7.aar/98090c17ed0d0e0bb680504e651290fb/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

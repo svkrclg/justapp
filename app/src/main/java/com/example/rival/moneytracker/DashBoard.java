@@ -1,9 +1,11 @@
 package com.example.rival.moneytracker;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -23,11 +25,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.github.clans.fab.FloatingActionMenu;
-import com.github.clans.fab.FloatingActionButton;
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -65,7 +67,7 @@ public class DashBoard extends AppCompatActivity
     String TAG="DashBoard";
     private ViewPager viewPager;
     ChildEventListener cel;
-
+    private Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +75,7 @@ public class DashBoard extends AppCompatActivity
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
         prefs= getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
         editor=prefs.edit();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.setStatusBarBackgroundColor(Color.TRANSPARENT);
@@ -170,7 +172,6 @@ public class DashBoard extends AppCompatActivity
         getMenuInflater().inflate(R.menu.dash_board, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -193,7 +194,6 @@ public class DashBoard extends AppCompatActivity
             SendRequestActivityOpen();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
     public void SendRequestActivityOpen()
@@ -230,6 +230,9 @@ public class DashBoard extends AppCompatActivity
             i.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(i);
         } else if (id == R.id.nav_logout) {
+            final ProgressDialog progressDialog=new ProgressDialog(this);
+            progressDialog.setMessage("Please wait...");
+            progressDialog.show();
             databaseReference.child("users").child(uid).child("firebaseToken").setValue("NULL").addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -239,12 +242,12 @@ public class DashBoard extends AppCompatActivity
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                    progressDialog.dismiss();
                     startActivity(i);
                     finish();
                 }
             });
         } else if (id == R.id.about) {
-
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

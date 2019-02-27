@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:id="@+id/a" android:checkableBehavior="single">
+    <group android:id="@+id/a" android:checkableBehavior="none">
         <item
             android:id="@+id/incoming_request"
             android:icon="@drawable/ic_menu_camera"
@@ -17,17 +17,29 @@
             android:icon="@drawable/friends"
             android:title="Friends" />
     </group>
-<group  android:id="@+id/b" android:checkableBehavior="single">
-
-
-            <item
+<group  android:id="@+id/b" android:checkableBehavior="none" >
+    <item
                 android:id="@+id/about"
                 android:icon="@drawable/ic_menu_send"
-                android:title="About" />
+                android:title="About Us" />
+    <item
+        android:id="@+id/help"
+        android:icon="@drawable/ic_menu_send"
+        android:title="Help &amp; FeedBack" />
+    <item
+        android:id="@+id/issues"
+        android:icon="@drawable/ic_menu_send"
+        android:title="Report" />
+    <item
+        android:title="Rate Us"
+        android:id="@+id/rateUs"
+        android:icon="@drawable/accept"
+        />
+</group>
+    <group  android:id="@+id/c" android:checkableBehavior="single">
             <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="Logout" />
 </group>
-
 </menu>

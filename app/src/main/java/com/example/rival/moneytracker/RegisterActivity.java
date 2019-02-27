@@ -141,7 +141,7 @@ public class RegisterActivity extends AppCompatActivity {
         };
         DatabaseReference scoresRef = FirebaseDatabase.getInstance().getReference("userUidByPhone");
         scoresRef.keepSynced(true);
-        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(2000);
     }
     public void Register(View view)
