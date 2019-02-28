@@ -32,6 +32,7 @@ public class CheckNetwork extends AsyncTask<Void, Void, Void>{
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
+        CheckInternet.setStatus(internet);
         if(internet==false)
         {
          if(snackbar.isShown()==false)

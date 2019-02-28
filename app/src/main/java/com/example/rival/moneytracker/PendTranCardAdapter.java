@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -74,20 +76,28 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
         myViewHolder.reject.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(CheckInternet.isInternet==false)
+                {
+                    Toast.makeText(context, "Internet not available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 myViewHolder.reject.setBackgroundResource(R.drawable.button_bg_onclick);
                 myViewHolder.reject.setTextColor(Color.WHITE);
                 Log.d(TAG, "Reject "+ pendTranClass.getOpponentUid());
-                Toast.makeText(context, "Deleting: "+ pendTranClass.getDateInMillis(), Toast.LENGTH_LONG).show();
                 deletePendingTransaction(pendTranClass);
             }
         });
         myViewHolder.confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(CheckInternet.isInternet==false)
+                {
+                    Toast.makeText(context, "Internet not available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Log.d(TAG, "Confirm "+ pendTranClass.getOpponentUid());
                 myViewHolder.confirm.setBackgroundResource(R.drawable.button_bg_onclick);
                 myViewHolder.confirm.setTextColor(Color.WHITE);
-                Toast.makeText(context, "Accpeting: "+ pendTranClass.getDateInMillis(), Toast.LENGTH_LONG).show();
                 confirmPendingTransaction(pendTranClass);
             }
         });
@@ -95,7 +105,13 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
     }
     public void confirmPendingTransaction(PendTranClass pendTranClass)
     {
-           databaseReference.child("users").child(uid).child("pendingTransactions").child(pendTranClass.getDateInMillis()+"").child(uid).setValue(true);
+           databaseReference.child("users").child(uid).child("pendingTransactions").child(pendTranClass.getDateInMillis()+"").child(uid).setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
+               @Override
+               public void onComplete(@NonNull Task<Void> task) {
+                   Toast.makeText(context, "Confirmed", Toast.LENGTH_SHORT).show();
+
+               }
+           });
            Log.d(TAG, "confirmPendingTransaction"+ pendTranClass.getDateInMillis());
 
     }
@@ -105,12 +121,26 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
         Boolean isAddedByMe=pendTranClass.isAddedByMe;
         if(isAddedByMe==true)
         {
-            databaseReference.child("users").child(uid).child("pendingTransactions").child(pendTranClass.getDateInMillis()+"").child(uid).setValue(false);
+            databaseReference.child("users").child(uid).child("pendingTransactions").child(pendTranClass.getDateInMillis()+"").child(uid).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                    Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
+
+                }
+            });
             Log.d(TAG, "DeletePendingTransaction 1: "+ pendTranClass.getDateInMillis());
 
         }
         else {
-            databaseReference.child("users").child(uid).child("pendingTransactions").child(pendTranClass.getDateInMillis()+"").child(pendTranClass.getOpponentUid()).setValue(false);
+            databaseReference.child("users").child(uid).child("pendingTransactions").child(pendTranClass.getDateInMillis()+"").child(pendTranClass.getOpponentUid()).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful())
+                    Toast.makeText(context, "Rejected", Toast.LENGTH_SHORT).show();
+
+                }
+            });
             Log.d(TAG, "confirmPendingTransaction 2: "+ pendTranClass.getDateInMillis());
 
         }

@@ -153,6 +153,11 @@ public class RegisterActivity extends AppCompatActivity {
     }
     public void Register(View view)
     {
+        if(CheckInternet.isInternet==false)
+        {
+            Toast.makeText(this, "Internet not available", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Sname=name.getText().toString().trim().toUpperCase();
         Sphone=phone.getText().toString().trim();
         Semail=email.getText().toString().trim();

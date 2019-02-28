@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
@@ -45,13 +47,22 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
         holder.decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if(CheckInternet.isInternet==false)
+                {
+                    Toast.makeText(context, "Internet not available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 deleteItem(obj.getUid());
             }
         });
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(CheckInternet.isInternet==false)
+                {
+                    Toast.makeText(context, "Internet not available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 addItem(obj.getUid());
                 new CreateFriendCache(context).LocalSaveOfFriend();
             }
@@ -60,20 +71,23 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
 
     public void addItem(String toAddUid)
     {
-        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toAddUid).setValue(true, new DatabaseReference.CompletionListener() {
+        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toAddUid).setValue(true).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                Log.d(TAG, "DatabaseReferecne: "+databaseReference.toString());
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                    Toast.makeText(context, "Request accepted", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     public void deleteItem(String toDeleteUId)
     {
-        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toDeleteUId).removeValue(new DatabaseReference.CompletionListener() {
+        IncomingRequest.databaseReference.child("users").child(IncomingRequest.uid).child("incomingRequest").child(toDeleteUId).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
-            public void onComplete(@Nullable DatabaseError databaseError, @NonNull DatabaseReference databaseReference) {
-                Log.d(TAG, "DatabaseReferecne: "+databaseReference.toString());
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful())
+                    Toast.makeText(context, "Request rejected.", Toast.LENGTH_SHORT).show();
+
             }
         });
     }

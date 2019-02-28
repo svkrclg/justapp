@@ -64,6 +64,11 @@ public class SendRequestActivity extends AppCompatActivity {
         addfrndButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(CheckInternet.isInternet==false)
+                {
+                    Toast.makeText(SendRequestActivity.this, "Internet not available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 sendRequest();
             }
         });
@@ -139,7 +144,7 @@ public class SendRequestActivity extends AppCompatActivity {
     }
     public void sendRequest()
     {
-        Log.d(TAG, nameFound+" "+goBack);
+
       if(nameFound==true)
       {
           addfrndButton.startAnimation();
@@ -147,11 +152,14 @@ public class SendRequestActivity extends AppCompatActivity {
          databaseReference.child("users").child(uid).child("pendingSendRequest").child(recpuid).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
              @Override
              public void onComplete(@NonNull Task<Void> task) {
-                 Toast.makeText(SendRequestActivity.this, "Friend Request Send", Toast.LENGTH_SHORT).show();
+                 if (task.isSuccessful())
+                 {
+                     Toast.makeText(SendRequestActivity.this, "Friend Request Send", Toast.LENGTH_SHORT).show();
                  addfrndButton.doneLoadingAnimation(getResources().getColor(R.color.colorPrimaryDark), BitmapFactory.decodeResource(getResources(), R.drawable.right_arrow));
-                 requestSend=true;
-                 goBack=true;
-                 nameFound=false;
+                 requestSend = true;
+                 goBack = true;
+                 nameFound = false;
+             }
 
              }
          });
@@ -161,7 +169,10 @@ public class SendRequestActivity extends AppCompatActivity {
           Log.d(TAG, goBack+"");
           onBackPressed();
       }
-
+     else
+      {
+          Toast.makeText(this, "Not found", Toast.LENGTH_SHORT).show();
+      }
     }
     public void getnamefromUid(final String recpuid)
     {

@@ -6,7 +6,6 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_CUSTOM_FILTER" value="Inter" />
     <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
@@ -29,18 +28,18 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/Friend.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/Friend.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CheckInternet.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CheckInternet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/InternetStatusReciever.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/InternetStatusReciever.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/LoginActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/LoginActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/MyAddedRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/MyAddedRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendTranCardAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendTranCardAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/QRcode.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/QRcode.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/RegisterActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/RegisterActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/ResetPassword.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/ResetPassword.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/SendRequestActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/SendRequestActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/WithFriendRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/WithFriendRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_qrcode.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_qrcode.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -76,40 +75,41 @@
         <counts>
           <entry key="project.closed" value="3" />
           <entry key="project.open.time.124" value="1" />
+          <entry key="project.open.time.14" value="1" />
           <entry key="project.open.time.17" value="1" />
           <entry key="project.open.time.62" value="1" />
           <entry key="project.open.time.89" value="1" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="gradle" value="4" />
-          <entry key="java" value="24" />
-          <entry key="xml" value="20" />
+          <entry key="java" value="54" />
+          <entry key="xml" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="Groovy" value="4" />
-          <entry key="JAVA" value="24" />
-          <entry key="XML" value="20" />
+          <entry key="JAVA" value="54" />
+          <entry key="XML" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="gradle" value="55" />
-          <entry key="java" value="2157" />
+          <entry key="java" value="2935" />
           <entry key="txt" value="79" />
-          <entry key="xml" value="372" />
+          <entry key="xml" value="422" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Groovy" value="55" />
-          <entry key="JAVA" value="2157" />
+          <entry key="JAVA" value="2935" />
           <entry key="PLAIN_TEXT" value="79" />
-          <entry key="XML" value="372" />
+          <entry key="XML" value="422" />
         </counts>
       </usages-collector>
     </session>
@@ -119,50 +119,112 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="225">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_qrcode.xml">
+          <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-305">
-              <caret line="223" column="34" lean-forward="true" selection-start-line="223" selection-start-column="34" selection-end-line="223" selection-end-column="34" />
+            <state relative-caret-position="65">
+              <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/WithFriendRecord.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="242" column="44" lean-forward="true" selection-start-line="242" selection-start-column="44" selection-end-line="242" selection-end-column="44" />
               <folding>
-                <element signature="method#onBackPressed#0;class#DashBoard#0" />
-                <element signature="method#onCreateOptionsMenu#0;class#DashBoard#0" />
-                <element signature="method#onOptionsItemSelected#0;class#DashBoard#0" />
-                <element signature="method#SendRequestActivityOpen#0;class#DashBoard#0" />
-                <element signature="method#CreateTransactionPageOpen#0;class#DashBoard#0" />
-                <element signature="method#onFragmentInteraction#0;class#DashBoard#0" />
-                <element signature="method#CheckForDeleteHistory#0;class#DashBoard#0" />
-                <element signature="method#showAlertDialog#0;class#DashBoard#0" />
-                <element signature="method#ListenForPendingTranasactionCount#0;class#DashBoard#0" />
+                <element signature="method#onCreate#0;class#WithFriendRecord#0" />
+                <element signature="class#4090:4618" />
+                <element signature="method#onDataChange#0;class#4090:4618" />
+                <element signature="method#onCancelled#0;class#4090:4618" />
+                <element signature="method#LoadData#0;class#WithFriendRecord#0" />
+                <element signature="class#5116:8259" />
+                <element signature="method#onDataChange#0;class#5116:8259" />
+                <element signature="class#5586:8106" />
+                <element signature="method#onDataChange#0;class#5586:8106" />
+                <element signature="method#onCancelled#0;class#5586:8106" />
+                <element signature="method#onCancelled#0;class#5116:8259" />
+                <element signature="method#onSupportNavigateUp#0;class#WithFriendRecord#0" />
+                <element signature="method#onCreateOptionsMenu#0;class#WithFriendRecord#0" />
+                <element signature="e#10411#10769#0" expanded="true" />
+                <element signature="e#10768#10769#0" expanded="true" />
+                <element signature="e#14167#14421#0" expanded="true" />
+                <element signature="e#14420#14421#0" expanded="true" />
+                <element signature="method#onStart#0;class#WithFriendRecord#0" />
+                <element signature="method#onStop#0;class#WithFriendRecord#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/WithFriendRecord.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendTranCardAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="318" selection-start-line="318" selection-end-line="329" selection-end-column="5" />
+            <state relative-caret-position="275">
+              <caret line="138" column="42" selection-start-line="138" selection-start-column="42" selection-end-line="138" selection-end-column="42" />
               <folding>
-                <element signature="class#3916:4444" />
-                <element signature="method#onDataChange#0;class#3916:4444" />
-                <element signature="method#onCancelled#0;class#3916:4444" />
-                <element signature="method#LoadData#0;class#WithFriendRecord#0" />
-                <element signature="class#4649:7792" />
-                <element signature="method#onDataChange#0;class#4649:7792" />
-                <element signature="class#5119:7639" />
-                <element signature="method#onDataChange#0;class#5119:7639" />
-                <element signature="method#onCancelled#0;class#5119:7639" />
-                <element signature="method#onCancelled#0;class#4649:7792" />
-                <element signature="method#onSupportNavigateUp#0;class#WithFriendRecord#0" />
-                <element signature="method#onCreateOptionsMenu#0;class#WithFriendRecord#0" />
-                <element signature="class#8241:8923" />
-                <element signature="method#onDataChange#0;class#8241:8923" />
-                <element signature="method#onCancelled#0;class#8241:8923" />
-                <element signature="method#onOptionsItemSelected#0;class#WithFriendRecord#0" />
-                <element signature="method#onStart#0;class#WithFriendRecord#0" />
-                <element signature="method#onStop#0;class#WithFriendRecord#0" />
+                <element signature="e#4748#4921#0" expanded="true" />
+                <element signature="e#4920#4921#0" expanded="true" />
+                <element signature="e#5429#5607#0" expanded="true" />
+                <element signature="e#5606#5607#0" expanded="true" />
+                <element signature="e#5991#6169#0" expanded="true" />
+                <element signature="e#6168#6169#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="301">
+              <caret line="293" column="13" selection-start-line="293" selection-start-column="13" selection-end-line="293" selection-end-column="13" />
+              <folding>
+                <element signature="e#3704#4083#0" expanded="true" />
+                <element signature="e#4082#4083#0" expanded="true" />
+                <element signature="method#getFilteredFriendList#0;class#AddTransaction#0" />
+                <element signature="e#10903#11599#0" expanded="true" />
+                <element signature="e#11598#11599#0" expanded="true" />
+                <element signature="method#onSupportNavigateUp#0;class#AddTransaction#0" />
+                <element signature="method#onStart#0;class#AddTransaction#0" />
+                <element signature="method#onStop#0;class#AddTransaction#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/SendRequestActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="157" column="85" selection-start-line="157" selection-start-column="85" selection-end-line="157" selection-end-column="85" />
+              <folding>
+                <element signature="e#2743#3121#0" expanded="true" />
+                <element signature="e#3120#3121#0" expanded="true" />
+                <element signature="method#SearchPhoneNumber#0;class#SendRequestActivity#0" />
+                <element signature="e#6430#7044#0" expanded="true" />
+                <element signature="e#7043#7044#0" expanded="true" />
+                <element signature="method#getnamefromUid#0;class#SendRequestActivity#0" />
+                <element signature="method#onSupportNavigateUp#0;class#SendRequestActivity#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="138">
+              <caret line="79" column="11" selection-start-line="79" selection-start-column="11" selection-end-line="79" selection-end-column="11" />
+              <folding>
+                <element signature="e#2309#2749#0" expanded="true" />
+                <element signature="e#2748#2749#0" expanded="true" />
+                <element signature="e#3066#3224#0" expanded="true" />
+                <element signature="e#3223#3224#0" expanded="true" />
+                <element signature="e#3565#3723#0" expanded="true" />
+                <element signature="e#3722#3723#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -188,12 +250,14 @@
       <find>got it</find>
       <find>getApplicationContext()</find>
       <find>.</find>
+      <find>CheckInternet.isInternetAvailable()</find>
     </findStrings>
     <replaceStrings>
       <replace>FriendListModel</replace>
       <replace>Array.toString(list.toArray())</replace>
       <replace>record</replace>
       <replace>this</replace>
+      <replace>CheckInternet.isInternet</replace>
     </replaceStrings>
   </component>
   <component name="Git.Settings">
@@ -2478,10 +2542,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/button_bg_onclick.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/button_bg.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendTranClass.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_qrcode.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/dash_board.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_reset_password.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_with_friend_record.xml" />
@@ -2490,7 +2552,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/rounded_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/add_transaction_dialog.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/pending_transaction_row_layout.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendTranCardAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/ConfTranCardAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/confirm_transacrion_row_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/friend_record_row_layout.xml" />
@@ -2515,24 +2576,27 @@
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/activity_dash_board_drawer.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CheckInternet.java" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/InternetStatusReciever.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/QRcode.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/SendRequestActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/Friend.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/WithFriendRecord.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/MyAddedRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CheckInternet.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/InternetStatusReciever.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/LoginActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/RegisterActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/ResetPassword.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/RegisterActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/QRcode.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_qrcode.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/SendRequestActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendTranCardAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/WithFriendRecord.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="28" />
     <option name="y" value="155" />
     <option name="width" value="912" />
@@ -2546,43 +2610,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="moneytracker" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -2621,6 +2648,49 @@
               <item name="Root" type="cbb8eebc:String" user="Root" />
               <item name="app" type="cbb8eebc:String" user="app" />
               <item name="app" type="cbb8eebc:String" user="app" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="moneytracker" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="drawable" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="MoneyTracker" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
@@ -2835,17 +2905,16 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="18" width="1366" height="750" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.5027933" side_tool="true" weight="0.1962406" />
       <window_info id="Build Variants" order="1" side_tool="true" />
       <window_info id="Designer" order="2" />
       <window_info id="Capture Tool" order="3" />
-      <window_info content_ui="combo" id="Project" order="4" sideWeight="0.49720672" visible="true" weight="0.18345864" />
+      <window_info active="true" content_ui="combo" id="Project" order="4" sideWeight="0.49720672" visible="true" weight="0.18345864" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="6" />
       <window_info id="Captures" order="7" side_tool="true" weight="0.24962406" />
-      <window_info anchor="bottom" id="Logcat" order="0" sideWeight="0.49924812" weight="0.3956044" />
+      <window_info anchor="bottom" id="Logcat" order="0" sideWeight="0.49924812" visible="true" weight="0.33124018" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.50075185" side_tool="true" weight="0.40188384" />
       <window_info anchor="bottom" id="Terminal" order="2" sideWeight="0.49924812" weight="0.42857143" />
       <window_info anchor="bottom" id="Version Control" order="3" weight="0.32967034" />
@@ -2915,13 +2984,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/QRcode.java</url>
-          <line>110</line>
+          <line>115</line>
           <properties />
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/LoginActivity.java</url>
-          <line>97</line>
+          <line>102</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
@@ -2929,35 +2998,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_record_row_layout.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="156">
-          <caret line="12" column="48" selection-start-line="12" selection-start-column="48" selection-end-line="12" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterFriendRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="60" column="47" lean-forward="true" selection-start-line="60" selection-start-column="47" selection-end-line="60" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterFriend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="39" column="51" selection-start-line="39" selection-start-column="51" selection-end-line="39" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/FriendPOJO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="26">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/friend_row_layout.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
@@ -2985,14 +3025,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="13">
           <caret line="106" column="27" selection-start-line="106" selection-start-column="27" selection-end-line="106" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_transaction.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="14" column="49" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
         </state>
       </provider>
     </entry>
@@ -3043,13 +3075,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="340">
           <caret line="58" column="19" lean-forward="true" selection-start-line="58" selection-start-column="19" selection-end-line="58" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendingTransaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="523">
-          <caret line="278" column="71" lean-forward="true" selection-start-line="278" selection-start-column="71" selection-end-line="278" selection-end-column="71" />
         </state>
       </provider>
     </entry>
@@ -3180,115 +3205,18 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
+      <provider editor-type-id="android-manifest" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
           <caret line="4" column="68" selection-start-line="4" selection-start-column="68" selection-end-line="4" selection-end-column="68" />
         </state>
       </provider>
-      <provider editor-type-id="android-manifest" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_dash_board.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="247">
           <caret line="19" column="27" selection-start-line="19" selection-start-column="27" selection-end-line="19" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CheckInternet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="130">
-          <caret line="10" column="38" selection-start-line="10" selection-start-column="38" selection-end-line="10" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/SendRequestActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="312">
-          <caret line="262" selection-start-line="262" selection-end-line="262" />
-          <folding>
-            <element signature="class#2820:4166" />
-            <element signature="method#beforeTextChanged#0;class#2820:4166" />
-            <element signature="method#onTextChanged#0;class#2820:4166" />
-            <element signature="method#afterTextChanged#0;class#2820:4166" />
-            <element signature="method#SearchPhoneNumber#0;class#SendRequestActivity#0" />
-            <element signature="class#4329:5476" />
-            <element signature="method#onDataChange#0;class#4329:5476" />
-            <element signature="method#onCancelled#0;class#4329:5476" />
-            <element signature="method#sendRequest#0;class#SendRequestActivity#0" />
-            <element signature="method#getnamefromUid#0;class#SendRequestActivity#0" />
-            <element signature="class#6582:10627" />
-            <element signature="method#onDataChange#0;class#6582:10627" />
-            <element signature="class#6990:10486" />
-            <element signature="method#onDataChange#0;class#6990:10486" />
-            <element signature="class#7692:10200" />
-            <element signature="method#onDataChange#0;class#7692:10200" />
-            <element signature="class#8475:9922" />
-            <element signature="method#onDataChange#0;class#8475:9922" />
-            <element signature="method#onCancelled#0;class#8475:9922" />
-            <element signature="method#onCancelled#0;class#7692:10200" />
-            <element signature="method#onCancelled#0;class#6990:10486" />
-            <element signature="method#onCancelled#0;class#6582:10627" />
-            <element signature="method#onSupportNavigateUp#0;class#SendRequestActivity#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/QRcode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="111" selection-start-line="111" selection-end-line="122" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/Friend.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-5">
-          <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
-          <folding>
-            <element signature="method#onSupportNavigateUp#0;class#Friend#0" />
-            <element signature="method#onStart#0;class#Friend#0" />
-            <element signature="method#onStop#0;class#Friend#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/InternetStatusReciever.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="64" column="1" lean-forward="true" selection-start-line="64" selection-start-column="1" selection-end-line="64" selection-end-column="1" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#684#685#0" expanded="true" />
-            <element signature="e#707#708#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/WithFriendRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="318" selection-start-line="318" selection-end-line="329" selection-end-column="5" />
-          <folding>
-            <element signature="class#3916:4444" />
-            <element signature="method#onDataChange#0;class#3916:4444" />
-            <element signature="method#onCancelled#0;class#3916:4444" />
-            <element signature="method#LoadData#0;class#WithFriendRecord#0" />
-            <element signature="class#4649:7792" />
-            <element signature="method#onDataChange#0;class#4649:7792" />
-            <element signature="class#5119:7639" />
-            <element signature="method#onDataChange#0;class#5119:7639" />
-            <element signature="method#onCancelled#0;class#5119:7639" />
-            <element signature="method#onCancelled#0;class#4649:7792" />
-            <element signature="method#onSupportNavigateUp#0;class#WithFriendRecord#0" />
-            <element signature="method#onCreateOptionsMenu#0;class#WithFriendRecord#0" />
-            <element signature="class#8241:8923" />
-            <element signature="method#onDataChange#0;class#8241:8923" />
-            <element signature="method#onCancelled#0;class#8241:8923" />
-            <element signature="method#onOptionsItemSelected#0;class#WithFriendRecord#0" />
-            <element signature="method#onStart#0;class#WithFriendRecord#0" />
-            <element signature="method#onStop#0;class#WithFriendRecord#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3319,115 +3247,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="224" column="49" selection-start-line="224" selection-start-column="49" selection-end-line="224" selection-end-column="49" />
-          <folding>
-            <element signature="method#Login#0;class#LoginActivity#0" />
-            <element signature="method#loginUser#0;class#LoginActivity#0" />
-            <element signature="class#5352:8797" />
-            <element signature="method#onDataChange#0;class#5352:8797" />
-            <element signature="class#5719:8556" />
-            <element signature="method#onDataChange#0;class#5719:8556" />
-            <element signature="class#6121:8278" />
-            <element signature="method#onDataChange#0;class#6121:8278" />
-            <element signature="method#onCancelled#0;class#6121:8278" />
-            <element signature="method#onCancelled#0;class#5719:8556" />
-            <element signature="method#onCancelled#0;class#5352:8797" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="295" column="2" selection-start-line="295" selection-start-column="2" selection-end-line="306" selection-end-column="5" />
-          <folding>
-            <element signature="class#4520:6499" />
-            <element signature="method#beforeTextChanged#0;class#4520:6499" />
-            <element signature="method#onTextChanged#0;class#4520:6499" />
-            <element signature="method#afterTextChanged#0;class#4520:6499" />
-            <element signature="class#6546:7274" />
-            <element signature="method#beforeTextChanged#0;class#6546:7274" />
-            <element signature="method#onTextChanged#0;class#6546:7274" />
-            <element signature="method#afterTextChanged#0;class#6546:7274" />
-            <element signature="method#getFilteredFriendList#0;class#AddTransaction#0" />
-            <element signature="method#commitTransaction#0;class#AddTransaction#0" />
-            <element signature="method#onSupportNavigateUp#0;class#AddTransaction#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="85" selection-start-line="85" selection-end-line="87" selection-end-column="107" />
-          <folding>
-            <element signature="class#2927:3456" />
-            <element signature="method#onDataChange#0;class#2927:3456" />
-            <element signature="method#onCancelled#0;class#2927:3456" />
-            <element signature="method#addListener#0;class#IncomingRequest#0" />
-            <element signature="class#3623:6458" />
-            <element signature="method#onChildAdded#0;class#3623:6458" />
-            <element signature="class#4242:5577" />
-            <element signature="method#onDataChange#0;class#4242:5577" />
-            <element signature="class#4628:5397" />
-            <element signature="method#onDataChange#0;class#4628:5397" />
-            <element signature="method#onCancelled#0;class#4628:5397" />
-            <element signature="method#onCancelled#0;class#4242:5577" />
-            <element signature="method#onChildChanged#0;class#3623:6458" />
-            <element signature="method#onChildRemoved#0;class#3623:6458" />
-            <element signature="method#onChildMoved#0;class#3623:6458" />
-            <element signature="method#onCancelled#0;class#3623:6458" />
-            <element signature="method#onSupportNavigateUp#0;class#IncomingRequest#0" />
-            <element signature="method#onStart#0;class#IncomingRequest#0" />
-            <element signature="method#onStop#0;class#IncomingRequest#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/ResetPassword.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="27" column="29" lean-forward="true" selection-start-line="27" selection-start-column="29" selection-end-line="27" selection-end-column="29" />
-          <folding>
-            <element signature="method#Reset#0;class#ResetPassword#0" />
-            <element signature="method#onStart#0;class#ResetPassword#0" />
-            <element signature="method#onStop#0;class#ResetPassword#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/RegisterActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="396" column="50" selection-start-line="396" selection-start-column="50" selection-end-line="396" selection-end-column="50" />
-          <folding>
-            <element signature="class#3772:4286" />
-            <element signature="method#beforeTextChanged#0;class#3772:4286" />
-            <element signature="method#onTextChanged#0;class#3772:4286" />
-            <element signature="method#afterTextChanged#0;class#3772:4286" />
-            <element signature="class#4312:5766" />
-            <element signature="method#onVerificationCompleted#0;class#4312:5766" />
-            <element signature="method#onVerificationFailed#0;class#4312:5766" />
-            <element signature="method#onCodeSent#0;class#4312:5766" />
-            <element signature="method#Register#0;class#RegisterActivity#0" />
-            <element signature="class#7819:8859" />
-            <element signature="method#onDataChange#0;class#7819:8859" />
-            <element signature="method#onCancelled#0;class#7819:8859" />
-            <element signature="method#verifiyPhoneNumber#0;class#RegisterActivity#0" />
-            <element signature="method#verifiyPhoneNumber#1;class#RegisterActivity#0" />
-            <element signature="method#showOTPdialog#0;class#RegisterActivity#0" />
-            <element signature="method#signInWithPhoneAuthCredential#0;class#RegisterActivity#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/DashBoard.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-305">
-          <caret line="223" column="34" lean-forward="true" selection-start-line="223" selection-start-column="34" selection-end-line="223" selection-end-column="34" />
+        <state relative-caret-position="1781">
+          <caret line="230" column="70" selection-start-line="230" selection-start-column="70" selection-end-line="230" selection-end-column="70" />
           <folding>
             <element signature="method#onBackPressed#0;class#DashBoard#0" />
             <element signature="method#onCreateOptionsMenu#0;class#DashBoard#0" />
@@ -3438,6 +3261,221 @@
             <element signature="method#CheckForDeleteHistory#0;class#DashBoard#0" />
             <element signature="method#showAlertDialog#0;class#DashBoard#0" />
             <element signature="method#ListenForPendingTranasactionCount#0;class#DashBoard#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_add_transaction.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="151">
+          <caret line="149" column="18" selection-start-line="149" selection-start-column="18" selection-end-line="149" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/IncomingRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="159" column="33" selection-start-line="159" selection-start-column="33" selection-end-line="159" selection-end-column="33" />
+          <folding>
+            <element signature="method#addListener#0;class#IncomingRequest#0" />
+            <element signature="method#onSupportNavigateUp#0;class#IncomingRequest#0" />
+            <element signature="method#onStart#0;class#IncomingRequest#0" />
+            <element signature="method#onStop#0;class#IncomingRequest#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/InternetStatusReciever.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="34" column="41" selection-start-line="34" selection-start-column="41" selection-end-line="34" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CheckInternet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="14" column="37" selection-start-line="14" selection-start-column="37" selection-end-line="14" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#564#565#0" expanded="true" />
+            <element signature="e#594#595#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendingTransaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39">
+          <caret line="278" column="71" selection-start-line="278" selection-start-column="71" selection-end-line="278" selection-end-column="71" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-243">
+          <caret line="74" column="53" selection-start-line="74" selection-start-column="53" selection-end-line="74" selection-end-column="53" />
+          <folding>
+            <element signature="method#Login#0;class#LoginActivity#0" />
+            <element signature="method#loginUser#0;class#LoginActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/ResetPassword.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="286">
+          <caret line="47" column="9" selection-start-line="47" selection-start-column="9" selection-end-line="47" selection-end-column="9" />
+          <folding>
+            <element signature="method#onStart#0;class#ResetPassword#0" />
+            <element signature="method#onStop#0;class#ResetPassword#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/RegisterActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="157" column="31" selection-start-line="157" selection-start-column="31" selection-end-line="157" selection-end-column="31" />
+          <folding>
+            <element signature="class#3948:4462" />
+            <element signature="method#verifiyPhoneNumber#0;class#RegisterActivity#0" />
+            <element signature="method#verifiyPhoneNumber#1;class#RegisterActivity#0" />
+            <element signature="method#showOTPdialog#0;class#RegisterActivity#0" />
+            <element signature="method#signInWithPhoneAuthCredential#0;class#RegisterActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_incoming_request.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="52">
+          <caret line="7" column="4" lean-forward="true" selection-start-line="7" selection-start-column="4" selection-end-line="24" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/Friend.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1440">
+          <caret line="146" selection-start-line="146" selection-end-line="150" selection-end-column="5" />
+          <folding>
+            <element signature="method#onSupportNavigateUp#0;class#Friend#0" />
+            <element signature="method#onStart#0;class#Friend#0" />
+            <element signature="method#onStop#0;class#Friend#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/QRcode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="52" column="64" selection-start-line="52" selection-start-column="64" selection-end-line="52" selection-end-column="64" />
+          <folding>
+            <element signature="method#onSupportNavigateUp#0;class#QRcode#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_qrcode.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="5" column="40" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/CustomAdapterIncomingRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="138">
+          <caret line="79" column="11" selection-start-line="79" selection-start-column="11" selection-end-line="79" selection-end-column="11" />
+          <folding>
+            <element signature="e#2309#2749#0" expanded="true" />
+            <element signature="e#2748#2749#0" expanded="true" />
+            <element signature="e#3066#3224#0" expanded="true" />
+            <element signature="e#3223#3224#0" expanded="true" />
+            <element signature="e#3565#3723#0" expanded="true" />
+            <element signature="e#3722#3723#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/AddTransaction.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="293" column="13" selection-start-line="293" selection-start-column="13" selection-end-line="293" selection-end-column="13" />
+          <folding>
+            <element signature="e#3704#4083#0" expanded="true" />
+            <element signature="e#4082#4083#0" expanded="true" />
+            <element signature="method#getFilteredFriendList#0;class#AddTransaction#0" />
+            <element signature="e#10903#11599#0" expanded="true" />
+            <element signature="e#11598#11599#0" expanded="true" />
+            <element signature="method#onSupportNavigateUp#0;class#AddTransaction#0" />
+            <element signature="method#onStart#0;class#AddTransaction#0" />
+            <element signature="method#onStop#0;class#AddTransaction#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/SendRequestActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="157" column="85" selection-start-line="157" selection-start-column="85" selection-end-line="157" selection-end-column="85" />
+          <folding>
+            <element signature="e#2743#3121#0" expanded="true" />
+            <element signature="e#3120#3121#0" expanded="true" />
+            <element signature="method#SearchPhoneNumber#0;class#SendRequestActivity#0" />
+            <element signature="e#6430#7044#0" expanded="true" />
+            <element signature="e#7043#7044#0" expanded="true" />
+            <element signature="method#getnamefromUid#0;class#SendRequestActivity#0" />
+            <element signature="method#onSupportNavigateUp#0;class#SendRequestActivity#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/PendTranCardAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="138" column="42" selection-start-line="138" selection-start-column="42" selection-end-line="138" selection-end-column="42" />
+          <folding>
+            <element signature="e#4748#4921#0" expanded="true" />
+            <element signature="e#4920#4921#0" expanded="true" />
+            <element signature="e#5429#5607#0" expanded="true" />
+            <element signature="e#5606#5607#0" expanded="true" />
+            <element signature="e#5991#6169#0" expanded="true" />
+            <element signature="e#6168#6169#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rival/moneytracker/WithFriendRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="242" column="44" lean-forward="true" selection-start-line="242" selection-start-column="44" selection-end-line="242" selection-end-column="44" />
+          <folding>
+            <element signature="method#onCreate#0;class#WithFriendRecord#0" />
+            <element signature="class#4090:4618" />
+            <element signature="method#onDataChange#0;class#4090:4618" />
+            <element signature="method#onCancelled#0;class#4090:4618" />
+            <element signature="method#LoadData#0;class#WithFriendRecord#0" />
+            <element signature="class#5116:8259" />
+            <element signature="method#onDataChange#0;class#5116:8259" />
+            <element signature="class#5586:8106" />
+            <element signature="method#onDataChange#0;class#5586:8106" />
+            <element signature="method#onCancelled#0;class#5586:8106" />
+            <element signature="method#onCancelled#0;class#5116:8259" />
+            <element signature="method#onSupportNavigateUp#0;class#WithFriendRecord#0" />
+            <element signature="method#onCreateOptionsMenu#0;class#WithFriendRecord#0" />
+            <element signature="e#10411#10769#0" expanded="true" />
+            <element signature="e#10768#10769#0" expanded="true" />
+            <element signature="e#14167#14421#0" expanded="true" />
+            <element signature="e#14420#14421#0" expanded="true" />
+            <element signature="method#onStart#0;class#WithFriendRecord#0" />
+            <element signature="method#onStop#0;class#WithFriendRecord#0" />
           </folding>
         </state>
       </provider>

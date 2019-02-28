@@ -41,6 +41,11 @@ public class ResetPassword extends AppCompatActivity {
     }
     public void Reset(View view)
     {
+        if(CheckInternet.isInternet==false)
+        {
+            Toast.makeText(this, "Internet not available", Toast.LENGTH_SHORT).show();
+            return;
+        }
         if(bEmailSent==true)
         {
             onBackPressed();

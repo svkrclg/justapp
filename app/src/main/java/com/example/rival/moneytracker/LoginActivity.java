@@ -70,6 +70,11 @@ public class LoginActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(CheckInternet.isInternet==false)
+                {
+                    Toast.makeText(LoginActivity.this, "Internet not available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 btn.startAnimation();
             }
         });

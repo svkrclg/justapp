@@ -186,7 +186,6 @@ public class WithFriendRecord extends AppCompatActivity {
            }
        });
     }
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
@@ -224,15 +223,22 @@ public class WithFriendRecord extends AppCompatActivity {
         int id=item.getItemId();
         if(id==R.id.delete_record)
         {
+
             final AlertDialog.Builder alertDialog=new AlertDialog.Builder(this);
-            alertDialog.setTitle("Do you want to delete your history with "+name);
-            alertDialog.setMessage(name+" must have to accept your request for deleting transaction history with you");
+            alertDialog.setTitle("Delete history with "+name);
+            alertDialog.setMessage(name+" must have to accept your request for deleting transaction history with you.");
             alertDialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    if(CheckInternet.isInternet==false)
+                    {
+                        Toast.makeText(WithFriendRecord.this, "Internet not available", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     databaseReference.child("users").child(uid).child("deleteHistory").child(oppnUid).setValue(false).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful())
                             Toast.makeText(getApplicationContext(), "Request send for deleting", Toast.LENGTH_LONG).show();
                             onBackPressed();
                         }
@@ -263,7 +269,11 @@ public class WithFriendRecord extends AppCompatActivity {
             btnRequest.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    if(CheckInternet.isInternet==false)
+                    {
+                        Toast.makeText(WithFriendRecord.this, "Internet not available", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     String amount = edtAmount.getText().toString().trim();
                     String reason = edtReason.getText().toString().trim();
                     if (amount.length()>0) {
@@ -298,6 +308,8 @@ public class WithFriendRecord extends AppCompatActivity {
                         databaseReference.child("transactions").child(timeinMillis + "").updateChildren(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                if(task.isSuccessful())
+                                    Toast.makeText(WithFriendRecord.this, "Transaction added.", Toast.LENGTH_SHORT).show();
                                 dialog.cancel();
                             }
                         });
@@ -322,7 +334,6 @@ public class WithFriendRecord extends AppCompatActivity {
         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
 
     }
-
     @Override
     protected void onStop() {
         super.onStop();

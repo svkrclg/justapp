@@ -90,6 +90,11 @@ public class AddTransaction extends AppCompatActivity {
         addTransaction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(CheckInternet.isInternet==false)
+                {
+                    Toast.makeText(AddTransaction.this, "Internet not available", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 commitTransaction();
             }
         });
@@ -223,7 +228,7 @@ public void commitTransaction() {
         }
         if(Edtname.getText().toString().length()==0)
         {
-            Toast.makeText(AddTransaction.this, "Please provide id your partner", Toast.LENGTH_LONG).show();
+            Toast.makeText(AddTransaction.this, "Please provide name.", Toast.LENGTH_LONG).show();
             return;
         }
     String amt = Edtamount.getText().toString();
@@ -276,14 +281,17 @@ public void commitTransaction() {
     databaseReference.child("transactions").child(timeinMillis+"").updateChildren(transaction).addOnCompleteListener(new OnCompleteListener<Void>() {
         @Override
         public void onComplete(@NonNull Task<Void> task) {
-            addTransaction.revertAnimation(new OnAnimationEndListener() {
-                @Override
-                public void onAnimationEnd() {
-                    addTransaction.setBackgroundColor(R.drawable.circular_border_shape_green);
-                    addTransaction.setText("TAP TO CONTINUE");
-                    istransactionAdded=true;
-                }
-            });
+            if(task.isSuccessful()) {
+                Toast.makeText(AddTransaction.this, "Transaction added", Toast.LENGTH_SHORT).show();
+                addTransaction.revertAnimation(new OnAnimationEndListener() {
+                    @Override
+                    public void onAnimationEnd() {
+                        addTransaction.setBackgroundColor(R.drawable.circular_border_shape_green);
+                        addTransaction.setText("TAP TO CONTINUE");
+                        istransactionAdded = true;
+                    }
+                });
+            }
         }
     });
 }
