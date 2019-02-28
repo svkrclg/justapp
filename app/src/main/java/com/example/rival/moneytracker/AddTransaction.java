@@ -2,6 +2,7 @@ package com.example.rival.moneytracker;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
@@ -61,6 +62,8 @@ public class AddTransaction extends AppCompatActivity {
     CircularProgressButton addTransaction;
     String TAG="AddTransaction";
     String opponentUid;
+    private Snackbar snackbar;
+    private InternetStatusReciever internetStatusReciever;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,7 +198,9 @@ public class AddTransaction extends AppCompatActivity {
 
             }
         });
-
+        snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
+        internetStatusReciever=new InternetStatusReciever(snackbar);
+        registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
     }
     public HashMap<String,String> getFilteredFriendList(String s)
     {
@@ -286,5 +291,18 @@ public void commitTransaction() {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(internetStatusReciever);
     }
 }

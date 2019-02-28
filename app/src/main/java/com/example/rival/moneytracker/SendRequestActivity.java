@@ -1,10 +1,12 @@
 package com.example.rival.moneytracker;
 
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -40,6 +42,8 @@ public class SendRequestActivity extends AppCompatActivity {
     String TAG="SendRequestActivity";
     String recpuid,recpname;
     boolean startedType,nameFound,requestSend,goBack, founduid=false;
+    private Snackbar snackbar;
+    private InternetStatusReciever internetStatusReciever;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +103,9 @@ public class SendRequestActivity extends AppCompatActivity {
             }
         });
 
-
+        snackbar= Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
+        internetStatusReciever=new InternetStatusReciever(snackbar);
+        registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
     }
     public void SearchPhoneNumber(String phone)
     {
@@ -240,5 +246,18 @@ public class SendRequestActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(internetStatusReciever);
     }
 }

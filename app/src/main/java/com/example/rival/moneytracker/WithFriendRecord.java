@@ -3,9 +3,11 @@ package com.example.rival.moneytracker;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -66,6 +68,8 @@ public class WithFriendRecord extends AppCompatActivity {
     TextView tv, historyStatus;
     private Dialog dialog;
     Menu mMenu;
+    private Snackbar snackbar;
+    private InternetStatusReciever internetStatusReciever;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,6 +116,9 @@ public class WithFriendRecord extends AppCompatActivity {
             }
         });
         LoadData();
+        snackbar= Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
+        internetStatusReciever=new InternetStatusReciever(snackbar);
+        registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
     }
     private void LoadData(){
        databaseReference.child("users").child(uid).child("myTransactions").child(oppnUid).child("transactions").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -308,5 +315,17 @@ public class WithFriendRecord extends AppCompatActivity {
 
 
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(internetStatusReciever);
     }
 }

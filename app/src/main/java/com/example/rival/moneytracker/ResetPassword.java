@@ -1,6 +1,8 @@
 package com.example.rival.moneytracker;
 
+import android.content.IntentFilter;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +26,8 @@ public class ResetPassword extends AppCompatActivity {
     private FirebaseAuth firebaseAuth;
     String TAG="ResetPassword";
     Boolean bEmailSent=false;
+    private Snackbar snackbar;
+    private InternetStatusReciever internetStatusReciever;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +35,9 @@ public class ResetPassword extends AppCompatActivity {
         edtResetEmail=(EditText) findViewById(R.id.resetEmail);
         btnReset=(CircularProgressButton) findViewById(R.id.btnReset);
         firebaseAuth= FirebaseAuth.getInstance();
-
+        snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
+        internetStatusReciever=new InternetStatusReciever(snackbar);
+        registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
     }
     public void Reset(View view)
     {
@@ -104,5 +110,17 @@ public class ResetPassword extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unregisterReceiver(internetStatusReciever);
     }
 }

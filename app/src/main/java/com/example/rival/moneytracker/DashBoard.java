@@ -3,6 +3,7 @@ package com.example.rival.moneytracker;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -68,6 +69,8 @@ public class DashBoard extends AppCompatActivity
     private ViewPager viewPager;
     ChildEventListener cel;
     private Toolbar toolbar;
+    private Snackbar snackbar;
+    private  InternetStatusReciever internetStatusReciever;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,6 +157,9 @@ public class DashBoard extends AppCompatActivity
                 });
          CheckForDeleteHistory();
          ListenForPendingTranasactionCount();
+         snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
+         internetStatusReciever=new InternetStatusReciever(snackbar);
+         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
     }
 
     @Override
@@ -357,12 +363,14 @@ public class DashBoard extends AppCompatActivity
         super.onStart();
         Log.d(TAG, "onStart");
         databaseReference.child("users").child(uid).child("deleteRequestArrived").addChildEventListener(cel);
+        registerReceiver(internetStatusReciever,  new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         Log.d(TAG, "onPause");
+        unregisterReceiver(internetStatusReciever);
         databaseReference.child("users").child(uid).child("deleteRequestArrived").removeEventListener(cel);
     }
 
