@@ -3,6 +3,8 @@ package com.example.rival.moneytracker;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
@@ -155,20 +157,12 @@ public class LoginActivity extends AppCompatActivity {
                                                     editor.putString("phone", phone);
                                                     editor.putString("email", emailid);
                                                     editor.apply();
-                                                    login.revertAnimation(new OnAnimationEndListener() {
-                                                        @Override
-                                                        public void onAnimationEnd() {
-                                                            login.setBackgroundColor(Color.GREEN);
-                                                            login.setText("Done");
-                                                            Intent i = new Intent(getApplicationContext(), DashBoard.class);
-                                                            i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                                            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                            i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                                                            startActivity(i);
-                                                            finish();
-                                                        }
-                                                    });
-
+                                                    Intent i = new Intent(getApplicationContext(), DashBoard.class);
+                                                    i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                                    i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                    i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                    startActivity(i);
+                                                    finish();
                                                 }
 
                                                 @Override

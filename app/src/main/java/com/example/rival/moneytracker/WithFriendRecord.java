@@ -70,6 +70,7 @@ public class WithFriendRecord extends AppCompatActivity {
     Menu mMenu;
     private Snackbar snackbar;
     private InternetStatusReciever internetStatusReciever;
+    private boolean isProcessing=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -258,6 +259,7 @@ public class WithFriendRecord extends AppCompatActivity {
         {
             dialog = new Dialog(WithFriendRecord.this);
             dialog.setCancelable(true);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             dialog.setContentView(R.layout.add_transaction_dialog);
             final Button btnRequest = (Button) dialog.findViewById(R.id.request);
             TextView tile=dialog.findViewById(R.id.title);
@@ -274,6 +276,8 @@ public class WithFriendRecord extends AppCompatActivity {
                         Toast.makeText(WithFriendRecord.this, "Internet not available", Toast.LENGTH_SHORT).show();
                         return;
                     }
+                    if(isProcessing==true)
+                        return;
                     String amount = edtAmount.getText().toString().trim();
                     String reason = edtReason.getText().toString().trim();
                     if (amount.length()>0) {
@@ -282,6 +286,8 @@ public class WithFriendRecord extends AppCompatActivity {
                             Toast.makeText(WithFriendRecord.this, "Please check any of them", Toast.LENGTH_SHORT).show();
                             return;
                         }
+
+                        isProcessing= true;
                         String fromUid, toUid;
                         if (iwillget.isChecked() == true ||iwillgive.isChecked()==true) {
                             fromUid = oppnUid;
@@ -309,7 +315,10 @@ public class WithFriendRecord extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(task.isSuccessful())
+                                {
                                     Toast.makeText(WithFriendRecord.this, "Transaction added.", Toast.LENGTH_SHORT).show();
+                                    isProcessing=false;
+                                }
                                 dialog.cancel();
                             }
                         });

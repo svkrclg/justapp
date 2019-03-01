@@ -286,7 +286,7 @@ public void commitTransaction() {
                 addTransaction.revertAnimation(new OnAnimationEndListener() {
                     @Override
                     public void onAnimationEnd() {
-                        addTransaction.setBackgroundColor(R.drawable.circular_border_shape_green);
+                        addTransaction.setBackground(getResources().getDrawable(R.drawable.circular_border_shape));
                         addTransaction.setText("TAP TO CONTINUE");
                         istransactionAdded = true;
                     }

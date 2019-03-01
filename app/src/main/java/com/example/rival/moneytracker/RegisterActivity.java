@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -78,10 +79,17 @@ public class RegisterActivity extends AppCompatActivity {
         firebaseAuth= FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
         Tologin=(Button) findViewById(R.id.To_login);
+        ImageButton back= findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
         Tologin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+               onBackPressed();
             }
         });
         register=(CircularProgressButton) findViewById(R.id.btn_Register);

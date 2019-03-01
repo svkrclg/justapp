@@ -1,6 +1,7 @@
 package com.example.rival.moneytracker;
 
 import android.content.IntentFilter;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,16 +30,28 @@ public class ResetPassword extends AppCompatActivity {
     Boolean bEmailSent=false;
     private Snackbar snackbar;
     private InternetStatusReciever internetStatusReciever;
+    private  AnimationDrawable animationDrawable;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
         edtResetEmail=(EditText) findViewById(R.id.resetEmail);
+
+        animationDrawable =(AnimationDrawable)findViewById(R.id.relativelayout).getBackground();
         btnReset=(CircularProgressButton) findViewById(R.id.btnReset);
         firebaseAuth= FirebaseAuth.getInstance();
         snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
         internetStatusReciever=new InternetStatusReciever(snackbar);
         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        ImageButton back=findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(2000);
     }
     public void Reset(View view)
     {
@@ -120,12 +134,15 @@ public class ResetPassword extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
-
+        if (animationDrawable != null && !animationDrawable.isRunning())
+            animationDrawable.start();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
         unregisterReceiver(internetStatusReciever);
+        if (animationDrawable != null && animationDrawable.isRunning())
+            animationDrawable.stop();
     }
 }
