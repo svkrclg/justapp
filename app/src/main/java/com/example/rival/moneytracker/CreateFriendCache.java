@@ -20,13 +20,13 @@ import static android.content.Context.MODE_PRIVATE;
 
 public class CreateFriendCache {
     private SharedPreferences prefs;
-    private SharedPreferences.Editor editor;
+    private static SharedPreferences.Editor editor;
     private FirebaseDatabase firebaseDatabase;
     private FirebaseAuth firebaseAuth;
-    private DatabaseReference databaseReference;
-    String TAG= "FriendCache";
-    String uid;
-    int i=0;
+    private static DatabaseReference databaseReference;
+    static String TAG= "FriendCache";
+    static String uid;
+    static int i=0;
     Context context;
     public CreateFriendCache(Context context){
         this.context=context;
@@ -37,27 +37,36 @@ public class CreateFriendCache {
         prefs= context.getSharedPreferences(context.getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
         editor=prefs.edit();
     }
-    public void LocalSaveOfFriend(){
+    public static void LocalSaveOfFriend(){
+        i=0;
         final HashMap<String, String > friendList=new HashMap<>();
-        databaseReference.child("users").child(uid).child("friend").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("users").child(uid).child("friend").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 final long count =dataSnapshot.getChildrenCount();
-                for (DataSnapshot ds: dataSnapshot.getChildren()
-                        ) {
+                if(count==0)
+                {
+                    Log.d("Friend", "c: "+count);
+                    CreateHashAndSaveLocal();
+                }
+                for (DataSnapshot ds: dataSnapshot.getChildren()) {
+                    final String uid=ds.getKey();
                     i++;
-                    final String uid=ds.getKey().toString();
-                    Log.d(TAG,ds.getKey().toString()+", "+ds.getValue(Boolean.class) +"Chiren count "+dataSnapshot.getChildrenCount());
-                    databaseReference.child("userNameByUid").child(uid).addValueEventListener(new ValueEventListener() {
+                    Log.d(TAG,ds.getKey()+", "+ds.getValue(Boolean.class) +"Chiren count "+dataSnapshot.getChildrenCount());
+                    databaseReference.child("userNameByUid").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                        int index=i;
+                        String fuid=uid;
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                             final String name=dataSnapshot.getValue(String.class);
-                            databaseReference.child("userPhoneByUid").child(uid).addValueEventListener(new ValueEventListener() {
+                            databaseReference.child("userPhoneByUid").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                String fname=name;
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     final String phone=dataSnapshot.getValue(String.class);
-                                    friendList.put(name, uid+"_"+phone);
-                                    if(count==i)
+                                    friendList.put(fname, fuid+"_"+phone);
+                                    Log.d(TAG, "index: "+index);
+                                    if(count==index)
                                         CreateHashAndSaveLocal(friendList);
 
                                 }
@@ -83,13 +92,19 @@ public class CreateFriendCache {
             }
         });
     }
-    public void CreateHashAndSaveLocal(HashMap<String, String > hashMap)
+    public static void CreateHashAndSaveLocal(HashMap<String, String > hashMap)
     {
         JSONObject jsonObject = new JSONObject(hashMap);
         String jsonString = jsonObject.toString();
         editor.remove("friendMap").commit();
         editor.putString("friendMap", jsonString);
+        Log.d(TAG, "PREFS:"+jsonString);
         editor.commit();
-        Log.d(TAG, jsonString);
+    }
+    public static void CreateHashAndSaveLocal()
+    {
+        editor.remove("friendMap").commit();
+        editor.putString("friendMap", "Not found");
+        editor.commit();
     }
 }

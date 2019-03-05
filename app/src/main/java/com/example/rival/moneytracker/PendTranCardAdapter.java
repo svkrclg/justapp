@@ -155,6 +155,10 @@ public class PendTranCardAdapter extends RecyclerView.Adapter<PendTranCardAdapte
     public int getItemCount() {
         return list.size();
     }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
     public class MyViewHolder extends RecyclerView.ViewHolder
     {
     TextView opponentName, firstLetter;

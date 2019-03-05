@@ -1,6 +1,7 @@
 package com.example.rival.moneytracker;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +14,21 @@ public class SplashActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
     private String TAG="SplashActivity";
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        prefs= getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
+        editor=prefs.edit();
+        boolean keyContains=prefs.contains("firstTime");
+        if(keyContains==false)
+        {
+            Log.d("Tour", keyContains+"");
+            editor.putBoolean("firstTime", true);
+            editor.commit();
+        }
         firebaseAuth=FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser()!=null) {
             if(getIntent().getExtras()!=null)
@@ -33,7 +46,6 @@ public class SplashActivity extends AppCompatActivity {
                             break;
                         case "2":
                             intent = new Intent(getApplicationContext(), Friend.class);
-                            new CreateFriendCache(getApplicationContext()).LocalSaveOfFriend();
                             break;
                         case "3":
                             intent = new Intent(getApplicationContext(), DashBoard.class);

@@ -193,11 +193,14 @@ public class AddTransaction extends AppCompatActivity {
             }
         };
         Edtamount.addTextChangedListener(textwatcher2);
+        Edtreason.addTextChangedListener(textwatcher2);
         Edtname.addTextChangedListener(textwatcher);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 FriendListModel friendListModel= friendListModels.get(position);
+                if(friendListModel.getuid().equals("404"))
+                    return;
                 isOpponentSelected=true;
                 Edtname.setText(friendListModel.getName());
                 opponentUid=friendListModel.getuid();

@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Random;
+
 public class FireBaseNotifications extends FirebaseMessagingService {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
@@ -31,8 +33,11 @@ public class FireBaseNotifications extends FirebaseMessagingService {
     private String code;
     private String id;
     private String name;
+    private int inc;
     public FireBaseNotifications() {
         super();
+        inc=0;
+        Log.d("TEST#3","sv");
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
         firebaseAuth=FirebaseAuth.getInstance();
@@ -98,39 +103,47 @@ public class FireBaseNotifications extends FirebaseMessagingService {
     {
         Intent intent=new Intent(this, DashBoard.class);
         Log.d(TAG, "Context:" + this);
+        int id=0;
         switch (code)
         {
             case "1":
                 intent=new Intent(this, IncomingRequest.class);
+                id=100;
                 break;
             case "2":
                 intent=new Intent(this, Friend.class);
-                new CreateFriendCache(this).LocalSaveOfFriend();
+                id=200;
                 break;
             case "3":
                 intent=new Intent(this, DashBoard.class);
                 intent.putExtra("OpenPending", true);
+                id=300;
                 break;
             case "4":
                 intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
+                id=400;
                 break;
             case "5":
                 intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
+                id=500;
                 break;
             case "6":
                 intent=new Intent(this, DashBoard.class);
+                id=600;
                 break;
             case "7":
                 intent=new Intent(this, DashBoard.class);
+                id=700;
                 break;
             case "8":
                 intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
+                id=800;
                 break;
             default:
                 Log.d(TAG, "Hmmmm.... ");
@@ -147,7 +160,8 @@ public class FireBaseNotifications extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(2, mBuilder.build());
+        notificationManager.notify(id+inc, mBuilder.build());
+        inc++;
     }
     private void createNotificationChannel() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

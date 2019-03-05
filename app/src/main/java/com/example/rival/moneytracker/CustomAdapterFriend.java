@@ -44,6 +44,10 @@ public class CustomAdapterFriend extends RecyclerView.Adapter<CustomAdapterFrien
     public int getItemCount() {
         return friendPOJOS.size();
     }
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
     public class MyViewHolder extends RecyclerView.ViewHolder {
         // init the item view's
         TextView friendfirstLetter;

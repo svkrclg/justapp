@@ -42,11 +42,14 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
         // set the data in items
         final IncomingRequestPOJO obj=incomingRequestPOJOS.get(position);
         holder.firstLetter.setText(obj.getFirstLetter()+"");
+        holder.accept.setBackgroundResource(R.drawable.button_bg);
+        holder.decline.setBackgroundResource(R.drawable.button_bg);
         holder.name.setText(obj.getName());
         holder.incomingphone.setText(obj.getPhone());
         holder.decline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                view.setBackgroundResource(R.drawable.button_bg_onclick);
                 if(CheckInternet.isInternet==false)
                 {
                     Toast.makeText(context, "Internet not available", Toast.LENGTH_SHORT).show();
@@ -58,6 +61,7 @@ public class CustomAdapterIncomingRequest extends RecyclerView.Adapter<CustomAda
         holder.accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               view.setBackgroundResource(R.drawable.button_bg_onclick);
                 if(CheckInternet.isInternet==false)
                 {
                     Toast.makeText(context, "Internet not available", Toast.LENGTH_SHORT).show();

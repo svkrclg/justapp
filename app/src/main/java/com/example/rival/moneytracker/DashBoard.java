@@ -1,6 +1,7 @@
 package com.example.rival.moneytracker;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -9,6 +10,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
@@ -74,11 +76,16 @@ public class DashBoard extends AppCompatActivity
     private Snackbar snackbar;
     private  InternetStatusReciever internetStatusReciever;
     private InterstitialAd mInterstitialAd;
+    private Boolean firstTime;
+    private Context context;
+    private Handler handler;
+    private Runnable r;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dash_board);
         GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(this);
+        context=this;
         prefs= getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
         editor=prefs.edit();
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -123,12 +130,24 @@ public class DashBoard extends AppCompatActivity
         name=prefs.getString("name", "NAME");
         phone=prefs.getString("phone", "phoneNo");
         email=prefs.getString("email", "email");
+        firstTime=prefs.getBoolean("firstTime", false);
         uid=firebaseAuth.getUid();
         if(!firebaseAuth.getUid().toString().equals(prefs.getString("uid", "uid")))
         {
           editor.putString("uid", uid);
         }
-        new CreateFriendCache(this).LocalSaveOfFriend();
+        handler = new Handler();
+        final int delay = 5000; //milliseconds
+
+        r=new Runnable(){
+            public void run(){
+                Log.d("Test2", "In runnable");
+                new  CreateFriendCache(context).LocalSaveOfFriend();
+                handler.postDelayed(this, delay);
+            }
+        };
+        handler.postDelayed(r, delay);
+
         Log.d("DashBoard", name+", "+phone+", "+email);
         View header=navigationView.getHeaderView(0);
         TextView nav_bar_first_letter=(TextView) header.findViewById(R.id.nav_bar_first_letter);
@@ -164,6 +183,7 @@ public class DashBoard extends AppCompatActivity
          snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
          internetStatusReciever=new InternetStatusReciever(snackbar);
          registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+         ShowDialogToAskForTour();
         mInterstitialAd=new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial5));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -250,6 +270,8 @@ public class DashBoard extends AppCompatActivity
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     editor.clear().commit();
+                    editor.putBoolean("firstTime", false).commit();
+                    handler.removeCallbacks(r);
                     firebaseAuth.signOut();
                     Intent i= new Intent(getApplicationContext(), LoginActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -384,6 +406,33 @@ public class DashBoard extends AppCompatActivity
         Log.d(TAG, "onPause");
         unregisterReceiver(internetStatusReciever);
         databaseReference.child("users").child(uid).child("deleteRequestArrived").removeEventListener(cel);
+    }
+    public void ShowDialogToAskForTour()
+    {
+        Log.d("Tour", firstTime+"");
+        if(firstTime==false)
+           return;
+         prefs.edit().putBoolean("firstTime", false).commit();
+        final AlertDialog.Builder alertDialog =new AlertDialog.Builder(DashBoard.this);
+        alertDialog.setTitle("Welcome!");
+        alertDialog.setCancelable(false);
+        alertDialog.setMessage("Get used to app by going through app introduction");
+        alertDialog.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                    startActivity( new Intent(context, AppTour.class));
+                    dialog.cancel();
+            }
+        });
+        alertDialog.setNegativeButton("No, thanks", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                      dialog.cancel();
+            }
+        });
+        AlertDialog dialog=alertDialog.create();
+
+        dialog.show();
     }
 
 }

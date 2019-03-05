@@ -27,7 +27,7 @@ public class AppTour extends AppCompatActivity {
     private TextView[] dots;
     private int[] layouts;
     private Button btnSkip, btnNext;
-
+    boolean firstTime=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,10 +44,6 @@ public class AppTour extends AppCompatActivity {
         dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
-
-
-        // layouts of all welcome sliders
-        // add few more layouts if you want
         layouts = new int[]{
                 R.layout.slide1,
                 R.layout.slide2,
@@ -66,7 +62,7 @@ public class AppTour extends AppCompatActivity {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchHomeScreen();
+                OpenDashBoard();
             }
         });
 
@@ -80,7 +76,7 @@ public class AppTour extends AppCompatActivity {
                     // move to next screen
                     viewPager.setCurrentItem(current);
                 } else {
-                    launchHomeScreen();
+                    OpenDashBoard();
                 }
             }
         });
@@ -110,8 +106,8 @@ public class AppTour extends AppCompatActivity {
         return viewPager.getCurrentItem() + i;
     }
 
-    private void launchHomeScreen() {
-        Toast.makeText(this, "Done", Toast.LENGTH_SHORT).show();
+    private void OpenDashBoard() {
+        onBackPressed();
     }
 
     //  viewpager change listener

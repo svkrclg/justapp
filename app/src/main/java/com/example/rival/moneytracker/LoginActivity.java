@@ -1,5 +1,6 @@
 package com.example.rival.moneytracker;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -14,6 +15,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -49,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
     private String phone;
     private String emailid;// emailid to putString in sharedPref
     private  SharedPreferences.Editor editor;
+    private SharedPreferences prefs;
     AnimationDrawable animationDrawable;
     private Snackbar snackbar;
     private InternetStatusReciever internetStatusReciever;
@@ -70,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
         animationDrawable =(AnimationDrawable)findViewById(R.id.relativelayout).getBackground();
         firebaseDatabase=FirebaseDatabase.getInstance();
         databaseReference=firebaseDatabase.getReference();
+        prefs= getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE);
         editor = getSharedPreferences(getResources().getString(R.string.shared_pref_name), MODE_PRIVATE).edit();
         final CircularProgressButton btn = (CircularProgressButton) findViewById(R.id.btn_Login);
         btn.setOnClickListener(new View.OnClickListener() {
@@ -137,7 +141,11 @@ public class LoginActivity extends AppCompatActivity {
             login.setBackground(getResources().getDrawable(R.drawable.circular_border_shape));
             return;
         }
-
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         Log.d("LoginActivity", semail+", "+spassword);
         firebaseAuth.signInWithEmailAndPassword(semail, spassword)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
