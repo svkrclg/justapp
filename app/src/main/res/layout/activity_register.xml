@@ -55,7 +55,7 @@
                 android:layout_height="wrap_content"
                 app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
-                app:mtf_image="@drawable/mailicon">
+                app:mtf_image="@drawable/email">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
-                app:mtf_image="@drawable/passwordicon">
+                app:mtf_image="@drawable/password">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
-                app:mtf_image="@drawable/passwordicon">
+                app:mtf_image="@drawable/repeat_password">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 app:mtf_labelColor="@color/colorAccent"
                 app:mtf_openKeyboardOnFocus="true"
-                app:mtf_image="@drawable/phoneicon">
+                app:mtf_image="@drawable/phone">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -132,4 +132,13 @@
                 android:textColor="@color/colorPrimaryDark"/>
         </LinearLayout>
     </ScrollView>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner4"/>
 </RelativeLayout>

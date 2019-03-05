@@ -26,6 +26,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -71,6 +73,7 @@ public class WithFriendRecord extends AppCompatActivity {
     private Snackbar snackbar;
     private InternetStatusReciever internetStatusReciever;
     private boolean isProcessing=false;
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +123,9 @@ public class WithFriendRecord extends AppCompatActivity {
         snackbar= Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
         internetStatusReciever=new InternetStatusReciever(snackbar);
         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        mInterstitialAd=new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial3));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
     private void LoadData(){
        databaseReference.child("users").child(uid).child("myTransactions").child(oppnUid).child("transactions").addListenerForSingleValueEvent(new ValueEventListener() {
@@ -186,11 +192,6 @@ public class WithFriendRecord extends AppCompatActivity {
 
            }
        });
-    }
-    @Override
-    public boolean onSupportNavigateUp() {
-        onBackPressed();
-        return true;
     }
     @Override
     public boolean onCreateOptionsMenu(final Menu menu) {
@@ -347,5 +348,21 @@ public class WithFriendRecord extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         unregisterReceiver(internetStatusReciever);
+    }
+    private boolean navigateUp=false;
+    @Override
+    public boolean onSupportNavigateUp() {
+        navigateUp=true;
+        if(mInterstitialAd.isLoaded())
+            mInterstitialAd.show();
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(mInterstitialAd.isLoaded()==true && navigateUp==false)
+            mInterstitialAd.show();
     }
 }

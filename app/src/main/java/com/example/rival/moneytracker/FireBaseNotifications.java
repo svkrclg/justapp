@@ -138,7 +138,7 @@ public class FireBaseNotifications extends FirebaseMessagingService {
         PendingIntent pendingIntent=PendingIntent.getActivity(this, 0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
         createNotificationChannel();
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, CHANNEL_ID)
-                .setSmallIcon(R.drawable.add)
+                .setSmallIcon(R.drawable.logo)
                 .setDefaults(Notification.DEFAULT_SOUND)
                 .setVibrate(new long[]{1000, 1000,1000,1000,1000})
                 .setContentTitle(title)

@@ -9,7 +9,7 @@
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/addhere"
-        android:icon="@drawable/add"
+        android:icon="@drawable/add_record"
         app:showAsAction="ifRoom"
         android:title="Add"
         />

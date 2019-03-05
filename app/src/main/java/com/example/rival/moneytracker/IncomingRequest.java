@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +47,7 @@ public class IncomingRequest extends AppCompatActivity {
     int i=0;
     private Snackbar snackbar;
     private  InternetStatusReciever internetStatusReciever;
+    private AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,6 +89,9 @@ public class IncomingRequest extends AppCompatActivity {
         snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
         internetStatusReciever=new InternetStatusReciever(snackbar);
         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        mAdView=findViewById(R.id.adView);
+        AdRequest adRequest=new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
     public void addListener(){
         databaseReference.child("users").child(uid).child("incomingRequest").addChildEventListener(new ChildEventListener() {

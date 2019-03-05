@@ -20,6 +20,9 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -33,7 +36,7 @@
         android:id="@+id/bossOftoAddName"
         app:mtf_labelColor="@color/colorPrimaryDark"
         app:mtf_openKeyboardOnFocus="true"
-        app:mtf_image="@drawable/mailicon">
+        app:mtf_image="@drawable/id">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +73,7 @@
                 android:layout_marginLeft="20dp"
                 app:mtf_labelColor="@color/colorPrimaryDark"
                 app:mtf_openKeyboardOnFocus="true"
-                app:mtf_image="@drawable/mailicon">
+                app:mtf_image="@drawable/amount">
                 <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -89,14 +92,14 @@
         android:id="@+id/bossOfReason"
         app:mtf_labelColor="@color/colorPrimaryDark"
         app:mtf_openKeyboardOnFocus="true"
-        app:mtf_image="@drawable/mailicon">
+        app:mtf_image="@drawable/reason">
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#000"
             android:lines="1"
             android:id="@+id/Reason"
-            android:hint="Reason(Optional)" />
+            android:hint="What's this for?" />
     </com.github.florent37.materialtextfield.MaterialTextField>
 
 
@@ -116,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/HehastoGive"
-                app:rrb_drawable="@mipmap/ic_launcher"
+                app:rrb_drawable="@drawable/i_will_get"
                 app:rrb_drawableHeight="36dp"
                 app:rrb_drawablePadding="8dp"
                 app:rrb_drawableWidth="36dp"
@@ -129,7 +132,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/IhavetoGive"
-                app:rrb_drawable="@mipmap/ic_launcher"
+                app:rrb_drawable="@drawable/i_will_give"
                 app:rrb_drawableGravity="right"
                 app:rrb_drawableHeight="36dp"
                 app:rrb_drawablePadding="8dp"
@@ -155,4 +158,5 @@
         app:spinning_bar_padding="6dp"/>
 </LinearLayout>
     </RelativeLayout>
+    </ScrollView>
 </LinearLayout>

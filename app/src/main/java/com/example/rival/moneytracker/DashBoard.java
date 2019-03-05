@@ -31,6 +31,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -71,6 +73,7 @@ public class DashBoard extends AppCompatActivity
     private Toolbar toolbar;
     private Snackbar snackbar;
     private  InternetStatusReciever internetStatusReciever;
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,6 +91,7 @@ public class DashBoard extends AppCompatActivity
         toggle.syncState();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
         tabLayout = (TabLayout)findViewById(R.id.tablayout);
         tabLayout.addTab(tabLayout.newTab().setText("Current Status"));
         tabLayout.addTab(tabLayout.newTab().setText("Pending"));
@@ -160,6 +164,9 @@ public class DashBoard extends AppCompatActivity
          snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
          internetStatusReciever=new InternetStatusReciever(snackbar);
          registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        mInterstitialAd=new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial5));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
 
     @Override
@@ -250,12 +257,17 @@ public class DashBoard extends AppCompatActivity
                     i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                     progressDialog.dismiss();
                     startActivity(i);
+                    if(mInterstitialAd.isLoaded())
+                        mInterstitialAd.show();
                     finish();
                 }
             });
         } else if (id == R.id.about) {
         }
-
+        else if (id==R.id.app_tour)
+        {
+            startActivity(new Intent(this, AppTour.class));
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;

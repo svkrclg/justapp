@@ -18,6 +18,8 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -61,6 +63,7 @@ public class ConfirmedTransaction extends Fragment {
 
     ProgressBar progressBar;
     TextView tv;
+    private AdView mAdView;
     public ConfirmedTransaction() {
         // Required empty public constructor
     }
@@ -125,6 +128,9 @@ public class ConfirmedTransaction extends Fragment {
             }
         });
         loadData();
+        mAdView=view.findViewById(R.id.adView);
+        AdRequest adRequest=new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         return view;
     }
     int i=0;

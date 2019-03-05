@@ -1,4 +1,5 @@
 package com.example.rival.moneytracker;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.FirebaseDatabase;
 
 public  class MyFirebaseApp extends android.app.Application
@@ -8,4 +9,6 @@ public  class MyFirebaseApp extends android.app.Application
             super.onCreate();
             /* Enable disk persistence  */
             FirebaseDatabase.getInstance().setPersistenceEnabled(true);
-        }      }
+            MobileAds.initialize(this, "ca-app-pub-9290929472111248~4486618072");
+        }
+}

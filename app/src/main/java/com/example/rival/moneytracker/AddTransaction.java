@@ -21,6 +21,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -64,6 +66,7 @@ public class AddTransaction extends AppCompatActivity {
     String opponentUid;
     private Snackbar snackbar;
     private InternetStatusReciever internetStatusReciever;
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -206,6 +209,9 @@ public class AddTransaction extends AppCompatActivity {
         snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
         internetStatusReciever=new InternetStatusReciever(snackbar);
         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        mInterstitialAd=new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial1));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
     public HashMap<String,String> getFilteredFriendList(String s)
     {
@@ -223,6 +229,8 @@ public class AddTransaction extends AppCompatActivity {
 public void commitTransaction() {
         if(istransactionAdded== true)
         {
+            if(mInterstitialAd.isLoaded())
+                mInterstitialAd.show();
             onBackPressed();
             return;
         }
@@ -295,10 +303,22 @@ public void commitTransaction() {
         }
     });
 }
+private Boolean navigateUp=false;
     @Override
     public boolean onSupportNavigateUp() {
+        navigateUp=true;
+        if(mInterstitialAd.isLoaded())
+            mInterstitialAd.show();
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(mInterstitialAd.isLoaded() ==true && navigateUp==false)
+            mInterstitialAd.show();
+
     }
 
     @Override

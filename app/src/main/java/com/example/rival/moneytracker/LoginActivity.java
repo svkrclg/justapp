@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -50,6 +52,7 @@ public class LoginActivity extends AppCompatActivity {
     AnimationDrawable animationDrawable;
     private Snackbar snackbar;
     private InternetStatusReciever internetStatusReciever;
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         firebaseAuth= FirebaseAuth.getInstance();
@@ -103,6 +106,9 @@ public class LoginActivity extends AppCompatActivity {
         snackbar= Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
         internetStatusReciever=new InternetStatusReciever(snackbar);
         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        mInterstitialAd=new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial4));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
     public  void Login()
     {
@@ -162,6 +168,8 @@ public class LoginActivity extends AppCompatActivity {
                                                     i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                     i.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                                                     startActivity(i);
+                                                    if(mInterstitialAd.isLoaded())
+                                                        mInterstitialAd.show();
                                                     finish();
                                                 }
 

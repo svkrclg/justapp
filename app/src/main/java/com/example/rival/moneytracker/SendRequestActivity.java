@@ -18,6 +18,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -44,6 +47,8 @@ public class SendRequestActivity extends AppCompatActivity {
     boolean startedType,nameFound,requestSend,goBack, founduid=false;
     private Snackbar snackbar;
     private InternetStatusReciever internetStatusReciever;
+    private AdView mAdView;
+    private InterstitialAd mInterstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,6 +116,12 @@ public class SendRequestActivity extends AppCompatActivity {
         snackbar= Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
         internetStatusReciever=new InternetStatusReciever(snackbar);
         registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
+        mAdView=findViewById(R.id.adView);
+        AdRequest adRequest=new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+        mInterstitialAd=new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial2));
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
     }
     public void SearchPhoneNumber(String phone)
     {
@@ -252,9 +263,14 @@ public class SendRequestActivity extends AppCompatActivity {
             }
         });
     }
-
+    private boolean navigateUp=false;
     @Override
     public boolean onSupportNavigateUp() {
+        navigateUp=true;
+        if(mInterstitialAd.isLoaded())
+        {
+            mInterstitialAd.show();
+        }
         onBackPressed();
         return true;
     }
@@ -270,5 +286,12 @@ public class SendRequestActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         unregisterReceiver(internetStatusReciever);
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        if(mInterstitialAd.isLoaded() && navigateUp==false)
+            mInterstitialAd.show();
     }
 }

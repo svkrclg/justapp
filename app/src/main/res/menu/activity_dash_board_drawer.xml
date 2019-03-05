@@ -6,11 +6,11 @@
     <group android:id="@+id/a" android:checkableBehavior="none">
         <item
             android:id="@+id/incoming_request"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/approve_request"
             android:title="Approve Request" />
         <item
             android:id="@+id/send_request"
-            android:icon="@drawable/add"
+            android:icon="@drawable/sent_request"
             android:title="Sent Request" />
         <item
             android:id="@+id/Friends"
@@ -20,20 +20,20 @@
 <group  android:id="@+id/b" android:checkableBehavior="none" >
     <item
                 android:id="@+id/about"
-                android:icon="@drawable/ic_menu_send"
+                android:icon="@drawable/about"
                 android:title="About Us" />
     <item
-        android:id="@+id/help"
-        android:icon="@drawable/ic_menu_send"
-        android:title="Help &amp; FeedBack" />
+        android:id="@+id/app_tour"
+        android:icon="@drawable/app_tour"
+        android:title="App tour" />
     <item
-        android:id="@+id/issues"
-        android:icon="@drawable/ic_menu_send"
-        android:title="Report" />
+        android:id="@+id/feedback"
+        android:icon="@drawable/feedback"
+        android:title="Feedback" />
     <item
         android:title="Rate Us"
         android:id="@+id/rateUs"
-        android:icon="@drawable/accept"
+        android:icon="@drawable/rate_us"
         />
 </group>
     <group  android:id="@+id/c" android:checkableBehavior="single">

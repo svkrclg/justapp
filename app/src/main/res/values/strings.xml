@@ -13,5 +13,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-
+    <string name="banner1">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial1">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="banner2">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial2">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="banner3">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial3">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="banner4">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial4">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="banner5">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial5">ca-app-pub-3940256099942544/1033173712</string>
 </resources>
