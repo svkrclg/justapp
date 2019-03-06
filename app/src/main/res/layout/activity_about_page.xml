@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/about_accent"
+    tools:context=".AboutPage">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/About">
+
+        <android.support.v7.widget.Toolbar
+            app:title="About us"
+            android:layout_width="match_parent"
+            app:titleTextColor="#fff"
+            android:layout_height="?attr/actionBarSize"
+            app:popupTheme="@style/About" />
+
+    </android.support.design.widget.AppBarLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="match_parent">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/logo"
+        android:text="sdvs"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Future Wallet"
+                android:layout_centerHorizontal="true"
+                android:textColor="#fff"
+                android:layout_below="@id/logo"
+                android:textSize="20dp"
+                android:id="@+id/Title"
+                android:fontFamily="sans-serif-medium"
+                android:textAlignment="center"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/Title"
+                android:textColor="#D9BDBD"
+                android:textStyle="italic"
+                android:textSize="17dp"
+                android:id="@+id/desp"
+                android:textAlignment="center"
+                android:text="Store who have paid each other back and who owes who what amount for concerts, dinners, etc. "/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:paddingTop="10dp"
+                android:textSize="15dp"
+                android:id="@+id/ver"
+                android:textColor="#d9bdbd"
+                android:layout_below="@id/desp"
+                android:text="Version: 1.0"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/ver"
+            android:orientation="horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:id="@+id/fb"
+            android:padding="10dp"
+            android:src="@drawable/facebook"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:id="@+id/twitter"
+                android:padding="10dp"
+                android:src="@drawable/twitter"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:id="@+id/github"
+                android:padding="10dp"
+                android:src="@drawable/github"/>
+
+            <ImageView
+                android:id="@+id/link"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:padding="10dp"
+                android:src="@drawable/linkedin" />
+        </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

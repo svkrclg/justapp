@@ -36,5 +36,7 @@
         <item>@color/dot_dark_screen3</item>
         <item>@color/dot_dark_screen4</item>
     </array>
+    <color name="about_accent">#6A6262</color>
+    <color name="about_pd">#4B3B47</color>
 
 </resources>

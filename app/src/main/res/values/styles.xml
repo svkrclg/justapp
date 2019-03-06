@@ -14,4 +14,9 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" >
     </style>
+    <style name="About" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#4B3B47</item>
+        <item name="colorAccent">#6A6262</item>
+    </style>
 </resources>

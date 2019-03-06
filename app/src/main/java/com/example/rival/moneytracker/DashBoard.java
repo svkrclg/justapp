@@ -285,6 +285,7 @@ public class DashBoard extends AppCompatActivity
                 }
             });
         } else if (id == R.id.about) {
+            startActivity(new Intent(DashBoard.this, AboutPage.class));
         }
         else if (id==R.id.app_tour)
         {
