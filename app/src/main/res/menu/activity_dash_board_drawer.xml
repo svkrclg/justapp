@@ -21,7 +21,7 @@
     <item
                 android:id="@+id/about"
                 android:icon="@drawable/about"
-                android:title="About Us" />
+                android:title="About app" />
     <item
         android:id="@+id/app_tour"
         android:icon="@drawable/app_tour"

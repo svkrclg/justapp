@@ -175,7 +175,7 @@ public class DashBoard extends AppCompatActivity
                         }
                         token = task.getResult().getToken();
                         databaseReference.child("users").child(uid).child("firebaseToken").setValue(token);
-                        editor.putString("firebaseToken", token);
+                        editor.putString("firebaseToken", token).apply();
                     }
                 });
          CheckForDeleteHistory();
@@ -183,7 +183,6 @@ public class DashBoard extends AppCompatActivity
          snackbar=Snackbar.make(findViewById(android.R.id.content), "You are offline", Snackbar.LENGTH_INDEFINITE);
          internetStatusReciever=new InternetStatusReciever(snackbar);
          registerReceiver(internetStatusReciever, new IntentFilter("android.net.conn.CONNECTIVITY_CHANGE"));
-         ShowDialogToAskForTour();
         mInterstitialAd=new InterstitialAd(this);
         mInterstitialAd.setAdUnitId(getResources().getString(R.string.interstitial5));
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -269,9 +268,9 @@ public class DashBoard extends AppCompatActivity
             databaseReference.child("users").child(uid).child("firebaseToken").setValue("NULL").addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    editor.clear().commit();
-                    editor.putBoolean("firstTime", false).commit();
                     handler.removeCallbacks(r);
+                    editor.clear().apply();
+                    editor.putBoolean("firstTime", true).apply();
                     firebaseAuth.signOut();
                     Intent i= new Intent(getApplicationContext(), LoginActivity.class);
                     i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -407,33 +406,6 @@ public class DashBoard extends AppCompatActivity
         Log.d(TAG, "onPause");
         unregisterReceiver(internetStatusReciever);
         databaseReference.child("users").child(uid).child("deleteRequestArrived").removeEventListener(cel);
-    }
-    public void ShowDialogToAskForTour()
-    {
-        Log.d("Tour", firstTime+"");
-        if(firstTime==false)
-           return;
-         prefs.edit().putBoolean("firstTime", false).commit();
-        final AlertDialog.Builder alertDialog =new AlertDialog.Builder(DashBoard.this);
-        alertDialog.setTitle("Welcome!");
-        alertDialog.setCancelable(false);
-        alertDialog.setMessage("Get used to app by going through app introduction");
-        alertDialog.setPositiveButton("Sure", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                    startActivity( new Intent(context, AppTour.class));
-                    dialog.cancel();
-            }
-        });
-        alertDialog.setNegativeButton("No, thanks", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                      dialog.cancel();
-            }
-        });
-        AlertDialog dialog=alertDialog.create();
-
-        dialog.show();
     }
 
 }

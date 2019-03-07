@@ -40,57 +40,62 @@ public class CreateFriendCache {
     public static void LocalSaveOfFriend(){
         i=0;
         final HashMap<String, String > friendList=new HashMap<>();
-        databaseReference.child("users").child(uid).child("friend").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                final long count =dataSnapshot.getChildrenCount();
-                if(count==0)
-                {
-                    Log.d("Friend", "c: "+count);
-                    CreateHashAndSaveLocal();
+        try {
+            databaseReference.child("users").child(uid).child("friend").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    final long count = dataSnapshot.getChildrenCount();
+                    if (count == 0) {
+                        Log.d("Friend", "c: " + count);
+                        CreateHashAndSaveLocal();
+                    }
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        final String uid = ds.getKey();
+                        i++;
+                        Log.d(TAG, ds.getKey() + ", " + ds.getValue(Boolean.class) + "Chiren count " + dataSnapshot.getChildrenCount());
+                        databaseReference.child("userNameByUid").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                            int index = i;
+                            String fuid = uid;
+
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                final String name = dataSnapshot.getValue(String.class);
+                                databaseReference.child("userPhoneByUid").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    String fname = name;
+
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        final String phone = dataSnapshot.getValue(String.class);
+                                        friendList.put(fname, fuid + "_" + phone);
+                                        Log.d(TAG, "index: " + index);
+                                        if (count == index)
+                                            CreateHashAndSaveLocal(friendList);
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
                 }
-                for (DataSnapshot ds: dataSnapshot.getChildren()) {
-                    final String uid=ds.getKey();
-                    i++;
-                    Log.d(TAG,ds.getKey()+", "+ds.getValue(Boolean.class) +"Chiren count "+dataSnapshot.getChildrenCount());
-                    databaseReference.child("userNameByUid").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                        int index=i;
-                        String fuid=uid;
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            final String name=dataSnapshot.getValue(String.class);
-                            databaseReference.child("userPhoneByUid").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                                String fname=name;
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    final String phone=dataSnapshot.getValue(String.class);
-                                    friendList.put(fname, fuid+"_"+phone);
-                                    Log.d(TAG, "index: "+index);
-                                    if(count==index)
-                                        CreateHashAndSaveLocal(friendList);
 
-                                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                        }
-                    });
                 }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+            });
+        }
+        catch (NullPointerException e)
+        {}
     }
     public static void CreateHashAndSaveLocal(HashMap<String, String > hashMap)
     {

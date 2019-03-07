@@ -6,101 +6,123 @@
     android:layout_height="match_parent"
     android:background="@color/about_accent"
     tools:context=".AboutPage">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/About">
 
-        <android.support.v7.widget.Toolbar
-            app:title="About us"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            app:titleTextColor="#fff"
-            android:layout_height="?attr/actionBarSize"
-            app:popupTheme="@style/About" />
+            android:layout_height="wrap_content"
+            android:theme="@style/About">
 
-    </android.support.design.widget.AppBarLayout>
+            <android.support.v7.widget.Toolbar
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/About"
+                app:title="About us"
+                app:titleTextColor="#fff" />
+
+        </android.support.design.widget.AppBarLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_marginTop="10dp"
-            android:layout_height="match_parent">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/logo"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/logo"
-        android:text="sdvs"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Future Wallet"
-                android:layout_centerHorizontal="true"
-                android:textColor="#fff"
-                android:layout_below="@id/logo"
-                android:textSize="20dp"
-                android:id="@+id/Title"
-                android:fontFamily="sans-serif-medium"
-                android:textAlignment="center"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/Title"
-                android:textColor="#D9BDBD"
-                android:textStyle="italic"
-                android:textSize="17dp"
-                android:id="@+id/desp"
-                android:textAlignment="center"
-                android:text="Store who have paid each other back and who owes who what amount for concerts, dinners, etc. "/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:paddingTop="10dp"
-                android:textSize="15dp"
-                android:id="@+id/ver"
-                android:textColor="#d9bdbd"
-                android:layout_below="@id/desp"
-                android:text="Version: 1.0"/>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/ver"
-            android:orientation="horizontal">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
-            android:id="@+id/fb"
-            android:padding="10dp"
-            android:src="@drawable/facebook"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:id="@+id/twitter"
-                android:padding="10dp"
-                android:src="@drawable/twitter"/>
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:id="@+id/github"
-                android:padding="10dp"
-                android:src="@drawable/github"/>
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
 
+    android:orientation="vertical">
             <ImageView
-                android:id="@+id/link"
+                android:id="@+id/logo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
-                android:padding="10dp"
-                android:src="@drawable/linkedin" />
-        </LinearLayout>
+                android:textAlignment="center"
+                android:src="@drawable/logo"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp" />
+
+            <TextView
+                android:id="@+id/Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Future Wallet"
+                android:layout_margin="10dp"
+                android:textAlignment="center"
+                android:textColor="#fff"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/desp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Store who have paid each other back and who owes who what amount for concerts, dinners, etc.
+Notify your friend to pay and get everything noted in your mutual records of transcaction."
+                android:textAlignment="center"
+                android:textColor="#D9BDBD"
+                android:textSize="17sp"
+                android:fontFamily="serif"
+                android:textStyle="italic" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:id="@+id/ll"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/gp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="10dp"
+                    android:src="@drawable/googleplay" />
+
+                <ImageView
+                    android:id="@+id/github"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="10dp"
+                    android:src="@drawable/github" />
+                <ImageView
+                    android:id="@+id/gmail"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:padding="10dp"
+                    android:src="@drawable/gmail" />
+            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+         <TextView
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_gravity="center"
+             android:id="@+id/CreatedBy"
+             android:text="Created By:"
+             android:fontFamily="serif-monospace"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="R.Corp."
+                android:layout_margin="10dp"
+                android:background="#fff"
+                android:fontFamily="serif-monospace"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textAlignment="center"
+                android:text="Version\n1.0.0"
+                android:fontFamily="serif-monospace"
+                tools:ignore="HardcodedText" />
+    </LinearLayout>
+</LinearLayout>
         </RelativeLayout>
     </LinearLayout>
 </RelativeLayout>

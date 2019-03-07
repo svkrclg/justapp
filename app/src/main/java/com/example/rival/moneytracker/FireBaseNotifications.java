@@ -103,47 +103,47 @@ public class FireBaseNotifications extends FirebaseMessagingService {
     {
         Intent intent=new Intent(this, DashBoard.class);
         Log.d(TAG, "Context:" + this);
-        int id=0;
+        int nid=0;
         switch (code)
         {
             case "1":
                 intent=new Intent(this, IncomingRequest.class);
-                id=100;
+                nid=100;
                 break;
             case "2":
                 intent=new Intent(this, Friend.class);
-                id=200;
+                nid=200;
                 break;
             case "3":
                 intent=new Intent(this, DashBoard.class);
                 intent.putExtra("OpenPending", true);
-                id=300;
+                nid=300;
                 break;
             case "4":
                 intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
-                id=400;
+                nid=400;
                 break;
             case "5":
                 intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
-                id=500;
+                nid=500;
                 break;
             case "6":
                 intent=new Intent(this, DashBoard.class);
-                id=600;
+                nid=600;
                 break;
             case "7":
                 intent=new Intent(this, DashBoard.class);
-                id=700;
+                nid=700;
                 break;
             case "8":
                 intent=new Intent(this, WithFriendRecord.class);
                 intent.putExtra("OppnUid", id);
                 intent.putExtra("Name", name);
-                id=800;
+                nid=800;
                 break;
             default:
                 Log.d(TAG, "Hmmmm.... ");
@@ -160,7 +160,7 @@ public class FireBaseNotifications extends FirebaseMessagingService {
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(id+inc, mBuilder.build());
+        notificationManager.notify(nid+inc, mBuilder.build());
         inc++;
     }
     private void createNotificationChannel() {

@@ -27,10 +27,14 @@ public class SplashActivity extends AppCompatActivity {
         {
             Log.d("Tour", keyContains+"");
             editor.putBoolean("firstTime", true);
+            startActivity(new Intent(this, Introduce.class));
             editor.commit();
+            finish();
+            return;
         }
         firebaseAuth=FirebaseAuth.getInstance();
         if(firebaseAuth.getCurrentUser()!=null) {
+            Log.d("Tour", "1");
             if(getIntent().getExtras()!=null)
             {
                 if(getIntent().getExtras().containsKey("code")==true) {
@@ -101,6 +105,7 @@ public class SplashActivity extends AppCompatActivity {
             }
         }
         else {
+            Log.d("Tour", "2");
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();

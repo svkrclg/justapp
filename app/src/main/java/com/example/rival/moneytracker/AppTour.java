@@ -1,7 +1,6 @@
 package com.example.rival.moneytracker;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.view.PagerAdapter;
@@ -17,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class AppTour extends AppCompatActivity {
 
@@ -45,9 +43,9 @@ public class AppTour extends AppCompatActivity {
         btnSkip = (Button) findViewById(R.id.btn_skip);
         btnNext = (Button) findViewById(R.id.btn_next);
         layouts = new int[]{
-                R.layout.slide1,
-                R.layout.slide2,
-                R.layout.slide3};
+                R.layout.app_tour_slide1,
+                R.layout.app_tour_slide2,
+                R.layout.app_tour_slide3};
 
         // adding bottom dots
         addBottomDots(0);

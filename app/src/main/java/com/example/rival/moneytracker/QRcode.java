@@ -112,7 +112,6 @@ public class QRcode extends AppCompatActivity {
 
             } else {
                 String oppnUId=result.getContents();
-                Toast.makeText(this, oppnUId, Toast.LENGTH_LONG).show();
 
             }
         } else {
