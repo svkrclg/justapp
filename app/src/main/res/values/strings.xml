@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Money Tracker</string>
+    <string name="app_name">Future Wallet</string>
     <string name="title_activity_xyz">xyz</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -13,14 +13,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="banner1">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial1">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="banner2">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial2">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="banner3">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial3">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="banner4">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial4">ca-app-pub-3940256099942544/1033173712</string>
-    <string name="banner5">ca-app-pub-3940256099942544/6300978111</string>
-    <string name="interstitial5">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="banner1">ca-app-pub-9290929472111248/8267092748</string>
+    <string name="interstitial1">ca-app-pub-9290929472111248/6163619688</string>
+    <string name="banner2">ca-app-pub-9290929472111248/5305833586</string>
+    <string name="interstitial2">ca-app-pub-9290929472111248/2383154754</string>
+    <string name="banner3">ca-app-pub-9290929472111248/2505787146</string>
+    <string name="interstitial3">ca-app-pub-9290929472111248/5939256384</string>
+    <string name="banner4">ca-app-pub-9290929472111248/2258375135</string>
+    <string name="interstitial4">ca-app-pub-9290929472111248/1616867998</string>
+    <string name="banner5">ca-app-pub-9290929472111248/4501395096</string>
+    <string name="interstitial5">ca-app-pub-9290929472111248/3407805277</string>
 </resources>

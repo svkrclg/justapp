@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rival.moneytracker">
+    package="com.rcorp.app.futurewallet">
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".MyFirebaseApp"
+        android:name="com.rcorp.app.futurewallet.MyFirebaseApp"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutPage"
+        <activity android:name="com.rcorp.app.futurewallet.AboutPage"
             android:theme="@style/About"></activity>
-        <activity android:name=".AppTour" />
-        <activity android:name=".Introduce" />
+        <activity android:name="com.rcorp.app.futurewallet.AppTour" />
+        <activity android:name="com.rcorp.app.futurewallet.Introduce" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.rcorp.app.futurewallet.LoginActivity"
             android:windowSoftInputMode="stateHidden" />
-        <activity android:name=".RegisterActivity" />
+        <activity android:name="com.rcorp.app.futurewallet.RegisterActivity" />
 
         <service
-            android:name=".FireBaseNotifications"
+            android:name="com.rcorp.app.futurewallet.FireBaseNotifications"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -33,17 +33,17 @@
         </service>
 
         <activity
-            android:name=".DashBoard"
+            android:name="com.rcorp.app.futurewallet.DashBoard"
             android:label="@string/title_activity_dash_board"
             android:theme="@style/AppTheme" />
-        <activity android:name=".SendRequestActivity" />
-        <activity android:name=".IncomingRequest" />
-        <activity android:name=".Friend" />
-        <activity android:name=".MyAddedRequest" />
-        <activity android:name=".AddTransaction" />
-        <activity android:name=".WithFriendRecord" />
+        <activity android:name="com.rcorp.app.futurewallet.SendRequestActivity" />
+        <activity android:name="com.rcorp.app.futurewallet.IncomingRequest" />
+        <activity android:name="com.rcorp.app.futurewallet.Friend" />
+        <activity android:name="com.rcorp.app.futurewallet.MyAddedRequest" />
+        <activity android:name="com.rcorp.app.futurewallet.AddTransaction" />
+        <activity android:name="com.rcorp.app.futurewallet.WithFriendRecord" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.rcorp.app.futurewallet.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -51,12 +51,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".QRcode" />
-        <activity android:name=".ResetPassword" />
+        <activity android:name="com.rcorp.app.futurewallet.QRcode" />
+        <activity android:name="com.rcorp.app.futurewallet.ResetPassword" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-9290929472111248~4486618072" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/notification_icon" />
     </application>
 
 </manifest>

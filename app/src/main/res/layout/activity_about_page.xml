@@ -19,9 +19,10 @@
 
             <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
+                android:id="@+id/toolbar_about_page"
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/About"
-                app:title="About us"
+                app:title="About app"
                 app:titleTextColor="#fff" />
 
         </android.support.design.widget.AppBarLayout>
@@ -40,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:src="@drawable/logo"
+                android:src="@drawable/icon"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp" />
 
@@ -48,7 +49,7 @@
                 android:id="@+id/Title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="sans-serif-medium"
+                android:fontFamily="sans-serif-condensed-light"
                 android:text="Future Wallet"
                 android:layout_margin="10dp"
                 android:textAlignment="center"
@@ -64,8 +65,7 @@ Notify your friend to pay and get everything noted in your mutual records of tra
                 android:textAlignment="center"
                 android:textColor="#D9BDBD"
                 android:textSize="17sp"
-                android:fontFamily="serif"
-                android:textStyle="italic" />
+                android:fontFamily="sans-serif-condensed-light"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

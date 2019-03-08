@@ -27,9 +27,9 @@
         android:icon="@drawable/app_tour"
         android:title="App tour" />
     <item
-        android:id="@+id/feedback"
-        android:icon="@drawable/feedback"
-        android:title="Feedback" />
+        android:id="@+id/issues"
+        android:icon="@drawable/issues"
+        android:title="Report issue" />
     <item
         android:title="Rate Us"
         android:id="@+id/rateUs"

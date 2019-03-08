@@ -17,6 +17,7 @@
     <style name="About" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">#4B3B47</item>
+        <item name="colorControlNormal">#fff</item>
         <item name="colorPrimaryDark">#4B3B47</item>
         <item name="colorAccent">#6A6262</item>
     </style>
